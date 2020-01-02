@@ -1,0 +1,94 @@
+<div id="category" class="page-layout carded fullwidth inner-scroll">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center">
+
+    <!-- HEADER -->
+    <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+      <!-- APP TITLE -->
+      <div fxLayout="row" fxLayoutAlign="start center">
+
+        <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/categories'">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+
+        <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+          category
+        </mat-icon>
+
+        <div fxLayout="column" fxLayoutAlign="start start" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+          <div class="h2" *ngIf="editing">
+            {{category.name | slice:0:55}}
+            <span *ngIf="category?.name.length > 55">...</span>
+          </div>
+          <div class="h2" *ngIf="!editing">
+            {{'CATEGORIES_REGISTRY.TITLE' | translate}}
+          </div>
+        </div>
+      </div>
+      <!-- / APP TITLE -->
+
+      <button mat-raised-button class="save-product-button" *ngIf="!editing" (click)="add()">
+        <span>{{'CATEGORIES_REGISTRY.ADD' | translate}}</span>
+      </button>
+
+      <div *ngIf="editing">
+        <button *ngIf="editing" mat-raised-button class="delete-category-button" (click)="delete(category)"
+          aria-label="Delete" matTooltip="Delete">
+          {{'CATEGORIES_REGISTRY.DELETE' | translate}}
+        </button>
+
+        <button mat-raised-button class="save-product-button" *ngIf="editing" (click)="save()">
+          <span>{{'CATEGORIES_REGISTRY.SAVE' | translate}}</span>
+        </button>
+      </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT CARD -->
+    <div class="content-card">
+
+      <!-- CONTENT -->
+      <div class="content">
+
+        <form name="categoryForm" [formGroup]="categoryForm" class="product w-100-p" fxLayout="column" fxFlex>
+
+          <mat-tab-group>
+
+            <mat-tab label="{{'CATEGORIES_REGISTRY.BASIC_INFORMATION' | translate}}">
+              <div class="tab-content p-24" fusePerfectScrollbar>
+                <mat-form-field class="w-100-p">
+                  <mat-label>{{'CATEGORIES_REGISTRY.NAME' | translate}}</mat-label>
+                  <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
+                  <input matInput name="name" formControlName="name" required>
+                  <mat-error *ngIf="categoryForm.get('name').hasError('required')">{{'CATEGORIES_REGISTRY.ERRORS.NAME_REQUIRED'
+                    | translate}}</mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-100-p">
+                  <mat-label>{{'CATEGORIES_REGISTRY.DESCRIPTION' | translate}}</mat-label>
+                  <mat-icon matPrefix class="mr-12 s-20 secondary-text">description</mat-icon>
+                  <input matInput name="description" formControlName="description" required>
+                  <mat-error *ngIf="categoryForm.get('description').hasError('required')">{{'CATEGORIES_REGISTRY.ERRORS.DESCRIPTION_REQUIRED'
+                    | translate}}</mat-error>
+                </mat-form-field>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+
+        </form>
+
+      </div>
+      <!-- / CONTENT -->
+
+    </div>
+    <!-- / CONTENT CARD -->
+
+  </div>
+  <!-- / CENTER -->
+
+  <!-- </div> -->

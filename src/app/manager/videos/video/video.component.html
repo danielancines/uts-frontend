@@ -1,0 +1,159 @@
+<div id="video" class="page-layout carded fullwidth inner-scroll">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center">
+
+    <!-- HEADER -->
+    <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+      <!-- APP TITLE -->
+      <div fxLayout="row" fxLayoutAlign="start center">
+
+        <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/videos'">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+
+        <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+          movie
+        </mat-icon>
+
+        <div fxLayout="column" fxLayoutAlign="start start" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+          <div class="h2" *ngIf="editing">
+            {{video.name | slice:0:55}}
+            <span *ngIf="user?.name.length + user?.lastName.length > 55">...</span>
+          </div>
+          <div class="h2" *ngIf="!editing">
+            {{'VIDEOS_REGISTRY.TITLE' | translate}}
+          </div>
+        </div>
+      </div>
+      <!-- / APP TITLE -->
+
+      <button mat-raised-button class="save-product-button" *ngIf="!editing" (click)="addVideo()">
+        <span>{{'VIDEOS_REGISTRY.ADD' | translate}}</span>
+      </button>
+
+      <div *ngIf="editing">
+        <button *ngIf="editing" mat-raised-button class="delete-video-button" (click)="deleteVideo(video)" aria-label="Delete"
+          matTooltip="Delete">
+          {{'VIDEOS_REGISTRY.DELETE' | translate}}
+        </button>
+
+        <button mat-raised-button class="save-product-button"
+          *ngIf="editing" (click)="saveVideo()">
+          <span>{{'VIDEOS_REGISTRY.SAVE' | translate}}</span>
+        </button>
+      </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT CARD -->
+    <div class="content-card">
+
+      <!-- CONTENT -->
+      <div class="content">
+
+        <form name="videoForm" [formGroup]="videoForm" class="product w-100-p" fxLayout="column" fxFlex>
+          <mat-tab-group>
+            <mat-tab label="{{'VIDEOS_REGISTRY.BASIC_INFORMATION' | translate}}">
+              <div class="tab-content p-24" fusePerfectScrollbar>
+                <mat-form-field class="w-100-p">
+                  <mat-label>{{'VIDEOS_REGISTRY.NAME' | translate}}</mat-label>
+                  <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
+                  <input matInput name="name" formControlName="name" required>
+                  <mat-error *ngIf="videoForm.get('name').hasError('required')">{{'VIDEOS_REGISTRY.ERRORS.NAME_REQUIRED'
+                    | translate}}</mat-error>
+                  <mat-error *ngIf="videoForm.get('name').hasError('minlength')">{{'VIDEOS_REGISTRY.ERRORS.NAME_MIN_LENGTH'
+                    | translate}}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-100-p">
+                  <mat-label>{{'VIDEOS_REGISTRY.DESCRIPTION' | translate}}</mat-label>
+                  <mat-icon matPrefix class="mr-12 s-20 secondary-text">description</mat-icon>
+                  <input matInput name="description" formControlName="description">
+                </mat-form-field>
+
+                <div fxLayout="row" fxLayoutAlign="start start">
+                  <mat-form-field class="w-100-p">
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text group-input">group</mat-icon>
+                    <mat-select placeholder="{{'VIDEOS_REGISTRY.GROUP_FIELD' | translate}}" formControlName="group"
+                      required>
+                      <mat-option *ngFor="let group of groups" [value]="group">{{group.name}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="videoForm.get('group').hasError('required')">{{'VIDEOS_REGISTRY.ERRORS.GROUP_REQUIRED'
+                        | translate}}</mat-error>
+                  </mat-form-field>
+                  <div class="divider"></div>
+                  <mat-form-field class="w-100-p">
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">category</mat-icon>
+                    <mat-select placeholder="{{'VIDEOS_REGISTRY.CATEGORY_FIELD' | translate}}" formControlName="category"
+                      required>
+                      <mat-option *ngFor="let category of categories" [value]="category">{{category.name}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="videoForm.get('category').hasError('required')">{{'VIDEOS_REGISTRY.ERRORS.CATEGORY_REQUIRED'
+                        | translate}}</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start start">
+                  <mat-form-field class="w-100-p">
+                    <!-- <mat-label>{{'VIDEOS_REGISTRY.INSTRUCTOR' | translate}}</mat-label> -->
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">perm_identity</mat-icon>
+                    <input type="text" placeholder="{{'VIDEOS_REGISTRY.INSTRUCTOR' | translate}}" matInput
+                      formControlName="instructor" required [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayInstructorName">
+                      <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+                        <mat-icon matPrefix class="mr-12 s-20 secondary-text">perm_identity</mat-icon>
+                        <span>{{user.name}} {{user.lastName}}</span>
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="videoForm.get('instructor').hasError('required')">{{'VIDEOS_REGISTRY.ERRORS.INSTRUCTOR_REQUIRED'
+                        | translate}}</mat-error>
+                  </mat-form-field>
+                  <div class="divider"></div>
+                  <mat-form-field class="w-100-p">
+                    <mat-label>{{'VIDEOS_REGISTRY.DURATION' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">description</mat-icon>
+                    <input matInput name="duration" formControlName="duration" required>
+                    <mat-error *ngIf="videoForm.get('duration').hasError('required')">{{'VIDEOS_REGISTRY.ERRORS.DURATION_REQUIRED'
+                        | translate}}</mat-error>
+                    <mat-error *ngIf="videoForm.get('duration').hasError('pattern')">{{'VIDEOS_REGISTRY.ERRORS.DURATION_PATTERN'
+                        | translate}}</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <mat-form-field class="w-100-p">
+                  <mat-label>{{'VIDEOS_REGISTRY.CODE' | translate}}</mat-label>
+                  <mat-icon matPrefix class="mr-12 s-20 secondary-text">link</mat-icon>
+                  <input name="url" formControlName="url" matInput>
+                </mat-form-field>
+              </div>
+            </mat-tab>
+
+            <mat-tab label="{{'VIDEOS_REGISTRY.DETAILS' | translate}}">
+              <div class="tab-content p-24" fusePerfectScrollbar>
+                <mat-form-field fxFlex>
+                  <mat-label>{{'VIDEOS_REGISTRY.DETAILS' | translate}}</mat-label>
+                  <mat-icon matPrefix class="mr-12 s-20 secondary-text">details</mat-icon>
+                  <textarea name="details" formControlName="details" matInput type="text" rows="10" max-rows="10"></textarea>
+                </mat-form-field>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+
+        </form>
+
+      </div>
+      <!-- / CONTENT -->
+
+    </div>
+    <!-- / CONTENT CARD -->
+
+  </div>
+  <!-- / CENTER -->
+
+  <!-- </div> -->

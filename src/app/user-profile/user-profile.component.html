@@ -1,0 +1,59 @@
+<div id="profile" class="page-layout simple tabbed">
+
+  <!-- HEADER -->
+  <div class="header p-24" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between end">
+
+    <div class="user-info" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start center">
+      <img class="profile-image avatar huge" src="https://www.gravatar.com/avatar/{{user.avatarHash}}" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+      <div class="name" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+        {{user.name}} {{user.lastName}}
+      </div>
+    </div>
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="content">
+      <mat-tab-group dynamicHeight="true">
+          <mat-tab label="{{'USER_PROFILE.ABOUT' | translate}}">
+              <profile-about></profile-about>
+          </mat-tab>
+      </mat-tab-group>
+  </div>
+  
+  <!-- <div class="content">
+    <div class="profile-box groups" fxLayout="column">
+      <mat-tab-group dynamicHeight="true">
+        <mat-tab label="{{'USER_PROFILE.ABOUT' | translate}}">
+          <form [formGroup]="changePasswordForm">
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+              <mat-form-field fxFlex>
+                <mat-label>{{'USER_PROFILE.CURRENT_PASSWORD' | translate}}</mat-label>
+                <mat-icon matPrefix class="mr-12 s-20 secondary-text">vpn_key</mat-icon>
+                <input name="currentPassword" formControlName="currentPassword" matInput required>
+              </mat-form-field>
+              <mat-form-field fxFlex>
+                <mat-label>{{'USER_PROFILE.NEW_PASSWORD' | translate}}</mat-label>
+                <mat-icon matPrefix class="mr-12 s-20 secondary-text">vpn_key</mat-icon>
+                <input name="newPassword" formControlName="newPassword" matInput required>
+              </mat-form-field>
+              <mat-form-field fxFlex>
+                <mat-label>{{'USER_PROFILE.CONFIRM_NEW_PASSWORD' | translate}}</mat-label>
+                <mat-icon matPrefix class="mr-12 s-20 secondary-text">vpn_key</mat-icon>
+                <input name="confirmNewPassword" formControlName="confirmNewPassword" matInput required>
+              </mat-form-field>
+            </div>
+          </form>
+
+          <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+            <button mat-button class="save-button" (click)="save()" [disabled]="changePasswordForm.invalid" aria-label="SAVE">
+              {{'USER_PROFILE.SAVE' | translate}}
+            </button>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div> -->
+  <!-- / CONTENT -->
+</div>

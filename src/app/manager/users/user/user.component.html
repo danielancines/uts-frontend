@@ -1,0 +1,365 @@
+<div id="user" class="page-layout carded fullwidth inner-scroll">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center">
+
+    <!-- HEADER -->
+    <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+      <!-- APP TITLE -->
+      <div fxLayout="row" fxLayoutAlign="start center">
+
+        <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/users'">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+
+        <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+          people
+        </mat-icon>
+
+        <div fxLayout="column" fxLayoutAlign="start start" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+          <div class="h2" *ngIf="editing">
+            {{user.name + ' ' + user.lastName | slice:0:55}}
+            <span *ngIf="user?.name.length + user?.lastName.length > 55">...</span>
+          </div>
+          <div class="h2" *ngIf="!editing">
+            {{'USERS_REGISTRY.TITLE' | translate}}
+          </div>
+        </div>
+      </div>
+      <!-- / APP TITLE -->
+
+      <button mat-raised-button class="save-product-button" *ngIf="!editing" (click)="addUser()">
+        <span>{{'USERS_REGISTRY.ADD' | translate}}</span>
+      </button>
+
+      <div *ngIf="editing">
+        <button *ngIf="editing" [disabled]="!canDelete" mat-raised-button class="delete-user-button" (click)="deleteUser(user)" aria-label="Delete" matTooltip="Delete">
+          {{'USERS_REGISTRY.DELETE' | translate}}
+        </button>
+
+        <button mat-raised-button class="save-product-button" *ngIf="editing" (click)="saveUser()">
+          <span>{{'USERS_REGISTRY.SAVE' | translate}}</span>
+        </button>
+      </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT CARD -->
+    <div class="content-card">
+
+      <!-- CONTENT -->
+      <div class="content">
+        <form name="userForm" [formGroup]="userForm" class="product w-100-p" fxLayout="column" fxFlex>
+          <mat-tab-group>
+            <mat-tab label="{{'USERS_REGISTRY.BASIC_INFORMATION' | translate}}">
+              <div class="tab-content p-24" fusePerfectScrollbar>
+
+                <mat-form-field class="w-100-p">
+                  <mat-label>{{'USERS_REGISTRY.NAME' | translate}}</mat-label>
+                  <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
+                  <input matInput name="name" formControlName="name" required>
+                  <mat-error *ngIf="userForm.get('name').hasError('required')">{{'USERS_REGISTRY.ERRORS.NAME_REQUIRED'
+                    | translate}}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-100-p">
+                  <mat-label>{{'USERS_REGISTRY.LAST_NAME' | translate}}</mat-label>
+                  <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
+                  <input matInput name="lastName" formControlName="lastName" required>
+                  <mat-error *ngIf="userForm.get('lastName').hasError('required')">{{'USERS_REGISTRY.ERRORS.LAST_NAME_REQUIRED'
+                    | translate}}</mat-error>
+                </mat-form-field>
+
+                <div fxLayout="row" fxLayoutAlign="start start">
+                  <mat-form-field class="w-100-p">
+                    <mat-label>{{'USERS_REGISTRY.EMAIL' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">email</mat-icon>
+                    <input matInput name="email" formControlName="email" required [readonly]="editing">
+                    <mat-error *ngIf="userForm.get('email').hasError('required')">{{'USERS_REGISTRY.ERRORS.EMAIL_REQUIRED'
+                      | translate}}</mat-error>
+                    <mat-error *ngIf="userForm.get('email').hasError('email')">{{'USERS_REGISTRY.ERRORS.EMAIL_VALIDATOR'
+                      | translate}}</mat-error>
+                  </mat-form-field>
+                  <button *ngIf="editing" mat-raised-button (click)="resetPassword()" aria-label="Reset" matTooltip="Reset">
+                    {{'USERS_REGISTRY.RESET_PASSWORD' | translate}}
+                  </button>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start start">
+                  <mat-form-field class="w-100-p" *ngIf="editing">
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">lock</mat-icon>
+                    <mat-select placeholder="{{'USERS_REGISTRY.SITUATION' | translate}}" formControlName="active">
+                      <mat-option value="true">{{'USERS_MAIN.ACTIVE' | translate}}</mat-option>
+                      <mat-option value="false">{{'USERS_MAIN.NOT_ACTIVE' | translate}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <div class="divider" *ngIf="editing"></div>
+                  <mat-form-field class="w-100-p">
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">lock</mat-icon>
+                    <mat-select placeholder="{{'USERS_MAIN.CAN_INFORM_VALUE_AT_MONEY_REQUEST' | translate}}" formControlName="canInformValueAtMoneyRequest">
+                      <mat-option value="true">{{'USERS_MAIN.MONEY_REQUEST_VALUE_YES' | translate}}</mat-option>
+                      <mat-option value="false">{{'USERS_MAIN.MONEY_REQUEST_VALUE_NO' | translate}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <div class="divider"></div>
+                  <mat-form-field class="w-100-p">
+                    <span matSuffix>%</span>
+                    <mat-label>{{'USERS_REGISTRY.DEAL_PERCENTAGE' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">monetization_on</mat-icon>
+                    <input matInput name="dealPercentage" formControlName="dealPercentage" required>
+                    <mat-error *ngIf="userForm.get('dealPercentage').hasError('required')">{{'USERS_REGISTRY.ERRORS.DEAL_PERCENTAGE_REQUIRED'
+                        | translate}}</mat-error>
+                    <mat-error *ngIf="userForm.get('dealPercentage').hasError('pattern')">{{'USERS_REGISTRY.ERRORS.DEAL_PERCENTAGE_PATTERN'
+                            | translate}}</mat-error>
+                    <mat-error *ngIf="userForm.get('dealPercentage').hasError('max')">{{'USERS_REGISTRY.ERRORS.DEAL_PERCENTAGE_MAX'
+                                | translate}}</mat-error>
+                  </mat-form-field>
+                </div>
+                <mat-form-field class="w-100-p" *ngIf="!editing">
+                  <mat-label>{{'USERS_REGISTRY.PASSWORD' | translate}}</mat-label>
+                  <mat-icon matPrefix class="mr-12 s-20 secondary-text">vpn_key</mat-icon>
+                  <input name="password" formControlName="password" matInput required>
+                  <mat-error *ngIf="userForm.get('password').hasError('required')">{{'USERS_REGISTRY.ERRORS.PASSWORD_REQUIRED'
+                        | translate}}</mat-error>
+                </mat-form-field>
+              </div>
+
+            </mat-tab>
+
+            <mat-tab label="{{'USERS_REGISTRY.ADDITIONAL_INFORMATION' | translate}}">
+              <div class="tab-content p-24" fusePerfectScrollbar>
+                <div fxLayout="row" fxLayoutAlign="start start">
+                  <mat-form-field class="w-100-p">
+                    <mat-label>{{'USERS_REGISTRY.RG' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">info</mat-icon>
+                    <input matInput name="rg" formControlName="rg" required>
+                    <mat-error *ngIf="userForm.get('rg').hasError('required')">{{'USERS_REGISTRY.ERRORS.RG_REQUIRED'
+                      | translate}}</mat-error>
+                    <mat-error *ngIf="userForm.get('rg').hasError('pattern')">{{'USERS_REGISTRY.ERRORS.RG_PATTERN'
+                          | translate}}</mat-error>
+                  </mat-form-field>
+                  <div class="divider"></div>
+                  <mat-form-field class="w-100-p">
+                    <mat-label>{{'USERS_REGISTRY.CPF' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">info</mat-icon>
+                    <input matInput name="cpf" formControlName="cpf" required>
+                    <mat-error *ngIf="userForm.get('cpf').hasError('required')">{{'USERS_REGISTRY.ERRORS.CPF_REQUIRED'
+                        | translate}}</mat-error>
+                    <mat-error *ngIf="userForm.get('cpf').hasError('pattern')">{{'USERS_REGISTRY.ERRORS.CPF_PATTERN'
+                            | translate}}</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start start">
+                  <mat-form-field class="w-100-p">
+                    <mat-label>{{'USERS_REGISTRY.PHONE' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">phone</mat-icon>
+                    <input matInput name="phone" formControlName="phone" required>
+                    <mat-error *ngIf="userForm.get('phone').hasError('required')">{{'USERS_REGISTRY.ERRORS.PHONE_REQUIRED'
+                        | translate}}</mat-error>
+                    <mat-error *ngIf="userForm.get('phone').hasError('pattern')">{{'USERS_REGISTRY.ERRORS.PHONE_PATTERN'
+                              | translate}}</mat-error>
+                  </mat-form-field>
+                  <div class="divider"></div>
+                  <mat-form-field class="w-100-p">
+                    <mat-label>{{'USERS_REGISTRY.PHONE' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">phone</mat-icon>
+                    <input matInput name="phone1" formControlName="phone1">
+                    <mat-error *ngIf="userForm.get('phone1').hasError('pattern')">{{'USERS_REGISTRY.ERRORS.PHONE_PATTERN'
+                                | translate}}</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <mat-form-field class="w-100-p">
+                  <mat-label>{{'USERS_REGISTRY.ZIPCODE' | translate}}</mat-label>
+                  <mat-icon matPrefix class="mr-12 s-20 secondary-text">place</mat-icon>
+                  <!-- <input matInput #zipcode name="zipcode" (focusout)="zipcodeChanged(zipcode.value)"> -->
+                  <input matInput #zipcode name="zipcode" formControlName="zipcode" (focusout)="zipcodeChanged(zipcode.value)" required>
+                  <mat-error *ngIf="userForm.get('zipcode').hasError('pattern')">{{'USERS_REGISTRY.ERRORS.ZIPCODE_PATTERN'
+                                | translate}}</mat-error>
+                  <mat-error *ngIf="userForm.get('zipcode').hasError('required')">{{'USERS_REGISTRY.ERRORS.ZIPCODE_REQUIRED'
+                                    | translate}}</mat-error>
+                </mat-form-field>
+
+                <div fxLayout="row" fxLayoutAlign="start start">
+                  <mat-form-field class="w-100-p">
+                    <mat-label>{{'USERS_REGISTRY.STREET_NAME' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">place</mat-icon>
+                    <input matInput name="streetName" formControlName="streetName" required>
+                    <mat-error *ngIf="userForm.get('streetName').hasError('required')">{{'USERS_REGISTRY.ERRORS.STREET_NAME_REQUIRED'
+                                          | translate}}</mat-error>
+                  </mat-form-field>
+                  <div class="divider"></div>
+                  <mat-form-field class="w-100-p">
+                    <mat-label>{{'USERS_REGISTRY.ADDRESS_NUMBER' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">place</mat-icon>
+                    <input matInput name="addressNumber" formControlName="addressNumber" required>
+                    <mat-error *ngIf="userForm.get('addressNumber').hasError('pattern')">{{'USERS_REGISTRY.ERRORS.ADDRESS_NUMBER_PATTERN'
+                                        | translate}}</mat-error>
+                    <mat-error *ngIf="userForm.get('addressNumber').hasError('required')">{{'USERS_REGISTRY.ERRORS.ADDRESS_NUMBER_REQUIRED'
+                                            | translate}}</mat-error>
+                  </mat-form-field>
+                  <div class="divider"></div>
+                  <mat-form-field class="w-100-p">
+                    <mat-label>{{'USERS_REGISTRY.ADDRESS_COMPLEMENT' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">place</mat-icon>
+                    <input matInput name="addressComplement" formControlName="addressComplement">
+                  </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start start">
+                  <mat-form-field class="w-100-p">
+                    <mat-label>{{'USERS_REGISTRY.CITY_NAME' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">place</mat-icon>
+                    <!-- <input matInput name="city" [(value)]="city"> -->
+                    <input matInput name="city" formControlName="city" required>
+                    <mat-error *ngIf="userForm.get('city').hasError('required')">{{'USERS_REGISTRY.ERRORS.CITY_NAME_REQUIRED'
+                                            | translate}}</mat-error>
+                  </mat-form-field>
+                  <div class="divider"></div>
+                  <mat-form-field class="w-100-p">
+                    <mat-label>{{'USERS_REGISTRY.STATE' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">place</mat-icon>
+                    <!-- <input matInput name="state" [(value)]="state" required> -->
+                    <input matInput name="state" formControlName="state" required>
+                    <mat-error *ngIf="userForm.get('state').hasError('required')">{{'USERS_REGISTRY.ERRORS.STATE_REQUIRED'
+                                              | translate}}</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+            </mat-tab>
+
+            <mat-tab label="{{'USERS_REGISTRY.POKER_ROOMS' | translate}}">
+              <table class="user-poker-room-table" mat-table [dataSource]="userPokerRoomsDataSource" class="mat-elevation-z8 access-table">
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> {{'USERS_MAIN.NAME' | translate}} </th>
+                  <td mat-cell *matCellDef="let userPokerRoom"> {{userPokerRoom.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="nickName">
+                  <th mat-header-cell *matHeaderCellDef>{{'USERS_MAIN.NICK' | translate}} </th>
+                  <td mat-cell *matCellDef="let userPokerRoom">
+                    <input class="text-truncate" matInput placeholder="{{'USERS_REGISTRY.NICK_NAME' | translate}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="userPokerRoom.nickName">
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="fullName">
+                  <th mat-header-cell *matHeaderCellDef>{{'USERS_MAIN.FULL_NAME' | translate}} </th>
+                  <td mat-cell *matCellDef="let userPokerRoom">
+                    <input class="text-truncate" matInput placeholder="{{'USERS_REGISTRY.FULL_NAME' | translate}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="userPokerRoom.fullName">
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="email">
+                  <th mat-header-cell *matHeaderCellDef>{{'USERS_MAIN.EMAIL' | translate}} </th>
+                  <td mat-cell *matCellDef="let userPokerRoom">
+                    <input class="text-truncate" matInput placeholder="{{'USERS_REGISTRY.EMAIL' | translate}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="userPokerRoom.email">
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="moreInformation">
+                  <th mat-header-cell *matHeaderCellDef>{{'USERS_MAIN.MORE_INFORMATION' | translate}} </th>
+                  <td mat-cell *matCellDef="let userPokerRoom">
+                    <input class="text-truncate" matInput placeholder="{{'USERS_REGISTRY.MORE_INFORMATION' | translate}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="userPokerRoom.moreInformation">
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="pokerRoomsDisplayedColumns; sticky:true"></tr>
+                <tr mat-row *matRowDef="let pokerRoom; columns: pokerRoomsDisplayedColumns;">
+                </tr>
+              </table>
+            </mat-tab>
+
+            <mat-tab label="{{'USERS_REGISTRY.GROUPS' | translate}}">
+              <div class="tab-content p-24" fusePerfectScrollbar>
+                <mat-form-field style="width: 100%;">
+                  <input matInput (keyup)="applyGroupFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+
+                <table mat-table [dataSource]="groupsDataSource?.data" class="mat-elevation-z8 access-table">
+                  <!-- Checkbox Column -->
+                  <ng-container matColumnDef="select">
+                    <th mat-header-cell *matHeaderCellDef>
+                    </th>
+                    <td mat-cell *matCellDef="let group">
+                      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? groupSelection.toggle(group) : null" [checked]="groupSelection.isSelected(group)">
+                      </mat-checkbox>
+                    </td>
+                  </ng-container>
+
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> {{'USERS_MAIN.NAME' | translate}} </th>
+                    <td mat-cell *matCellDef="let group"> {{group.name}} </td>
+                  </ng-container>
+
+                  <!-- Description Column -->
+                  <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef> {{'USERS_MAIN.DESCRIPTION' | translate}} </th>
+                    <td mat-cell *matCellDef="let group"> {{group.description}} </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="groupsDataSource?.displayedColumns; sticky:true"></tr>
+                  <tr mat-row *matRowDef="let group; columns: groupsDataSource?.displayedColumns;" (click)="groupSelection.toggle(group)">
+                  </tr>
+                </table>
+                <mat-paginator #groupsPaginator [pageSizeOptions]="[5, 10, 25]" [length]="groupsDataSource?.totalCount" [pageSize]="10" showFirstLastButtons></mat-paginator>
+              </div>
+            </mat-tab>
+
+            <mat-tab label="{{'USERS_REGISTRY.ACCESS' | translate}}">
+              <div class="tab-content p-24" fusePerfectScrollbar>
+                <mat-form-field style="width: 100%;">
+                  <input matInput (keyup)="applyAccessFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+
+                <table mat-table [dataSource]="rolesDataSource?.data" class="mat-elevation-z8 access-table">
+                  <!-- Checkbox Column -->
+                  <ng-container matColumnDef="select">
+                    <th mat-header-cell *matHeaderCellDef>
+                    </th>
+                    <td mat-cell *matCellDef="let role">
+                      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? roleSelection.toggle(role) : null" [checked]="roleSelection.isSelected(role)">
+                      </mat-checkbox>
+                    </td>
+                  </ng-container>
+
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> {{'USERS_MAIN.NAME' | translate}} </th>
+                    <td mat-cell *matCellDef="let role"> {{role.name}} </td>
+                  </ng-container>
+
+                  <!-- Description Column -->
+                  <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef> {{'USERS_MAIN.DESCRIPTION' | translate}} </th>
+                    <td mat-cell *matCellDef="let role"> {{role.description}} </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="rolesDataSource?.displayedColumns; sticky:true"></tr>
+                  <tr mat-row *matRowDef="let role; columns: rolesDataSource?.displayedColumns;" (click)="roleSelection.toggle(role)">
+                  </tr>
+                </table>
+                <mat-paginator #rolesPaginator [pageSizeOptions]="[5, 10, 25]" [length]="rolesDataSource?.totalCount" [pageSize]="10" showFirstLastButtons></mat-paginator>
+              </div>
+            </mat-tab>
+
+          </mat-tab-group>
+
+        </form>
+
+      </div>
+      <!-- / CONTENT -->
+
+    </div>
+    <!-- / CONTENT CARD -->
+
+  </div>
+  <!-- / CENTER -->
+
+  <!-- </div> -->

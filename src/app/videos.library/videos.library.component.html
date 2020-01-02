@@ -1,0 +1,99 @@
+<div id="app-videos" class="page-layout simple">
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+  <!-- HEADER -->
+  <div class="header accent p-16 p-sm-24" fxLayout="column" fxLayoutAlign="center center">
+
+    <div class="hero-text">
+      <mat-icon class="hero-icon">movie</mat-icon>
+      <h1 [@animate]="{value:'*',params:{delay:'100ms', y:'25px'}}">
+        {{'VIDEOS_LIBRARY_MAIN.TITLE' | translate}}
+      </h1>
+      <h3 [@animate]="{value:'*',params:{delay:'100ms', y:'25px'}}">
+        {{'VIDEOS_LIBRARY_MAIN.DESCRIPTION' | translate}}
+      </h3>
+    </div>
+
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="content p-24">
+
+    <div fxLayout="column" fxLayoutAlign="center">
+      <div class="filter" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+        <app-filter class="filterControl" [groups]="filterGroups" noFiltersTextTranslationKey="GLOBAL.NO_FILTER_TEXT" filterTitleTranslationKey="GLOBAL.FILTER" (selectedFilterOptionsChanged)="optionSelected($event)" [selectedFilterOptions]="selectedFilterOptions"></app-filter>
+      </div>
+      <div class="filters" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+        <mat-form-field class="course-search">
+          <input matInput placeholder="{{'VIDEOS_LIBRARY_MAIN.SEARCHFIELD' | translate}}" (keyup)="onKeyUp($event)" [(ngModel)]="searchTerm">
+        </mat-form-field>
+        <div class="divider"></div>
+        <mat-form-field class="category-selector">
+          <mat-select placeholder="{{'VIDEOS_LIBRARY_MAIN.SELECT_GROUP_FIELD' | translate}}" [(ngModel)]="selectedGroup" (selectionChange)="filterVideosByGroup($event.value)">
+            <mat-option [value]="'all'">
+              {{'VIDEOS_LIBRARY_MAIN.ALL_OPTION' | translate}}
+            </mat-option>
+            <mat-option *ngFor="let group of groups" [value]="group">
+              {{ group.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="divider"></div>
+        <mat-form-field class="category-selector">
+          <mat-select placeholder="{{'VIDEOS_LIBRARY_MAIN.SELECTCATEGORYFIELD' | translate}}" [(ngModel)]="selectedCategory" (selectionChange)="filterVideosByCategory($event.value)">
+            <mat-option [value]="'all'">
+              All
+            </mat-option>
+            <mat-option *ngFor="let category of categories" [value]="category">
+              {{ category.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="courses" fxLayout="row wrap" fxLayoutAlign="center" [@animateStagger]="{value:'50'}">
+        <div class="course" *ngFor="let item of items" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="33" [ngClass]="item.video.category" [@animate]="{value:'*',params:{y:'100%'}}">
+          <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+            <div class="header" fxLayout="row" fxLayoutAlign="center center" [ngStyle]="{'background':item.video.group.color}">
+              <div class="category" fxFlex>
+                {{item.video.group.name}}
+              </div>
+
+              <div class="length" fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon class="length-icon s-20">access_time</mat-icon>
+                <div class="min">{{item.video.duration}} min</div>
+              </div>
+
+            </div>
+
+            <div class="content" fxLayout="column" fxLayoutAlign="center center" fxFlex="1 1 auto">
+              <div class="h1">{{item.video.name}}</div>
+              <div class="h2">{{item.video.category.name}}</div>
+              <div *ngIf="item.video.instructor" class="instructor">{{'VIDEOS_LIBRARY_MAIN.INSTRUCTOR' | translate}}: {{item.video.instructor?.name}} {{item.video.instructor?.lastName}}</div>
+              <div class="updated">{{'VIDEOS_LIBRARY_MAIN.CREATED' | translate}}: {{item.video.date | date:'dd/MM/yyyy'}}</div>
+            </div>
+            <mat-progress-bar *ngIf="item.canWatch && item.videoStatus?.percent > 0" color="warn" mode="determinate" [value]="item.videoStatus.percent * 100"></mat-progress-bar>
+            <div class="footer" fxLayout="row" fxLayoutAlign="center center">
+              <button *ngIf="item.canWatch" mat-button color="accent" (click)="startVideo(item.video._id)">
+                <span *ngIf="!item.videoStatus">{{'VIDEOS_LIBRARY_MAIN.WATCH_VIDEO' | translate}}</span>
+                <span *ngIf="item.videoStatus && item.videoStatus.percent * 100 < 98">{{'VIDEOS_LIBRARY_MAIN.WATCH_VIDEO_RESUME' | translate}}</span>
+                <span *ngIf="item.videoStatus && item.videoStatus.percent * 100 >= 98">{{'VIDEOS_LIBRARY_MAIN.WATCH_VIDEO_AGAIN' | translate}}</span>
+              </button>
+              <span *ngIf="!item.canWatch" color="accent">{{'VIDEOS_LIBRARY_MAIN.UNAVAILABLE' | translate}}</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="no-courses" *ngIf="items?.length === 0">
+          {{'VIDEOS_LIBRARY_MAIN.NOT_FOUND_MESSAGE' | translate}}
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <!-- / CONTENT -->
+
+</div>

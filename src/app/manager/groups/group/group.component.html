@@ -1,0 +1,111 @@
+<div id="group" class="page-layout carded fullwidth inner-scroll">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center">
+
+    <!-- HEADER -->
+    <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+      <!-- APP TITLE -->
+      <div fxLayout="row" fxLayoutAlign="start center">
+
+        <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/groups'">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+
+        <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+          group
+        </mat-icon>
+
+        <div fxLayout="column" fxLayoutAlign="start start" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+          <div class="h2" *ngIf="editing">
+            {{group.name | slice:0:55}}
+            <span *ngIf="group?.name.length > 55">...</span>
+          </div>
+          <div class="h2" *ngIf="!editing">
+            {{'GROUPS_REGISTRY.TITLE' | translate}}
+          </div>
+        </div>
+      </div>
+      <!-- / APP TITLE -->
+
+      <button mat-raised-button class="save-product-button" *ngIf="!editing" (click)="addGroup()">
+        <span>{{'GROUPS_REGISTRY.ADD' | translate}}</span>
+      </button>
+
+      <div *ngIf="editing">
+        <button *ngIf="editing" mat-raised-button class="delete-group-button" (click)="deleteGroup(group)" aria-label="Delete"
+          matTooltip="Delete">
+          {{'GROUPS_REGISTRY.DELETE' | translate}}
+        </button>
+
+        <button mat-raised-button class="save-product-button" *ngIf="editing" (click)="saveGroup()">
+          <span>{{'GROUPS_REGISTRY.SAVE' | translate}}</span>
+        </button>
+      </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT CARD -->
+    <div class="content-card">
+
+      <!-- CONTENT -->
+      <div class="content">
+
+        <form name="groupForm" [formGroup]="groupForm" class="product w-100-p" fxLayout="column" fxFlex>
+
+          <mat-tab-group>
+
+            <mat-tab label="{{'GROUPS_REGISTRY.BASIC_INFORMATION' | translate}}">
+              <div class="tab-content p-24" fusePerfectScrollbar>
+                <div fxLayout="row" fxLayoutAlign="start start">
+                  <mat-form-field class="w-100-p">
+                    <mat-label>{{'GROUPS_REGISTRY.NAME' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
+                    <input matInput name="name" formControlName="name" required>
+                    <mat-error *ngIf="groupForm.get('name').hasError('required')">{{'GROUPS_REGISTRY.ERRORS.NAME_REQUIRED'
+                      | translate}}</mat-error>
+                  </mat-form-field>
+                  <div class="divider"></div>
+                  <mat-form-field class="w-100-p">
+                    <mat-label>{{'GROUPS_REGISTRY.HIERARCHY' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">linear_scale</mat-icon>
+                    <input matInput name="hierarchy" formControlName="hierarchy" required>
+                    <mat-error *ngIf="groupForm.get('hierarchy').hasError('required')">{{'GROUPS_REGISTRY.ERRORS.HIERARCHY_REQUIRED'
+                      | translate}}</mat-error>
+                    <mat-error *ngIf="groupForm.get('hierarchy').hasError('pattern')">{{'GROUPS_REGISTRY.ERRORS.HIERARCHY_NUMBER_VALIDATOR'
+                      | translate}}</mat-error>
+                  </mat-form-field>
+                </div>
+                <mat-form-field class="w-100-p">
+                  <mat-label>{{'GROUPS_REGISTRY.DESCRIPTION' | translate}}</mat-label>
+                  <mat-icon matPrefix class="mr-12 s-20 secondary-text">description</mat-icon>
+                  <input matInput name="description" formControlName="description" required>
+                  <mat-error *ngIf="groupForm.get('description').hasError('required')">{{'GROUPS_REGISTRY.ERRORS.DESCRIPTION_REQUIRED'
+                    | translate}}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-icon matPrefix class="mr-12 s-20 secondary-text">color_lens</mat-icon>
+                  <input style="cursor: pointer;" [colorPicker]="groupForm.get('color').value" [style.background]="groupForm.get('color').value"
+                    (colorPickerChange)="groupForm.get('color').setValue($event)" matInput />
+                </mat-form-field>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+
+        </form>
+
+      </div>
+      <!-- / CONTENT -->
+
+    </div>
+    <!-- / CONTENT CARD -->
+
+  </div>
+  <!-- / CENTER -->
+
+  <!-- </div> -->

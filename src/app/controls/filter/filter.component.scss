@@ -1,0 +1,36 @@
+.filterTitle {
+    margin-left: 12px;
+}
+
+.filterTitleBold {
+  margin-left: 12px;
+  font-weight: bold;
+}
+
+.filterTitleCount {
+  font-weight: bold;
+}
+
+.groupName {
+  padding: 10px 0;
+  margin: 5px 0;
+  border-bottom: 1px solid;
+  font-weight: bold;
+}
+
+.optionName {
+  padding: 5px 0 0 0;
+}
+
+.optionItem {
+  cursor: pointer;
+}
+
+.optionItemDelete {
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.optionItemContainer {
+  background-color:transparent;
+}

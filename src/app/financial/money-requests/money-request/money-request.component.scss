@@ -1,0 +1,44 @@
+#moneyRequest {
+
+    .header {
+
+        .subtitle {
+            margin: 6px 0 0 0;
+        }
+    }
+
+    .delete-category-button {
+        margin-right: 10px;
+        background: red;
+    }
+
+    .content {
+
+        .divider{
+            width:20px;
+            height:auto;
+            display:inline-block;
+        }
+
+        .mat-tab-group,
+        .mat-tab-body-wrapper,
+        .tab-content{
+            flex: 1 1 auto;
+            max-width: 100%;
+        }
+
+        .mat-tab-body-content {
+            display: flex;
+        }
+
+        .mat-tab-label {
+            height: 64px;
+        }
+
+        // Temporary prefix alignment fix
+        .mat-form-field-appearance-outline .mat-form-field-prefix,
+        .mat-form-field-appearance-outline .mat-form-field-suffix {
+            top: 0;
+        }
+    }
+}

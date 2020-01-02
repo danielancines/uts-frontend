@@ -1,0 +1,28 @@
+<div id="app-videos-watch" class="page-layout simple">
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    <!-- HEADER -->
+    <div class="header accent p-16 p-sm-24" fxLayout="column" fxLayoutAlign="center center">
+
+        <div class="hero-text">
+            <mat-icon class="hero-icon">movie</mat-icon>
+            <h1 [@animate]="{value:'*',params:{delay:'100ms', y:'25px'}}">
+                {{video?.name}}
+            </h1>
+            <h3 [@animate]="{value:'*',params:{delay:'100ms', y:'25px'}}">
+                {{video?.description}}
+            </h3>
+        </div>
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div (domChange)="onDomChange($event)" class="content" [innerHTML]="videoUrl" fxLayout="row" fxLayoutAlign="center center"></div>
+    <mat-checkbox class="watch-checkbox" [(ngModel)]="isFavorite">{{'VIDEOS_MAIN.SET_AS_FAVORITE' | translate}}</mat-checkbox>
+    <div *ngIf="videoDetails" class="details-container">
+        <h3 class="h3">{{'VIDEOS_MAIN.DETAILS' | translate}}:</h3>
+        <div class="more-info" fxLayout="row" fxLayoutAlign="center center" [innerHTML]="videoDetails">
+        </div>
+    </div>
+    <!-- / CONTENT -->
+</div>

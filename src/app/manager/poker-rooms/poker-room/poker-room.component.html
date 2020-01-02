@@ -1,0 +1,100 @@
+<div id="poker-room" class="page-layout carded fullwidth inner-scroll">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center">
+
+    <!-- HEADER -->
+    <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+      <!-- APP TITLE -->
+      <div fxLayout="row" fxLayoutAlign="start center">
+
+        <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/pokerrooms'">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+
+        <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+          local_play
+        </mat-icon>
+
+        <div fxLayout="column" fxLayoutAlign="start start" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+          <div class="h2" *ngIf="editing">
+            {{pokerRoom.name | slice:0:55}}
+            <span *ngIf="pokerRoom?.name.length > 55">...</span>
+          </div>
+          <div class="h2" *ngIf="!editing">
+            {{'POKER_ROOMS_REGISTRY.TITLE' | translate}}
+          </div>
+        </div>
+      </div>
+      <!-- / APP TITLE -->
+
+      <button mat-raised-button class="save-product-button" *ngIf="!editing"
+        (click)="add()">
+        <span>{{'POKER_ROOMS_REGISTRY.ADD' | translate}}</span>
+      </button>
+
+      <div *ngIf="editing">
+        <button *ngIf="editing" mat-raised-button class="delete-poker-room-button" (click)="delete(pokerRoom)"
+          aria-label="Delete" matTooltip="Delete">
+          {{'POKER_ROOMS_REGISTRY.DELETE' | translate}}
+        </button>
+
+        <button mat-raised-button class="save-product-button" *ngIf="editing"
+          (click)="save()">
+          <span>{{'POKER_ROOMS_REGISTRY.SAVE' | translate}}</span>
+        </button>
+      </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT CARD -->
+    <div class="content-card">
+
+      <!-- CONTENT -->
+      <div class="content">
+        <form name="pokerRoomForm" [formGroup]="pokerRoomForm" class="product w-100-p" fxLayout="column" fxFlex>
+          <mat-tab-group>
+            <mat-tab label="{{'POKER_ROOMS_REGISTRY.BASIC_INFORMATION' | translate}}">
+              <div class="tab-content p-24" fusePerfectScrollbar>
+
+                <div fxLayout="row" fxLayoutAlign="start start">
+                  <mat-form-field class="w-100-p">
+                    <mat-label>{{'POKER_ROOMS_REGISTRY.NAME' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
+                    <input matInput name="name" formControlName="name" required>
+                    <mat-error *ngIf="pokerRoomForm.get('name').hasError('required')">{{'POKER_ROOMS_REGISTRY.ERRORS.NAME_REQUIRED'
+                      | translate}}</mat-error>
+                  </mat-form-field>
+                  <div class="divider"></div>
+                  <mat-form-field class="w-100-p">
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">attach_money</mat-icon>
+                    <mat-select placeholder="{{'POKER_ROOMS_REGISTRY.CURRENCY' | translate}}"
+                      formControlName="currency">
+                      <mat-option value="pt">{{'POKER_ROOMS_REGISTRY.BRAZILIAN_REAL' | translate}}</mat-option>
+                      <mat-option value="en-US">{{'POKER_ROOMS_REGISTRY.USD' | translate}}</mat-option>
+                      <mat-option value="eur">{{'POKER_ROOMS_REGISTRY.EUR' | translate}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+            </mat-tab>
+          </mat-tab-group>
+
+        </form>
+
+      </div>
+      <!-- / CONTENT -->
+
+    </div>
+    <!-- / CONTENT CARD -->
+
+  </div>
+  <!-- / CENTER -->
+
+  <!-- </div> -->

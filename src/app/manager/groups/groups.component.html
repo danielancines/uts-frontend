@@ -1,0 +1,86 @@
+<div id="groups" class="page-layout carded fullwidth inner-scroll">
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center">
+    <mat-progress-bar *ngIf="dataSource?.loadingData" mode="indeterminate"></mat-progress-bar>
+    <!-- HEADER -->
+    <div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+
+      <!-- APP TITLE -->
+      <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+          group
+        </mat-icon>
+        <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+          {{'GROUPS_REGISTRY.TITLE' | translate}}
+        </span>
+      </div>
+      <!-- / APP TITLE -->
+
+      <!-- SEARCH -->
+      <div class="search-wrapper mx-32 mx-md-0">
+        <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+          <mat-icon>search</mat-icon>
+          <input #filter placeholder="{{'GLOBAL.FILTER' | translate}}" [value]="searchTerm" (keyup)="applyFilter($event.target.value)">
+        </div>
+      </div>
+      <!-- / SEARCH -->
+
+      <div>
+        <button mat-raised-button (click)="refresh()" class="refresh-button fuse-white mt-24 mt-md-0">
+          <mat-icon>refresh</mat-icon>
+        </button>
+        <!-- ADD BUTTON -->
+        <button mat-raised-button (click)="add()" class="add-product-button fuse-white mt-24 mt-md-0">
+          <span>{{'GROUPS_REGISTRY.ADD' | translate}}</span>
+        </button>
+      </div>
+      <!-- / ADD BUTTON -->
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT CARD -->
+    <div class="content-card">
+
+      <mat-table class="groups-table" #table [dataSource]="dataSource?.data" matSort [@animateStagger]="{value:'50'}"
+        fusePerfectScrollbar>
+
+        <ng-container matColumnDef="hierarchy">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'GROUPS_MAIN.HIERARCHY' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let group">
+            <p class="text-truncate">{{group.hierarchy}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'GROUPS_MAIN.NAME' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let group">
+            <p class="text-truncate">{{group.name}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'GROUPS_MAIN.DESCRIPTION' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let group">
+            <p class="text-truncate">{{group.description}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="dataSource?.displayedColumns; sticky:true"></mat-header-row>
+
+        <mat-row *matRowDef="let group; columns: dataSource?.displayedColumns;" class="group" matRipple (click)="edit(group)">
+        </mat-row>
+
+      </mat-table>
+
+      <mat-paginator [showFirstLastButtons]="true" [length]="dataSource?.totalCount" [pageSize]="10" [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+
+    </div>
+    <!-- / CONTENT CARD -->
+  </div>
+  <!-- / CENTER -->
+</div>

@@ -1,0 +1,427 @@
+<div id="home" class="page-layout simple right-sidebar" fxLayout="row">
+
+  <!-- CENTER -->
+  <div class="center" fusePerfectScrollbar>
+    <!-- HEADER -->
+    <div class="header accent p-24 pb-0" fxLayout="column" fxLayoutAlign="space-between">
+      <div fxLayout="row" fxLayoutAlign="space-between start">
+        <span class="mat-display-1 my-0 my-sm-24 welcome-message" [@animate]="{value:'*',params:{x:'50px'}}">{{'HOME.GREETINGS'
+          | translate}}, {{user?.name + ' ' + user?.lastName}}!</span>
+      </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <mat-tab-group dynamicHeight>
+
+        <mat-tab label="Home">
+
+          <div class="widget-group p-12" fxLayout="row wrap" fxFlex="100" *fuseIfOnDom [@animateStagger]="{value:'50'}">
+
+            <!-- LAST WATCHED VIDEOS -->
+            <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25">
+
+              <!-- Front -->
+              <div class="fuse-widget-front">
+                <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="space-between center">
+                  <div class="h3">{{'HOME.WIDGETS.LAST_VIDEOS.TITLE' | translate}}</div>
+                </div>
+
+                <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                  <a style="cursor: pointer" *ngFor="let video of lastWatchedVideos" (click)="startVideo(video)">
+                    <span *ngIf="video.title">{{video.title | slice:0:45}}</span>
+                    <span *ngIf="video.title.length > 45">...</span>
+                  </a>
+                </div>
+
+              </div>
+              <!-- / Front -->
+            </fuse-widget>
+            <!-- / LAST WATCHED VIDEOS -->
+
+            <!-- VIDEOS -->
+            <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25">
+
+              <!-- Front -->
+              <div class="fuse-widget-front">
+                <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="space-between center">
+                  <div class="h3">{{'HOME.WIDGETS.USER_VIDEOS.TO_WATCH_TILE.TITLE' | translate}}</div>
+
+                  <button mat-icon-button fuseWidgetToggle class="fuse-widget-flip-button" aria-label="more">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                </div>
+
+                <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                  <div class="green-800-fg font-size-72 line-height-72">
+                    <!-- {{widgets.widget1.data.count[widgets.widget1.currentRange]}} -->
+                    {{toWatchVideos}}
+                  </div>
+                  <!-- <div class="h3 secondary-text font-weight-500">{{widgets.widget1.data.label}} -->
+                  <div class="h3 secondary-text font-weight-500">
+                    {{'HOME.WIDGETS.USER_VIDEOS.TO_WATCH_TILE.DESCRIPTION' | translate}}
+                  </div>
+                </div>
+              </div>
+              <!-- / Front -->
+
+              <!-- Back -->
+              <div class="fuse-widget-back p-16 pt-32">
+                <button mat-icon-button fuseWidgetToggle class="fuse-widget-flip-button" aria-label="Flip widget">
+                  <mat-icon class="s-16">close</mat-icon>
+                </button>
+
+                <div>
+                  {{'HOME.WIDGETS.USER_VIDEOS.TO_WATCH_TILE.DETAILS' | translate}}
+                </div>
+              </div>
+              <!-- / Back -->
+
+            </fuse-widget>
+            <!-- / VIDEOS -->
+
+            <!-- USER VIDEOS -->
+            <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25">
+
+              <!-- Front -->
+              <div class="fuse-widget-front">
+                <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="space-between center">
+                  <div class="h3">{{'HOME.WIDGETS.USER_VIDEOS.USERS_TOTAL_VIDEOS_TILE.TITLE' | translate}}</div>
+
+                  <button mat-icon-button fuseWidgetToggle class="fuse-widget-flip-button" aria-label="more">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                </div>
+
+                <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                  <div class="green-800-fg font-size-72 line-height-72">
+                    {{totalUserVideos}}
+                  </div>
+                  <div class="h3 secondary-text font-weight-500">
+                    {{'HOME.WIDGETS.USER_VIDEOS.USERS_TOTAL_VIDEOS_TILE.DESCRIPTION' | translate}}
+                  </div>
+                </div>
+
+                <!-- <div class="p-16 border-top" fxLayout="row" fxLayoutAlign="start center">
+                  <span class="h4 secondary-text text-truncate">
+                    {{'HOME.WIDGETS.USER_VIDEOS.WATCHED' | translate}}:
+                  </span>
+                  <span class="h4 ml-8">
+                    0
+                  </span>
+                </div> -->
+              </div>
+              <!-- / Front -->
+
+              <!-- Back -->
+              <div class="fuse-widget-back p-16 pt-32">
+                <button mat-icon-button fuseWidgetToggle class="fuse-widget-flip-button" aria-label="Flip widget">
+                  <mat-icon class="s-16">close</mat-icon>
+                </button>
+
+                <div>
+                  {{'HOME.WIDGETS.USER_VIDEOS.USERS_TOTAL_VIDEOS_TILE.DETAILS' | translate}}
+                </div>
+              </div>
+              <!-- / Back -->
+
+            </fuse-widget>
+            <!-- / USER VIDEOS -->
+
+            <!-- VIDEOS -->
+            <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25">
+
+              <!-- Front -->
+              <div class="fuse-widget-front">
+                <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="space-between center">
+                  <div class="h3">{{'HOME.WIDGETS.VIDEOS.TITLE' | translate}}</div>
+
+                  <button mat-icon-button fuseWidgetToggle class="fuse-widget-flip-button" aria-label="more">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                </div>
+
+                <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                  <div class="red-900-fg font-size-72 line-height-72">
+                    <!-- {{widgets.widget1.data.count[widgets.widget1.currentRange]}} -->
+                    {{totalVideos}}
+                  </div>
+                  <!-- <div class="h3 secondary-text font-weight-500">{{widgets.widget1.data.label}} -->
+                  <div class="h3 secondary-text font-weight-500">{{'HOME.WIDGETS.VIDEOS.DESCRIPTION' | translate}}
+                  </div>
+                </div>
+
+              </div>
+              <!-- / Front -->
+
+              <!-- Back -->
+              <div class="fuse-widget-back p-16 pt-32">
+                <button mat-icon-button fuseWidgetToggle class="fuse-widget-flip-button" aria-label="Flip widget">
+                  <mat-icon class="s-16">close</mat-icon>
+                </button>
+
+                <div>
+                  {{'HOME.WIDGETS.VIDEOS.DETAILS' | translate}}
+                </div>
+              </div>
+              <!-- / Back -->
+
+            </fuse-widget>
+            <!-- / VIDEOS -->
+
+            <!-- Important Informations -->
+            <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" fxLayout="row" fxFlex="100" class="widget widget5">
+              <!-- Front -->
+              <div class="fuse-widget-front">
+                <div class="px-16 border-bottom" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                  <div fxFlex class="py-16 h3">{{'HOME.WIDGETS.IMPORTANT_INFORMATIONS.TITLE' | translate}}</div>
+                </div>
+                <div>
+                  <table class="simple clickable">
+                    <!-- <thead>
+                      <tr>
+                        <th class="text-left">Date</th>
+                        <th class="text-left">Message</th>
+                        <th></th>
+                      </tr>
+                    </thead> -->
+                    <tbody>
+                      <tr *ngFor="let userMessage of userMessages">
+                        <td class="text-left">{{userMessage.date | date:'dd/MM/yyyy'}}</td>
+                        <td class="text-left">{{userMessage.message}}</td>
+                        <td class="text-right">
+                          <button mat-icon-button (click)="deleteMessage(userMessage)">
+                            <mat-icon class="s-16">close</mat-icon>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- / Front -->
+            </fuse-widget>
+            <!-- / Important Informations -->
+          </div>
+          <!-- / WIDGET GROUP -->
+        </mat-tab>
+
+        <mat-tab label="{{'HOME.FINANCIAL_TAB.TITLE' | translate}}">
+
+          <mat-tab-group dynamicHeight>
+            <mat-tab label="{{'HOME.FINANCIAL_TAB.BALANCES_TAB.TITLE' | translate}}">
+              <div class="widget-group p-12" fxLayout="row wrap" fxFlex="100" *fuseIfOnDom [@animateStagger]="{value:'50'}">
+                <fuse-widget *ngFor="let pokerRoom of pokerRooms" [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25">
+
+                  <div class="fuse-widget-front">
+                    <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="center">
+                      <div class="h3">{{pokerRoom.name}}</div>
+                    </div>
+
+                    <div class="pt-8 pb-40" fxLayout="column" fxLayoutAlign="center center">
+                      <div class="font-size-28 line-height-36" [ngClass]="{'green-900-fg': pokerRoom.balance >= 0, 'red-900-fg': pokerRoom.balance < 0}">
+                        <!-- {{widgets.widget1.data.count[widgets.widget1.currentRange]}} -->
+                        <div [ngSwitch]="pokerRoom.currency">
+                          <span *ngSwitchCase="'pt'">{{pokerRoom.balance | currency:'BRL':'symbol':'1.2':'pt'}}</span>
+                          <span *ngSwitchCase="'en-US'">{{pokerRoom.balance | currency:'USD':'symbol':'1.2':'pt'}}</span>
+                          <span *ngSwitchCase="'eur'">{{pokerRoom.balance | currency:'EUR':'symbol':'1.2':'pt'}}</span>
+                          <span *ngSwitchDefault>{{pokerRoom.balance | currency:'USD':'symbol':'1.2':'pt'}}</span>
+                        </div>
+                      </div>
+                      <!-- <div class="h3 secondary-text font-weight-500">{{widgets.widget1.data.label}} -->
+                      <div class="h3 secondary-text font-weight-500">{{'HOME.WIDGETS.FINANCIAL.BALANCE' | translate}}
+                      </div>
+                    </div>
+                    <!-- <div style="position: absolute;
+                          bottom: 0; 
+                          height: auto;
+                          width: 100%;" fxLayoutAlign="center" class="h3 secondary-text font-weight-500">
+                      <button mat-button aria-label="more">
+                        <mat-icon>attach_money</mat-icon>
+                        {{'HOME.FINANCIAL_TAB.BALANCES_TAB.MONEY_REQUEST' | translate}}
+                      </button>
+                    </div> -->
+
+                  </div>
+                </fuse-widget>
+              </div>
+            </mat-tab>
+
+            <mat-tab label="{{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.TITLE' | translate}}">
+              <div class="p-12" style="flex: 1">
+                <div class="money-request-container mat-elevation-z8">
+                  <form [formGroup]="moneyRequestForm">
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                      <mat-form-field class="w-30-p">
+                        <input matInput [matDatepicker]="dp3" placeholder="{{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.DATE' | translate}}" formControlName="date" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                        <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                      </mat-form-field>
+                      <div class="divider"></div>
+                      <mat-form-field class="w-100-p">
+                        <mat-select placeholder="{{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.POKER_ROOM' | translate}}" formControlName="pokerRoom" required>
+                          <mat-option *ngFor="let pokerRoom of pokerRooms" [value]="pokerRoom">
+                            {{pokerRoom.name}}
+                          </mat-option>
+                        </mat-select>
+                        <!-- <mat-error *ngIf="!moneyRequestPokerRoom">
+                              {{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.ERRORS.POKERROOM_REQUIRED' | translate}}</mat-error> -->
+                      </mat-form-field>
+                      <div class="divider"></div>
+                      <mat-form-field class="w-100-p" *ngIf="canInformValueAtMoneyRequest">
+                        <mat-label>{{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.VALUE' | translate}}</mat-label>
+                        <mat-icon matPrefix class="mr-12 s-20 secondary-text">attach_money</mat-icon>
+                        <input matInput name="value" formControlName="value">
+                        <mat-error>{{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.ERRORS.MONEY_VALUE_REQUIRED' | translate}}
+                        </mat-error>
+                      </mat-form-field>
+                      <div class="divider"></div>
+                      <button mat-raised-button class="w-30-p send-button" [disabled]="moneyRequestForm.invalid" (click)="sendMoneyRequest()">{{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.SEND_BUTTON' | translate}}</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="moneyRequestsContainer m-12 mat-elevation-z8" style="flex: 0 0 65%;">
+                <mat-table class="moneyRequesttable" #table [dataSource]="moneyRequestsDataSource?.data" [@animateStagger]="{value:'50'}">
+
+                  <ng-container matColumnDef="date">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      {{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.MONEY_REQUEST_DATE' | translate}}</mat-header-cell>
+                    <mat-cell *matCellDef="let moneyRequest">
+                      <p class="text-truncate">{{moneyRequest.date | date:'dd/MM/yyyy'}}</p>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="pokerRoom">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      {{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.POKER_ROOM' | translate}}</mat-header-cell>
+                    <mat-cell *matCellDef="let moneyRequest">
+                      <p class="text-truncate">{{moneyRequest.pokerRoom.name}}</p>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="value">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      {{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.VALUE' | translate}}</mat-header-cell>
+                    <mat-cell *matCellDef="let moneyRequest">
+                      <span *ngIf="!moneyRequest.value">-</span>
+
+                      <div [ngSwitch]="moneyRequest.pokerRoom.currency" *ngIf="moneyRequest.value">
+                        <span *ngSwitchCase="'pt'">{{moneyRequest.value | currency:'BRL':'symbol':'1.2':'pt'}}</span>
+                        <span *ngSwitchCase="'en-US'">{{moneyRequest.value | currency:'USD':'symbol':'1.2':'pt'}}</span>
+                        <span *ngSwitchCase="'eur'">{{moneyRequest.value | currency:'EUR':'symbol':'1.2':'pt'}}</span>
+                        <span *ngSwitchDefault>{{moneyRequest.value | currency:'USD':'symbol':'1.2':'pt'}}</span>
+                      </div>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="situation">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>
+                      {{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.SITUATION' | translate}}</mat-header-cell>
+                    <mat-cell *matCellDef="let moneyRequest" fxHide fxShow.gt-xs>
+                      <div [ngSwitch]="moneyRequest.status">
+                        <mat-icon *ngSwitchCase="2" class="active-icon green-600 s-16" matTooltipPosition="above" matTooltip="{{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.STATUS.APPROVED' | translate}}">check</mat-icon>
+                        <mat-icon *ngSwitchCase="1" class="active-icon red-500 s-16" matTooltipPosition="above" matTooltip="{{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.STATUS.REFUSED' | translate}}">close</mat-icon>
+                        <mat-icon *ngSwitchCase="0" class="active-icon yellow-600 s-16" matTooltipPosition="above" matTooltip="{{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.STATUS.WAITING' | translate}}">change_history
+                        </mat-icon>
+                      </div>
+                      <div *ngIf="moneyRequest?.details">
+                        <mat-icon style="margin-left: 5px;" class="s-16" matTooltip="{{moneyRequest?.details}}">info</mat-icon>
+                      </div>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="moneyRequestsDisplayedColumns; sticky:true"></mat-header-row>
+
+                  <mat-row *matRowDef="let moneyRequest; columns: moneyRequestsDisplayedColumns;" class="user" matRipple>
+                  </mat-row>
+
+                </mat-table>
+                <mat-paginator class="paginator-footer" [showFirstLastButtons]="true" [length]="moneyRequestsDataSource?.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+
+        </mat-tab>
+
+        <mat-tab label="{{'HOME.TEAM_MEMBERS_TAB' | translate}}">
+          <div class="widget-group" fxLayout="row wrap" fxFlex="100" *fuseIfOnDom [@animateStagger]="{value:'50'}">
+
+            <!-- WIDGET 11 -->
+            <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="row" fxFlex="100">
+
+              <!-- Front -->
+              <div class="fuse-widget-front">
+
+                <div class="p-24 mb-8 border-bottom" fxLayout="row" fxLayoutAlign="space-between center">
+                  <div class="h2">{{'HOME.WIDGETS.TEAM_MEMBERS_TAB.TITLE' | translate}}</div>
+                  <div class="text-boxed accent m-0">
+                    {{teamMembers.length}}
+                    {{'HOME.WIDGETS.TEAM_MEMBERS_TAB.TOTAL_TEAM_MEMBERS' | translate}}
+                  </div>
+                </div>
+
+                <mat-table #table [dataSource]="teamMembers">
+                  <!-- Avatar Column -->
+                  <ng-container matColumnDef="avatar">
+                    <mat-header-cell fxFlex="96px" *matHeaderCellDef></mat-header-cell>
+                    <mat-cell fxFlex="96px" *matCellDef="let teamMember">
+                      <img class="avatar" *ngIf="teamMember.avatarHash" [alt]="teamMember.name" src="https://www.gravatar.com/avatar/{{teamMember.avatarHash}}" />
+                    </mat-cell>
+                  </ng-container>
+
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef>{{'HOME.WIDGETS.TEAM_MEMBERS_TAB.NAME' | translate}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let teamMember">
+                      <p class="text-truncate font-weight-600">{{teamMember?.name}}
+                        {{teamMember?.lastName}}</p>
+                    </mat-cell>
+                  </ng-container>
+
+                  <!-- Group Column -->
+                  <ng-container matColumnDef="group">
+                    <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>{{'HOME.WIDGETS.TEAM_MEMBERS_TAB.GROUP' |
+                      translate}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let teamMember" fxHide fxShow.gt-sm>
+                      <p class="position text-truncate">
+                        {{getTeamMemberGroupName(teamMember)}}
+                      </p>
+                    </mat-cell>
+                  </ng-container>
+
+                  <!-- Email Column -->
+                  <ng-container matColumnDef="email">
+                    <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Email
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let teamMember" fxHide fxShow.gt-sm>
+                      <p class="email text-truncate">
+                        {{teamMember?.email}}
+                      </p>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="teamMemberGridColumns"></mat-header-row>
+                  <mat-row *matRowDef="let teamMember; columns: teamMemberGridColumns;">
+                  </mat-row>
+                </mat-table>
+              </div>
+              <!-- / Front -->
+
+            </fuse-widget>
+            <!-- / WIDGET 11 -->
+
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+
+    </div>
+    <!-- / CONTENT -->
+
+  </div>
+  <!-- / CENTER -->
+</div>

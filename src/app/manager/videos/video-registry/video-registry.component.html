@@ -1,0 +1,112 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar matDialogTitle class="mat-accent m-0">
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+      <span>
+        {{data.name || dialogTitle | slice:0:55}}
+        <span *ngIf="data.name.length > 55">...</span>
+      </span>
+      
+      <button mat-icon-button (click)="_dialogRef.close()" aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+    <form [formGroup]="videoForm">
+
+      <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field fxFlex>
+          <mat-label>{{'VIDEOS_REGISTRY.NAME' | translate}}</mat-label>
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
+          <input name="name" formControlName="name" matInput required maxlength="100">
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field fxFlex>
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">group</mat-icon>
+          <mat-select placeholder="{{'VIDEOS_REGISTRY.GROUP_FIELD' | translate}}" formControlName="group" required>
+            <mat-option>{{'VIDEOS_REGISTRY.NONE_CATEGORY' | translate}}</mat-option>
+            <mat-option *ngFor="let group of groups" [value]="group">
+              {{group.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex class="categoryField">
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">category</mat-icon>
+          <mat-select placeholder="{{'VIDEOS_REGISTRY.CATEGORY_FIELD' | translate}}" formControlName="category"
+            required>
+            <mat-option>{{'VIDEOS_REGISTRY.NONE_CATEGORY' | translate}}</mat-option>
+            <mat-option *ngFor="let category of categories" [value]="category">
+              {{category.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field fxFlex>
+          <!-- <mat-label>{{'VIDEOS_REGISTRY.INSTRUCTOR' | translate}}</mat-label> -->
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">perm_identity</mat-icon>
+          <input type="text" placeholder="{{'VIDEOS_REGISTRY.INSTRUCTOR' | translate}}" matInput formControlName="instructor"
+            required [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayInstructorName">
+            <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+              <mat-icon matPrefix class="mr-12 s-20 secondary-text">perm_identity</mat-icon>
+              <span>{{user.name}} {{user.lastName}}</span>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field fxFlex class="durationField">
+          <mat-label>{{'VIDEOS_REGISTRY.DURATION' | translate}}</mat-label>
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">access_time</mat-icon>
+          <input name="duration" formControlName="duration" matInput>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field fxFlex>
+          <mat-label>{{'VIDEOS_REGISTRY.CODE' | translate}}</mat-label>
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">link</mat-icon>
+          <input name="url" formControlName="url" matInput>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" class="textarea-wrapper" fxLayoutAlign="start start">
+        <mat-form-field fxFlex>
+          <mat-label>{{'VIDEOS_REGISTRY.DESCRIPTION' | translate}}</mat-label>
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">description</mat-icon>
+          <input name="description" formControlName="description" matInput maxlength="100">
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" class="textarea-wrapper" fxLayoutAlign="start start">
+        <mat-form-field fxFlex>
+          <mat-label>{{'VIDEOS_REGISTRY.DETAILS' | translate}}</mat-label>
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">details</mat-icon>
+          <textarea name="details" formControlName="details" matInput type="text" rows="10" max-rows="10"></textarea>
+        </mat-form-field>
+      </div>
+
+    </form>
+
+  </div>
+
+  <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+    <button *ngIf="editing" mat-button class="mr-8" (click)="_dialogRef.close(['delete',videoForm])" aria-label="Delete"
+      matTooltip="Delete">
+      {{'VIDEOS_REGISTRY.DELETE' | translate}}
+    </button>
+    <button *ngIf="!editing" mat-button class="save-button" (click)="_dialogRef.close(['add',videoForm])" [disabled]="videoForm.invalid"
+      aria-label="ADD">
+      {{'VIDEOS_REGISTRY.ADD' | translate}}
+    </button>
+    <button *ngIf="editing" mat-button class="save-button" (click)="_dialogRef.close(['update',videoForm])" [disabled]="videoForm.invalid"
+      aria-label="SAVE">
+      {{'VIDEOS_REGISTRY.SAVE' | translate}}
+    </button>
+  </div>
+</div>

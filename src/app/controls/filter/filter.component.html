@@ -1,0 +1,21 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-icon>filter_list</mat-icon>
+    <span [ngClass]="{filterTitle: selectedOptions.length <= 0, filterTitleBold: selectedOptions.length > 0}">{{filterTitle}}</span>
+    <span *ngIf="selectedOptions.length > 0" style="padding-left: 5px;">
+      <span class="filterTitleCount">({{selectedOptions.length}})</span>
+    </span>
+  </mat-expansion-panel-header>
+  <ng-template matExpansionPanelContent>
+    <div fxLayout="row" fxLayout.xs="column">
+      <span *ngIf="groups.length <= 0">{{noFiltersText}}</span>
+      <div *ngFor="let group of groups" fxFlex>
+        <h4 class="groupName">{{group.name | uppercase}}</h4>
+        <div class="optionItemContainer" *ngFor="let option of group.options" class="optionName" (click)="onOptionSelected(option)">
+          <span class="optionItem">{{option.name}}</span>
+          <span class="optionItemDelete" *ngIf="option.isSelected">X</span>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</mat-expansion-panel>

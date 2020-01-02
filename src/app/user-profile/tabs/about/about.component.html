@@ -1,0 +1,79 @@
+<div id="about" class="p-24" fxLayout="row wrap">
+    <div class="about-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="30">
+        <div class="profile-box info-box general" fxLayout="column">
+            <header class="accent">
+                <div class="title">{{'USER_PROFILE.TABS.ABOUT.CHANGE_PASSWORD.TITLE' | translate}}</div>
+            </header>
+            <div class="content">
+                <form [formGroup]="changePasswordForm">
+                    <div>
+                        <mat-error *ngIf="passwordDontMatch">
+                            {{'USER_PROFILE.TABS.ABOUT.CHANGE_PASSWORD.WRONG_PASSWORD' | translate}}
+                        </mat-error>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field fxFlex>
+                            <mat-label>{{'USER_PROFILE.TABS.ABOUT.CHANGE_PASSWORD.CURRENT_PASSWORD' | translate}}</mat-label>
+                            <mat-icon matPrefix class="mr-12 s-20 secondary-text">vpn_key</mat-icon>
+                            <input type="password" name="currentPassword" formControlName="currentPassword" matInput
+                                required>
+                            <mat-error *ngIf="changePasswordForm.get('currentPassword').hasError('required')">
+                                {{'USER_PROFILE.TABS.ABOUT.CHANGE_PASSWORD.REQUIRED' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field fxFlex>
+                            <mat-label>{{'USER_PROFILE.TABS.ABOUT.CHANGE_PASSWORD.NEW_PASSWORD' | translate}}</mat-label>
+                            <mat-icon matPrefix class="mr-12 s-20 secondary-text">vpn_key</mat-icon>
+                            <input type="password" name="newPassword" formControlName="newPassword" matInput required>
+                            <mat-error *ngIf="changePasswordForm.get('newPassword').hasError('required')">
+                                {{'USER_PROFILE.TABS.ABOUT.CHANGE_PASSWORD.REQUIRED' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field fxFlex>
+                            <mat-label>{{'USER_PROFILE.TABS.ABOUT.CHANGE_PASSWORD.CONFIRM_NEW_PASSWORD' | translate}}</mat-label>
+                            <mat-icon matPrefix class="mr-12 s-20 secondary-text">vpn_key</mat-icon>
+                            <input type="password" name="confirmNewPassword" formControlName="confirmNewPassword"
+                                matInput required>
+                            <mat-error *ngIf="changePasswordForm.get('confirmNewPassword').hasError('required')">
+                                {{'USER_PROFILE.TABS.ABOUT.CHANGE_PASSWORD.REQUIRED' | translate}}
+                            </mat-error>
+                            <mat-error *ngIf="changePasswordForm.get('confirmNewPassword').hasError('passwordsDoesntMatch')">
+                                {{'USER_PROFILE.TABS.ABOUT.CHANGE_PASSWORD.DIF_PASSWORDS' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </form>
+
+                <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+                    <button mat-button class="save-button" (click)="save()" [disabled]="changePasswordForm.invalid"
+                        aria-label="SAVE">
+                        {{'USER_PROFILE.TABS.ABOUT.CHANGE_PASSWORD.SAVE' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="about-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="30">
+        <div class="profile-box info-box general" fxLayout="column">
+            <header class="accent">
+                <div class="title">{{'USER_PROFILE.TABS.ABOUT.CHANGE_THEME.TITLE' | translate}}</div>
+            </header>
+            <div class="content">
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field fxFlex>
+                        <mat-select placeholder="{{'USER_PROFILE.TABS.ABOUT.CHANGE_THEME.THEMES' | translate}}" [ngModel]="selectedTheme" (selectionChange)="onThemeSelectionChanged($event.value)">
+                            <mat-option *ngFor="let theme of themes" [value]="theme.value">
+                                {{'USER_PROFILE.TABS.ABOUT.CHANGE_THEME.' + theme.key | translate}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+// Import Fuse core library
+@import "@fuse/scss/core";
+
+// Import app.theme.scss
+@import "app/app.theme";
+
+//Themes for ngx-toastr
+@import '~ngx-toastr/toastr';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+//@import '~ngx-toastr/toastr-bs4-alert';
+//Themes for ngx-toastr
+
+.divider{
+    width:20px;
+    height:auto;
+    display:inline-block;
+}
+
+.paginator-footer {
+    bottom:0px; 
+    position:sticky;
+    z-index:10;
+}
