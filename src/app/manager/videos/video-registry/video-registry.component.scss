@@ -1,7 +1,7 @@
 @import "src/@fuse/scss/fuse";
 
 //panelClass not working
-//.video-form-dialog {
+.videoForm {
 
     @include media-breakpoint('xs') {
         width: 100%;
@@ -37,4 +37,4 @@
             margin: 0 0 0 15px;
         }
     }
-//}
+}

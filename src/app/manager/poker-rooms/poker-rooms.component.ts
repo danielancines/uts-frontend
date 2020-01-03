@@ -24,8 +24,8 @@ export class PokerRoomsComponent implements OnInit, AfterViewInit {
   users: IPokerRoom[] = [];
   confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
   loading: Boolean;
-  @ViewChild(MatTable) table: MatTable<any>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatTable, {static: true}) table: MatTable<any>;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   
   constructor(
     private _rolesValidatorService: RolesValidatorService,

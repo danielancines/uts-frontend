@@ -24,8 +24,8 @@ export class CategoriesComponent implements OnInit, AfterViewInit {
   categories: ICategory[] = [];
   confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
   loading: Boolean;
-  @ViewChild(MatTable) table: MatTable<any>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatTable, {static: true}) table: MatTable<any>;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
     private _router: Router,

@@ -12,7 +12,8 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
     styleUrls: ['./style-1.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class NavbarHorizontalStyle1Component implements OnInit, OnDestroy {
+export class NavbarHorizontalStyle1Component implements OnInit, OnDestroy
+{
     fuseConfig: any;
     navigation: any;
 
@@ -30,7 +31,8 @@ export class NavbarHorizontalStyle1Component implements OnInit, OnDestroy {
         private _fuseConfigService: FuseConfigService,
         private _fuseNavigationService: FuseNavigationService,
         private _fuseSidebarService: FuseSidebarService
-    ) {
+    )
+    {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
     }
@@ -42,7 +44,8 @@ export class NavbarHorizontalStyle1Component implements OnInit, OnDestroy {
     /**
      * On init
      */
-    ngOnInit(): void {
+    ngOnInit(): void
+    {
         // Get current navigation
         this._fuseNavigationService.onNavigationChanged
             .pipe(
@@ -64,7 +67,8 @@ export class NavbarHorizontalStyle1Component implements OnInit, OnDestroy {
     /**
      * On destroy
      */
-    ngOnDestroy(): void {
+    ngOnDestroy(): void
+    {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();

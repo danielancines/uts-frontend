@@ -56,8 +56,8 @@ export class UserComponent extends ComponentBase implements OnInit, AfterViewIni
   userPokerRoomsDataSource: IUserPokerRoom[] = [];
   pokerRoomsDisplayedColumns: string[] = ['name', 'nickName', 'fullName', 'email', 'moreInformation'];
 
-  @ViewChild('groupsPaginator') groupsPaginator: MatPaginator;
-  @ViewChild('rolesPaginator') rolesPaginator: MatPaginator;
+  @ViewChild('groupsPaginator', {static: true}) groupsPaginator: MatPaginator;
+  @ViewChild('rolesPaginator', {static: true}) rolesPaginator: MatPaginator;
 
   constructor(
     private _router: Router,
