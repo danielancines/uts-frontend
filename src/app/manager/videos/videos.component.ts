@@ -25,8 +25,8 @@ export class VideosComponent implements AfterViewInit, OnInit {
   searchTerm: string = '';
   loading: Boolean;
   videosCount: number = 0;
-  @ViewChild(MatTable) table: MatTable<any>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatTable, {static: true}) table: MatTable<any>;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
     private _videosServices: VideosService,

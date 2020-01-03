@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
   canInformValueAtMoneyRequest: boolean;
   userMessages: any[] = [];
   lastWatchedVideos: any[] = [];
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
     private _formBuilder: FormBuilder,

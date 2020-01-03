@@ -25,8 +25,8 @@ export class GamesAndBalanceComponent implements OnInit {
 
   private _intialQueryString: string = '?populate=user&populate=pokerRoom&orderBy=date desc';
   
-  @ViewChild(MatTable) table: MatTable<any>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatTable, {static: true}) table: MatTable<any>;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
     private _router: Router,
