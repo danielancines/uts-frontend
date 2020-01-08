@@ -96,7 +96,7 @@ export class MoneyRequestComponent extends ComponentBase implements OnInit {
       userName: [this.moneyRequest.user ? this.getPokerRoomUserName() : null],
       userEmail: [this.moneyRequest.pokerRoom ? this.getUserPokerRoomEmail() : null],
       value: [this.moneyRequest.value, [Validators.pattern("\\-?\\d*\\.?\\d{1,2}")]],
-      date: [formatDate(this.moneyRequest.date, 'dd/MM/yyyy', 'pt')],
+      date: [formatDate(this.moneyRequest.date, 'dd/MM/yyyy - HH:mm', 'pt')],
       status: [this.moneyRequest.status.toString()],
       details: [this.moneyRequest.details],
       pokerRoomName: [this.moneyRequest.pokerRoom.name],
