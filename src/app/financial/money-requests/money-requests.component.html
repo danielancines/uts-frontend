@@ -7,7 +7,8 @@
   <div class="center">
     <mat-progress-bar *ngIf="dataSource?.loadingData" mode="indeterminate"></mat-progress-bar>
     <!-- HEADER -->
-    <div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+    <div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+      fxLayoutAlign.gt-sm="space-between center">
 
       <!-- APP TITLE -->
       <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
@@ -24,7 +25,8 @@
       <div class="search-wrapper mx-32 mx-md-0" *ngIf="false">
         <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
           <mat-icon>search</mat-icon>
-          <input #filter placeholder="{{'GLOBAL.FILTER' | translate}}" [value]="searchTerm" (keyup)="applyFilter($event.target.value)">
+          <input #filter placeholder="{{'GLOBAL.FILTER' | translate}}" [value]="searchTerm"
+            (keyup)="applyFilter($event.target.value)">
         </div>
       </div>
       <!-- / SEARCH -->
@@ -46,13 +48,28 @@
 
     <!-- CONTENT CARD -->
     <div class="content-card">
-      <div>
-        <div class="filter" fxLayout="row" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
-          <app-filter class="filterControl" [groups]="filterGroups" noFiltersTextTranslationKey="GLOBAL.NO_FILTER_TEXT" filterTitleTranslationKey="GLOBAL.FILTER" (selectedFilterOptionsChanged)="optionSelected($event)" [selectedFilterOptions]="selectedFilterOptions"></app-filter>
+      <div fxLayout="column" fxLayoutAlign="center">
+        <div class="filter" fxLayout="row" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+          fxLayoutAlign.gt-xs="space-between center">
+          <app-filter class="filterControl" [groups]="filterGroups" noFiltersTextTranslationKey="GLOBAL.NO_FILTER_TEXT"
+            filterTitleTranslationKey="GLOBAL.FILTER" (selectedFilterOptionsChanged)="optionSelected($event)"
+            [selectedFilterOptions]="selectedFilterOptions"></app-filter>
+        </div>
+        <div class="filters" fxLayout="row" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+          fxLayoutAlign.gt-xs="space-between center">
+          <mat-form-field class="poker-room-filter">
+            <mat-label>{{'MONEY_REQUESTS_MAIN.FILTER_OPTIONS.BY_POKER_ROOM.TITLE' | translate}}</mat-label>
+            <mat-select [(ngModel)]="selectedPokerRoom" (selectionChange)="pokerRoomChanged($event.value)">
+              <mat-option *ngFor="let pokerRoom of pokerRooms" [value]="pokerRoom">
+                {{pokerRoom.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
 
-      <mat-table class="money-requests-table" #table [dataSource]="dataSource?.data" matSort [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+      <mat-table class="money-requests-table" #table [dataSource]="dataSource?.data" matSort
+        [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
 
         <ng-container matColumnDef="date">
           <mat-header-cell *matHeaderCellDef mat-sort-header>{{'MONEY_REQUESTS_MAIN.DATE' | translate}}
@@ -98,9 +115,12 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let moneyRequest" fxHide fxShow.gt-xs>
             <div [ngSwitch]="moneyRequest.status">
-              <mat-icon *ngSwitchCase="2" class="active-icon green-600 s-16" matTooltipPosition="above" matTooltip="{{'MONEY_REQUESTS_MAIN.MONEY_REQUEST_STATUS.APPROVED' | translate}}">check</mat-icon>
-              <mat-icon *ngSwitchCase="1" class="active-icon red-500 s-16" matTooltipPosition="above" matTooltip="{{'MONEY_REQUESTS_MAIN.MONEY_REQUEST_STATUS.REFUSED' | translate}}">close</mat-icon>
-              <mat-icon *ngSwitchCase="0" class="active-icon yellow-600 s-16" matTooltipPosition="above" matTooltip="{{'MONEY_REQUESTS_MAIN.MONEY_REQUEST_STATUS.WAITING' | translate}}">change_history
+              <mat-icon *ngSwitchCase="2" class="active-icon green-600 s-16" matTooltipPosition="above"
+                matTooltip="{{'MONEY_REQUESTS_MAIN.MONEY_REQUEST_STATUS.APPROVED' | translate}}">check</mat-icon>
+              <mat-icon *ngSwitchCase="1" class="active-icon red-500 s-16" matTooltipPosition="above"
+                matTooltip="{{'MONEY_REQUESTS_MAIN.MONEY_REQUEST_STATUS.REFUSED' | translate}}">close</mat-icon>
+              <mat-icon *ngSwitchCase="0" class="active-icon yellow-600 s-16" matTooltipPosition="above"
+                matTooltip="{{'MONEY_REQUESTS_MAIN.MONEY_REQUEST_STATUS.WAITING' | translate}}">change_history
               </mat-icon>
             </div>
           </mat-cell>
@@ -108,12 +128,14 @@
 
         <mat-header-row *matHeaderRowDef="dataSource?.displayedColumns; sticky:true"></mat-header-row>
 
-        <mat-row *matRowDef="let moneyRequest; columns: dataSource?.displayedColumns;" class="money-request" matRipple (click)="edit(moneyRequest)">
+        <mat-row *matRowDef="let moneyRequest; columns: dataSource?.displayedColumns;" class="money-request" matRipple
+          (click)="edit(moneyRequest)">
         </mat-row>
 
       </mat-table>
 
-      <mat-paginator [showFirstLastButtons]="true" [length]="dataSource?.totalCount" [pageSize]="10" [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+      <mat-paginator [showFirstLastButtons]="true" [length]="dataSource?.totalCount" [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
 
     </div>
     <!-- / CONTENT CARD -->
