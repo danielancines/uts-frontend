@@ -1,6 +1,6 @@
 import { GroupsService } from './../manager/groups/groups.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.service';
 import { locale as english } from './i18n/en';
@@ -17,6 +17,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { QueryHelper } from 'app/controls/filter/helper/query.helper';
 import { HttpParams } from '@angular/common/http';
 import { IGroup } from 'app/manager/groups/group.model';
+import { MatPaginator } from '@angular/material';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-videos',
@@ -27,6 +29,7 @@ import { IGroup } from 'app/manager/groups/group.model';
 export class VideosLibraryComponent implements OnInit {
   test: string;
   items: any[];
+  totalCount: number;
   categories: ICategory[];
   groups: IGroup[];
   searchTerm: String = '';
@@ -35,6 +38,7 @@ export class VideosLibraryComponent implements OnInit {
   selectedGroup: IGroup;
   filterGroups: IFilterGroup[] = [];
   selectedFilterOptions: IFilterOption[];
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   private _videoLibraryFilterOptions = 'videoLibraryFilterOptions';
   private _queryHelper: QueryHelper = new QueryHelper();
@@ -53,6 +57,7 @@ export class VideosLibraryComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
+    this.initializePaginator();
   }
 
   filterVideosByCategory(category: ICategory): void {
@@ -72,7 +77,7 @@ export class VideosLibraryComponent implements OnInit {
   }
 
   filterVideosByTerm(): void {
-    if (this.searchTerm){
+    if (this.searchTerm) {
       this.loadVideosByTerm(this.searchTerm);
     } else {
       this.loadVideos();
@@ -88,36 +93,54 @@ export class VideosLibraryComponent implements OnInit {
     }
   }
 
-  loadVideosByTerm(term): void {
-    this.selectedCategory = null;
-    this.selectedGroup = null;
+  loadVideosByTerm(term, limit = 12, page = 0): void {
+    this.selectedCategory = undefined;
+    this.selectedGroup = undefined;
     this.loading = true;
 
-    const params = this._queryHelper.optionsToQueryParams(this.selectedFilterOptions);   
-    this._usersService.getVideosByTerm(this._authenticationService.user._id, term, params)
-      .subscribe(data => {
-        this.items = data;
+    let httpParams = this._queryHelper.optionsToQueryParams(this.selectedFilterOptions);
+    httpParams = httpParams.append('skip', (limit * page).toString());
+    httpParams = httpParams.append('limit', limit.toString());
+
+    this._usersService.getVideosByTerm(this._authenticationService.user._id, term, httpParams)
+      .subscribe(response => {
+        this.items = response.data;
+        this.totalCount = response.totalCount;
         this.loading = false;
       });
   }
 
-  loadVideosByCategory(id): void {
+  loadVideosByCategory(id, limit = 12, page = 0): void {
     this.searchTerm = '';
+    this.selectedGroup = undefined;
     this.loading = true;
-    const params = this._queryHelper.optionsToQueryParams(this.selectedFilterOptions);   
-    this._usersService.getVideosByCategory(this._authenticationService.user._id, id, params)
-      .subscribe(data => {
-        this.items = data;
+    let httpParams = this._queryHelper.optionsToQueryParams(this.selectedFilterOptions);
+    httpParams = httpParams.append('skip', (limit * page).toString());
+    httpParams = httpParams.append('limit', limit.toString());
+
+    this._usersService.getVideosByCategory(this._authenticationService.user._id, id, httpParams)
+      .subscribe(response => {
+        this.items = response.data;
+        this.totalCount = response.totalCount;
         this.loading = false;
       });
   }
 
-  loadVideos(): Promise<void> {
+  loadVideos(limit = 12, page = 0): Promise<void> {
+    this.searchTerm = undefined;
+    this.selectedCategory = undefined;
+    this.selectedGroup = undefined;
+
     this.loading = true;
     return new Promise((resolve, reject) => {
-      this._usersService.getVideos(this._authenticationService.user._id, this._queryHelper.optionsToQueryParams(this.selectedFilterOptions))
+      let httpParams = this._queryHelper.optionsToQueryParams(this.selectedFilterOptions);
+      httpParams = httpParams.append('skip', (limit * page).toString());
+      httpParams = httpParams.append('limit', limit.toString());
+
+      this._usersService.getVideos(this._authenticationService.user._id, httpParams)
         .subscribe(response => {
           this.items = response.data;
+          this.totalCount = response.totalCount;
           this.loading = false;
           resolve();
         });
@@ -136,10 +159,10 @@ export class VideosLibraryComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   async loadData() {
-    if (this._cookieService.check(this._videoLibraryFilterOptions)){
+    if (this._cookieService.check(this._videoLibraryFilterOptions)) {
       this.selectedFilterOptions = <IFilterOption[]>JSON.parse(this._cookieService.get(this._videoLibraryFilterOptions));
     }
-    
+
     this.loadFilterGroups();
     this.loading = true;
     await Promise.all([this.loadVideos(), this.loadCategories(), this.loadGroups()]);
@@ -152,8 +175,8 @@ export class VideosLibraryComponent implements OnInit {
 
   optionSelected(selectedOptions: IFilterOption[]): void {
     this.searchTerm = '';
-    this.selectedCategory = null;
-    this.selectedGroup = null;
+    this.selectedCategory = undefined;
+    this.selectedGroup = undefined;
     this.selectedFilterOptions = selectedOptions;
     this._cookieService.set(this._videoLibraryFilterOptions, JSON.stringify(selectedOptions));
     this.loadVideos();
@@ -169,73 +192,107 @@ export class VideosLibraryComponent implements OnInit {
     });
   }
 
-  private loadVideosByGroup(id): void {
-    this.searchTerm = '';
+  private loadVideosByGroup(groupId, limit = 12, page = 0): void {
+    this.searchTerm = undefined;
+    this.selectedCategory = undefined;
     this.loading = true;
-    const params = this._queryHelper.optionsToQueryParams(this.selectedFilterOptions);   
-    this._usersService.getVideosByGroup(this._authenticationService.user._id, id, params)
-      .subscribe(data => {
-        this.items = data;
+
+    let httpParams = this._queryHelper.optionsToQueryParams(this.selectedFilterOptions);
+    httpParams = httpParams.append('skip', (limit * page).toString());
+    httpParams = httpParams.append('limit', limit.toString());
+
+    this._usersService.getVideosByGroup(this._authenticationService.user._id, groupId, httpParams)
+      .subscribe(response => {
+        this.items = response.data;
+        this.totalCount = response.totalCount;
         this.loading = false;
       });
   }
 
   private loadFilterGroups(): void {
     this._translateService.get('VIDEOS_LIBRARY_MAIN.FILTER_OPTIONS')
-    .subscribe(translation => {
-      this.filterGroups.push(
-        <IFilterGroup>{
-          name: translation.CLASSIFY_BY.TITLE,
-          options: [
-            <IFilterOption>{
-              name: translation.CLASSIFY_BY.BY_NAME,
-              query: {
-                operation: 'orderBy',
-                value: 'name'
+      .subscribe(translation => {
+        this.filterGroups.push(
+          <IFilterGroup>{
+            name: translation.CLASSIFY_BY.TITLE,
+            options: [
+              <IFilterOption>{
+                name: translation.CLASSIFY_BY.BY_NAME,
+                query: {
+                  operation: 'orderBy',
+                  value: 'name'
+                }
+              },
+              <IFilterOption>{
+                name: translation.CLASSIFY_BY.BY_ADD_DATE,
+                query: {
+                  operation: 'orderBy',
+                  value: 'date desc'
+                }
               }
-            },
-            <IFilterOption>{
-              name: translation.CLASSIFY_BY.BY_ADD_DATE,
-              query: {
-                operation: 'orderBy',
-                value: 'date'
+            ]
+          },
+          <IFilterGroup>{
+            name: translation.LIST.TITLE,
+            options: [
+              <IFilterOption>{
+                name: translation.LIST.USER_CAN_WATCH,
+                query: {
+                  operation: 'userCanWatch',
+                  value: 'true'
+                }
+              },
+              <IFilterOption>{
+                name: translation.LIST.WATCHED,
+                query: {
+                  operation: 'watched',
+                  value: 'true'
+                }
+              },
+              <IFilterOption>{
+                name: translation.LIST.NOT_WATCHED,
+                query: {
+                  operation: 'watched',
+                  value: 'false'
+                }
+              },
+              <IFilterOption>{
+                name: translation.LIST.FAVORITES,
+                query: {
+                  operation: 'favorites',
+                  value: 'true'
+                }
               }
-            }
-          ]
-        },
-        <IFilterGroup>{
-          name: translation.LIST.TITLE,
-          options: [
-            <IFilterOption>{
-              name: translation.LIST.USER_CAN_WATCH,
-              query: {
-                operation: 'userCanWatch',
-                value: 'true'
-              }
-            },
-            <IFilterOption>{
-              name: translation.LIST.WATCHED,
-              query: {
-                operation: 'watched',
-                value: 'true'
-              }
-            },
-            <IFilterOption>{
-              name: translation.LIST.NOT_WATCHED,
-              query: {
-                operation: 'watched',
-                value: 'false'
-              }
-            },
-            <IFilterOption>{
-              name: translation.LIST.FAVORITES,
-              query: {
-                operation: 'favorites',
-                value: 'true'
-              }
-            }
-          ]
-        });
-    });
+            ]
+          });
+      });
+  }
+
+  private initializePaginator() {
+    this.paginator.page
+      .pipe(
+        tap(() => {
+          if (!_.isUndefined(this.selectedCategory) && !_.isUndefined(this.selectedCategory._id)) {
+            this.loadVideosByCategory(this.selectedCategory._id, this.paginator.pageSize, this.paginator.pageIndex)
+          } else if (!_.isUndefined(this.selectedGroup) && !_.isUndefined(this.selectedGroup._id)) {
+            this.loadVideosByGroup(this.selectedGroup._id, this.paginator.pageSize, this.paginator.pageIndex)
+          } else if (!_.isUndefined(this.searchTerm)) {
+            this.loadVideosByTerm(this.searchTerm,  this.paginator.pageSize, this.paginator.pageIndex);
+          }
+          else {
+            this.loadVideos(this.paginator.pageSize, this.paginator.pageIndex);
+          }
+        })
+      ).subscribe();
+
+    this.paginator.page.next();
+    this.translatePaginator();
+  }
+
+  private translatePaginator() {
+    this._translateService.get('GLOBAL.ITEMS_PER_PAGE_LABEL')
+      .subscribe(translation => {
+        this.paginator._intl.itemsPerPageLabel = translation;
+      });
   }
 }

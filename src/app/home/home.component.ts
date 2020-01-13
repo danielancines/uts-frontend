@@ -17,6 +17,7 @@ import { Roles } from 'app/auth/roles';
 import { RolesValidatorService } from 'app/auth/roles-validator.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -155,7 +156,10 @@ export class HomeComponent implements OnInit {
   }
 
   private loadVideosCount() {
-    this._usersService.getVideos(this._authenticationService.user._id)
+    const params = new HttpParams()
+    .set('summarized', 'true');
+
+    this._usersService.getVideos(this._authenticationService.user._id, params)
       .subscribe(response => {
         this.totalVideos = response.data.length;
         this.totalUserVideos = response.data.filter(d => d.canWatch).length;

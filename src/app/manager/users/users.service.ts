@@ -131,12 +131,12 @@ export class UsersService implements IService {
       )
   }
 
-  getVideosByTerm(id, term: string, queryParams: HttpParams = new HttpParams()): Observable<any[]> {
+  getVideosByTerm(id, term: string, queryParams: HttpParams = new HttpParams()): Observable<any> {
     queryParams = queryParams.append('term', term)
 
     return this._httpClient.get<any>(`${this._usersUrl}/${id}/videos`, { params: queryParams })
       .pipe(map((videosResponse) => {
-        return videosResponse.data;
+        return videosResponse;
       }),
         catchError(error => {
           return [];
@@ -144,12 +144,12 @@ export class UsersService implements IService {
       )
   }
 
-  getVideosByCategory(id, categoryId, queryParams: HttpParams = new HttpParams()): Observable<any[]> {
+  getVideosByCategory(id, categoryId, queryParams: HttpParams = new HttpParams()): Observable<any> {
     queryParams = queryParams.append('category[id]', categoryId);
 
     return this._httpClient.get<any>(`${this._usersUrl}/${id}/videos`, { params: queryParams })
       .pipe(map((videosResponse) => {
-        return videosResponse.data;
+        return videosResponse;
       }),
         catchError(error => {
           return [];
@@ -157,12 +157,12 @@ export class UsersService implements IService {
       )
   }
 
-  getVideosByGroup(id, groupID, queryParams: HttpParams = new HttpParams()): Observable<any[]> {
+  getVideosByGroup(id, groupID, queryParams: HttpParams = new HttpParams()): Observable<any > {
     queryParams = queryParams.append('group[id]', groupID);
 
     return this._httpClient.get<any>(`${this._usersUrl}/${id}/videos`, { params: queryParams })
       .pipe(map((videosResponse) => {
-        return videosResponse.data;
+        return videosResponse;
       }),
         catchError(error => {
           return [];
