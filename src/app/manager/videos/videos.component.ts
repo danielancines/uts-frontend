@@ -5,10 +5,11 @@ import { fuseAnimations } from '@fuse/animations';
 import { VideosService } from './videos.service';
 import { Roles } from 'app/auth/roles';
 import { RolesValidatorService } from 'app/auth/roles-validator.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { CustomDataSource } from 'app/shared/util/CustomDataSource';
 import { ConfirmDialogComponent } from 'app/shared/confirm-dialog/confirm-dialog.component';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-videos',
@@ -31,6 +32,7 @@ export class VideosComponent implements AfterViewInit, OnInit {
   constructor(
     private _videosServices: VideosService,
     private _rolesValidatorService: RolesValidatorService,
+    private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _translateService: TranslateService) {
   }
@@ -39,6 +41,8 @@ export class VideosComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
+    this.subscribePaginator();
+
     //Error at load because the property change after DOM render
     setTimeout(() => {
       this.dataSource = new CustomDataSource(
@@ -86,5 +90,17 @@ export class VideosComponent implements AfterViewInit, OnInit {
     this._typingTimeout = setTimeout(() => {
       this.dataSource.refresh([{ key: 'name', value: term }]);
     }, 550);
+  }
+
+  private subscribePaginator() {
+    this.paginator.pageIndex = parseInt(this._activatedRoute.snapshot.queryParamMap.get('page'));
+    this.paginator.page
+      .pipe(
+        tap(() => {
+          if (this.paginator.pageIndex && this.paginator.pageIndex > 0)
+            this._router.navigate(['/videos'], { queryParams: { page: this.paginator.pageIndex } });
+          else
+            this._router.navigate(['/videos']);
+        })).subscribe();
   }
 }

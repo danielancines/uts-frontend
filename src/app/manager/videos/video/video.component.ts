@@ -23,6 +23,7 @@ import { ConfirmDialogComponent } from 'app/shared/confirm-dialog/confirm-dialog
 import { IEmailData } from 'app/shared/model/IEmailData';
 import { EmailService } from 'app/shared/email.service';
 import { ComponentBase } from 'app/shared/base/ComponentBase';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-video',
@@ -52,7 +53,8 @@ export class VideoComponent extends ComponentBase implements OnInit {
     private _messageService: MessageService,
     private _rolesValidatorService: RolesValidatorService,
     private _translateService: TranslateService,
-    private _emailService: EmailService
+    private _emailService: EmailService,
+    private _location: Location
   ) { 
     super();
   }
@@ -79,7 +81,7 @@ export class VideoComponent extends ComponentBase implements OnInit {
       .subscribe((newvideo: IVideo) => {
         this._messageService.showMessage(MessageType.Success, 'VIDEOS_MAIN.INSERT_MESSAGES.SUCCESS', '');
         this.sendEmails(newvideo);
-        this._router.navigate(['/videos']);
+        this.back();
       });
   }
 
@@ -92,7 +94,7 @@ export class VideoComponent extends ComponentBase implements OnInit {
     this._videoService.update(this.videoForm.getRawValue())
     .subscribe((response) => {
       this._messageService.showMessage(MessageType.Success, 'VIDEOS_MAIN.UPDATE_MESSAGES.SUCCESS', '');
-      this._router.navigate(['/videos']);
+      this.back();
     });
   }
 
@@ -118,7 +120,7 @@ export class VideoComponent extends ComponentBase implements OnInit {
                 this._videoService.delete(video)
                   .subscribe((response) => {
                     this._messageService.showMessage(MessageType.Success, 'VIDEOS_MAIN.DELETE_MESSAGES.SUCCESS', '');
-                    this._router.navigate(['/videos']);
+                    this.back();
                   });
               }
               this.confirmDialogRef = null;
@@ -129,6 +131,10 @@ export class VideoComponent extends ComponentBase implements OnInit {
 
   displayInstructorName(user?: IUser): string | undefined {
     return user ? `${user.name} ${user.lastName}` : undefined;
+  }
+
+  private back(){
+    this._location.back();
   }
 
   private createFormAndLoadData() {

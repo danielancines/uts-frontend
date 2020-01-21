@@ -8,7 +8,8 @@ import { CustomDataSource } from '../../shared/util/CustomDataSource';
 import { Roles } from 'app/auth/roles';
 import { fuseAnimations } from '@fuse/animations';
 import { ConfirmDialogComponent } from 'app/shared/confirm-dialog/confirm-dialog.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-groups',
@@ -31,7 +32,8 @@ export class GroupsComponent implements AfterViewInit, OnInit {
     private _groupsService: GroupsService,
     private _rolesValidatorService: RolesValidatorService,
     private _translateService: TranslateService,
-    private _router: Router
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute,
   ) {
 
   }
@@ -41,6 +43,7 @@ export class GroupsComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
+    this.subscribePaginator();
     //Error at load because the property change after DOM render
     setTimeout(() => {
       this.dataSource = new CustomDataSource(
@@ -81,5 +84,17 @@ export class GroupsComponent implements AfterViewInit, OnInit {
     this._typingTimeout = setTimeout(() => {
       this.dataSource.refresh([{ key: 'name', value: term }]);
     }, 550);
+  }
+
+  private subscribePaginator() {
+    this.paginator.pageIndex = parseInt(this._activatedRoute.snapshot.queryParamMap.get('page'));
+    this.paginator.page
+      .pipe(
+        tap(() => {
+          if (this.paginator.pageIndex && this.paginator.pageIndex > 0)
+            this._router.navigate(['/groups'], { queryParams: { page: this.paginator.pageIndex } });
+          else
+            this._router.navigate(['/groups']);
+        })).subscribe();
   }
 }

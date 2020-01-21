@@ -8,7 +8,8 @@ import { RolesValidatorService } from 'app/auth/roles-validator.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Roles } from 'app/auth/roles';
 import { ConfirmDialogComponent } from 'app/shared/confirm-dialog/confirm-dialog.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-categories',
@@ -32,13 +33,15 @@ export class CategoriesComponent implements OnInit, AfterViewInit {
     private _dialog: MatDialog,
     private _categoriesService: CategoriesService,
     private _rolesValidatorService: RolesValidatorService,
-    private _translateService: TranslateService
+    private _translateService: TranslateService,
+    private _activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
+    this.subscribePaginator();
     //Error at load because the property change after DOM render
     setTimeout(() => {
       this.dataSource = new CustomDataSource(
@@ -79,5 +82,17 @@ export class CategoriesComponent implements OnInit, AfterViewInit {
         if (!result) return;
         this._router.navigate([`/categories/${category._id}`]);
       });
+  }
+
+  private subscribePaginator() {
+    this.paginator.pageIndex = parseInt(this._activatedRoute.snapshot.queryParamMap.get('page'));
+    this.paginator.page
+      .pipe(
+        tap(() => {
+          if (this.paginator.pageIndex && this.paginator.pageIndex > 0)
+            this._router.navigate(['/categories'], { queryParams: { page: this.paginator.pageIndex } });
+          else
+            this._router.navigate(['/categories']);
+        })).subscribe();
   }
 }

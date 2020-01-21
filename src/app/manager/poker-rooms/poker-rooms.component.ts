@@ -5,10 +5,11 @@ import { MatDialogRef, MatTable, MatPaginator } from '@angular/material';
 import { ConfirmDialogComponent } from 'app/shared/confirm-dialog/confirm-dialog.component';
 import { RolesValidatorService } from 'app/auth/roles-validator.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PokerRoomsService } from './poker-rooms.service';
 import { Roles } from 'app/auth/roles';
 import { fuseAnimations } from '@fuse/animations';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-poker-rooms',
@@ -31,13 +32,16 @@ export class PokerRoomsComponent implements OnInit, AfterViewInit {
     private _rolesValidatorService: RolesValidatorService,
     private _translateService: TranslateService,
     private _pokerRoomsService: PokerRoomsService,
-    private _router: Router
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
+    this.subscribePaginator();
+
     //Error at load because the property change after DOM render
     setTimeout(() => {
       this.dataSource = new CustomDataSource(
@@ -81,4 +85,15 @@ export class PokerRoomsComponent implements OnInit, AfterViewInit {
     }, 550);
   }
 
+  private subscribePaginator() {
+    this.paginator.pageIndex = parseInt(this._activatedRoute.snapshot.queryParamMap.get('page'));
+    this.paginator.page
+      .pipe(
+        tap(() => {
+          if (this.paginator.pageIndex && this.paginator.pageIndex > 0)
+            this._router.navigate(['/pokerrooms'], { queryParams: { page: this.paginator.pageIndex } });
+          else
+            this._router.navigate(['/pokerrooms']);
+        })).subscribe();
+  }
 }

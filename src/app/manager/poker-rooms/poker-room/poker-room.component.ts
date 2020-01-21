@@ -13,6 +13,7 @@ import { RolesValidatorService } from 'app/auth/roles-validator.service';
 import { Roles } from 'app/auth/roles';
 import { fuseAnimations } from '@fuse/animations';
 import { ComponentBase } from 'app/shared/base/ComponentBase';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-poker-room',
@@ -36,7 +37,8 @@ export class PokerRoomComponent extends ComponentBase implements OnInit {
     private _translateService: TranslateService,
     private _pokerRoomsService: PokerRoomsService,
     private _errorsHandlerService: ErrorsHandlerService,
-    private _rolesValidatorService: RolesValidatorService
+    private _rolesValidatorService: RolesValidatorService,
+    private _location: Location
   ) { 
     super();
   }
@@ -60,7 +62,7 @@ export class PokerRoomComponent extends ComponentBase implements OnInit {
     this._pokerRoomsService.add(this.pokerRoomForm.getRawValue())
       .subscribe((pokerRoom: IPokerRoom) => {
         this._messageService.showMessage(MessageType.Success, 'POKER_ROOMS_MAIN.INSERT_MESSAGES.SUCCESS', '');
-        this._router.navigate(['/pokerrooms']);
+        this.back();
       })
 
   }
@@ -74,7 +76,7 @@ export class PokerRoomComponent extends ComponentBase implements OnInit {
     this._pokerRoomsService.update(this.pokerRoomForm.getRawValue())
       .subscribe((response) => {
         this._messageService.showMessage(MessageType.Success, 'POKER_ROOMS_MAIN.UPDATE_MESSAGES.SUCCESS', '');
-        this._router.navigate(['/pokerrooms']);
+        this.back();
       });
   }
 
@@ -82,7 +84,7 @@ export class PokerRoomComponent extends ComponentBase implements OnInit {
     this._pokerRoomsService.update(this.pokerRoomForm.getRawValue())
       .subscribe((response) => {
         this._messageService.showMessage(MessageType.Success, 'POKER_ROOMS_MAIN.UPDATE_MESSAGES.SUCCESS', '');
-        this._router.navigate(['/pokerrooms']);
+        this.back();
       });
   }
 
@@ -108,7 +110,7 @@ export class PokerRoomComponent extends ComponentBase implements OnInit {
                 this._pokerRoomsService.delete(pokerRoom)
                   .subscribe((response) => {
                     this._messageService.showMessage(MessageType.Success, 'POKER_ROOMS_MAIN.DELETE_MESSAGES.SUCCESS', '');
-                    this._router.navigate(['/pokerrooms']);
+                    this.back();
                   },
                     error => {
                       this._errorsHandlerService.handleError(error);
@@ -118,6 +120,10 @@ export class PokerRoomComponent extends ComponentBase implements OnInit {
             });
           });
       });
+  }
+
+  private back(){
+    this._location.back();
   }
 
   private loadPokerRoom() {
