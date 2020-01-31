@@ -251,7 +251,7 @@ export class UserComponent extends ComponentBase implements OnInit, AfterViewIni
     }, 550);
   }
 
-  private back(){
+  back(){
     this._location.back();
   }
 

@@ -91,7 +91,7 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header>{{'MONEY_REQUESTS_MAIN.POKER_ROOM_NAME' | translate}}
           </mat-header-cell>
           <mat-cell *matCellDef="let moneyRequest">
-            <p class="text-truncate">{{moneyRequest.pokerRoom.name}}</p>
+            <p class="text-truncate">{{moneyRequest.pokerRoom?.name}}</p>
           </mat-cell>
         </ng-container>
 
@@ -100,7 +100,7 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let moneyRequest">
             <span *ngIf="!moneyRequest.value">-</span>
-            <div [ngSwitch]="moneyRequest.pokerRoom.currency" *ngIf="moneyRequest.value">
+            <div [ngSwitch]="moneyRequest.pokerRoom?.currency" *ngIf="moneyRequest.value">
               <span *ngSwitchCase="'pt'">{{moneyRequest.value | currency:'BRL':'symbol':'1.2':'pt'}}</span>
               <span *ngSwitchCase="'en-US'">{{moneyRequest.value | currency:'USD':'symbol':'1.2':'pt'}}</span>
               <span *ngSwitchCase="'eur'">{{moneyRequest.value | currency:'EUR':'symbol':'1.2':'pt'}}</span>

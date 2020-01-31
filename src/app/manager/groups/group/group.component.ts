@@ -113,6 +113,10 @@ export class GroupComponent extends ComponentBase implements OnInit {
       });
   }
 
+  back(){
+    this._location.back();
+  }
+
   private loadGroup() {
     this._groupsService.getById(this.groupId)
       .subscribe(group => {
@@ -145,9 +149,5 @@ export class GroupComponent extends ComponentBase implements OnInit {
     };
 
     return newGroup;
-  }
-
-  private back(){
-    this._location.back();
   }
 }

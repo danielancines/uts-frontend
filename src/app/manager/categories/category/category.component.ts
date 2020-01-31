@@ -120,7 +120,7 @@ export class CategoryComponent extends ComponentBase implements OnInit {
       });
   }
 
-  private back(){
+  back(){
     this._location.back();
   }
 

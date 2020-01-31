@@ -133,7 +133,7 @@ export class VideoComponent extends ComponentBase implements OnInit {
     return user ? `${user.name} ${user.lastName}` : undefined;
   }
 
-  private back(){
+  back(){
     this._location.back();
   }
 
