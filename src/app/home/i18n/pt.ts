@@ -61,14 +61,14 @@ export const locale = {
                         'DETAILS': 'Mostra quantos vídeos liberados você ainda não assistiu.'
                     },
                     'USERS_TOTAL_VIDEOS_TILE': {
-                        'TITLE': 'Vídeos disponíveis',
+                        'TITLE': 'Vídeos Disponíveis',
                         'DESCRIPTION': 'Liberados para você',
                         'WATCHED': 'Assistidos',
                         'DETAILS': 'Mostra quantos vídeos estão liberados para você assistir.'
                     }
                 },
                 'LAST_VIDEOS': {
-                    'TITLE': 'Últimos vídeos assistidos'
+                    'TITLE': 'Últimos Vídeos Assistidos'
                 }
             }
         }

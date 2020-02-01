@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatFormFieldModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatPaginatorModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { VideosLibraryRoutingModule } from './videos.library-routing.module';
@@ -23,6 +23,7 @@ import { ControlsModule } from 'app/controls/controls.module';
     ReactiveFormsModule,
     MatSelectModule,
     MatProgressBarModule,
+    MatPaginatorModule,
     MatInputModule,
     FuseSharedModule,
     TranslateModule,

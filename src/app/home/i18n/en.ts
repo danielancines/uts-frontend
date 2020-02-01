@@ -68,7 +68,7 @@ export const locale = {
                     }
                 },
                 'LAST_VIDEOS': {
-                    'TITLE': 'Last watched videos'
+                    'TITLE': 'Last Watched Videos'
                 }
             }
         }

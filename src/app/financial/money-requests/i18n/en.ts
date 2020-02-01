@@ -17,6 +17,10 @@ export const locale = {
                     'APPROVED': 'Approved',
                     'WAITING': 'Waiting',
                     'REFUSED': 'Refused'
+                },
+                'BY_POKER_ROOM': {
+                    'TITLE': 'List by Poker Room',
+                    'ALL': 'Show all'
                 }
             },
             'STATUS_OPTIONS': {

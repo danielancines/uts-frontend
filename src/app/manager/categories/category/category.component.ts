@@ -12,6 +12,7 @@ import { MessageType } from 'app/shared/messageTypes';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ErrorsHandlerService } from 'app/errors/errors-handler.service';
 import { ComponentBase } from 'app/shared/base/ComponentBase';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-category',
@@ -34,7 +35,8 @@ export class CategoryComponent extends ComponentBase implements OnInit {
     private _translateService: TranslateService,
     private _categoriesService: CategoriesService,
     private _errorsHandlerService: ErrorsHandlerService,
-    private _rolesValidatorService: RolesValidatorService
+    private _rolesValidatorService: RolesValidatorService,
+    private _location: Location
   ) { 
     super();
   }
@@ -58,7 +60,7 @@ export class CategoryComponent extends ComponentBase implements OnInit {
     this._categoriesService.add(this.categoryForm.getRawValue())
     .subscribe((newCategory: ICategory) => {
       this._messageService.showMessage(MessageType.Success, 'CATEGORIES_MAIN.INSERT_MESSAGES.SUCCESS', '');
-      this._router.navigate(['/categories']);
+      this.back();
     })
     
   }
@@ -72,7 +74,7 @@ export class CategoryComponent extends ComponentBase implements OnInit {
     this._categoriesService.update(this.categoryForm.getRawValue())
     .subscribe((response) => {
       this._messageService.showMessage(MessageType.Success, 'CATEGORIES_MAIN.UPDATE_MESSAGES.SUCCESS', '');
-      this._router.navigate(['/categories']);
+      this.back();
     });
   }
 
@@ -80,7 +82,7 @@ export class CategoryComponent extends ComponentBase implements OnInit {
     this._categoriesService.update(this.categoryForm.getRawValue())
     .subscribe((response) => {
       this._messageService.showMessage(MessageType.Success, 'CATEGORIES_MAIN.UPDATE_MESSAGES.SUCCESS', '');
-      this._router.navigate(['/categories']);
+      this.back();
     });
   }
 
@@ -106,7 +108,7 @@ export class CategoryComponent extends ComponentBase implements OnInit {
                 this._categoriesService.delete(category)
                   .subscribe((response) => {
                     this._messageService.showMessage(MessageType.Success, 'CATEGORIES_MAIN.DELETE_MESSAGES.SUCCESS', '');
-                    this._router.navigate(['/categories']);
+                    this.back();
                   },
                     error => {
                       this._errorsHandlerService.handleError(error);
@@ -116,6 +118,10 @@ export class CategoryComponent extends ComponentBase implements OnInit {
             });            
           });
       });
+  }
+
+  back(){
+    this._location.back();
   }
 
   private loadCategory() {

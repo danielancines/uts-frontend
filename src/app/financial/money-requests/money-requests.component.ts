@@ -1,5 +1,5 @@
 import { CookieService } from 'ngx-cookie-service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialogRef, MatTable, MatPaginator, DateAdapter } from '@angular/material';
 import { ConfirmDialogComponent } from 'app/shared/confirm-dialog/confirm-dialog.component';
 import { IMoneyRequest } from './money-request.model';
@@ -15,6 +15,8 @@ import * as _ from 'lodash';
 import { RolesValidatorService } from 'app/auth/roles-validator.service';
 import { Roles } from 'app/auth/roles';
 import { Router } from '@angular/router';
+import { IPokerRoom } from 'app/manager/poker-rooms/poker-room.model';
+import { PokerRoomsService } from 'app/manager/poker-rooms/poker-rooms.service';
 
 @Component({
   selector: 'app-money-requests',
@@ -22,19 +24,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./money-requests.component.scss'],
   animations: fuseAnimations
 })
-export class MoneyRequestsComponent implements OnInit {
+export class MoneyRequestsComponent implements OnInit, AfterViewInit {
   private _typingTimeout = null;
   private _intialQueryString: string = '?populate=user&populate=pokerRoom&orderBy=date desc';
   private MONEY_REQUEST_FILTER_OPTIONS = 'moneyRequestsFilterOptions';
   searchTerm: string = '';
   dataSource: CustomDataSource;
   moneyRequests: IMoneyRequest[] = [];
+  pokerRooms: IPokerRoom[] = [];
+  defaultPokerRoom: IPokerRoom;
   confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
   loading: Boolean;
   filterGroups: IFilterGroup[] = [];
+  refreshOptions: any[] = [];
   selectedFilterOptions: IFilterOption[];
-  @ViewChild(MatTable, {static: true}) table: MatTable<any>;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  selectedPokerRoom: IPokerRoom;
+  @ViewChild(MatTable, { static: true }) table: MatTable<any>;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
     private _moneyRequestsService: MoneyRequestsService,
@@ -42,7 +48,8 @@ export class MoneyRequestsComponent implements OnInit {
     private _dateAdapter: DateAdapter<Date>,
     private _cookieService: CookieService,
     private _rolesValidatorService: RolesValidatorService,
-    private _router: Router
+    private _router: Router,
+    private _pokerRoomsService: PokerRoomsService
   ) {
     registerLocaleData(localePt, 'pt');
     this._dateAdapter.setLocale('pt');
@@ -51,6 +58,7 @@ export class MoneyRequestsComponent implements OnInit {
   ngOnInit() {
     this.loadFilterGroups();
     this.loadSavedFilters();
+    this.loadPokerRooms();
   }
 
   ngAfterViewInit() {
@@ -64,9 +72,9 @@ export class MoneyRequestsComponent implements OnInit {
         false
       );
       this.dataSource.addColumns(['date', 'userName', 'pokerRoomName', 'value', 'status']);
-
       const subscription = this.dataSource.data.subscribe(data => {
-        if(!subscription) return;
+        this.refresh();
+        if (!subscription) return;
 
         subscription.unsubscribe();
         this.refresh();
@@ -84,6 +92,8 @@ export class MoneyRequestsComponent implements OnInit {
 
   refresh() {
     this.searchTerm = '';
+    this.selectedPokerRoom = this.defaultPokerRoom;
+    this.clearPokerRoomFromFilterOptions();
     if (this.selectedFilterOptions && this.selectedFilterOptions.length > 0) {
       this.refreshDataSourceWithFilters();
     } else {
@@ -106,19 +116,51 @@ export class MoneyRequestsComponent implements OnInit {
     this.refreshDataSourceWithFilters();
   }
 
+  pokerRoomChanged(pokerRoom: IPokerRoom): void {
+    this.clearPokerRoomFromFilterOptions();
+    if (_.isNull(pokerRoom) || _.isEqual(pokerRoom._id, '0')) {
+      this.refresh();
+    } else {
+      this.refreshOptions.push({ key: 'pokerRoom', value: pokerRoom._id });
+      this.refreshDataSourceWithFilters();
+    }
+  }
+
   private loadSavedFilters() {
-    if (this._cookieService.check(this.MONEY_REQUEST_FILTER_OPTIONS)){
+    if (this._cookieService.check(this.MONEY_REQUEST_FILTER_OPTIONS)) {
       this.selectedFilterOptions = <IFilterOption[]>JSON.parse(this._cookieService.get(this.MONEY_REQUEST_FILTER_OPTIONS));
     }
   }
 
+  private loadPokerRooms() {
+    this._translateService.get('MONEY_REQUESTS_MAIN.FILTER_OPTIONS.BY_POKER_ROOM')
+      .subscribe(response => {
+        this.defaultPokerRoom = <IPokerRoom>{
+          _id: '0',
+          name: response.ALL
+        };
+
+        this.pokerRooms.push(this.defaultPokerRoom);
+        this.selectedPokerRoom = this.defaultPokerRoom;
+        this._pokerRoomsService.get('?orderBy=name').subscribe((response) => {
+          _.forEach(response.data, pokerRoom => {
+            this.pokerRooms.push(pokerRoom);
+          });
+        });
+      });
+  }
+
   private refreshDataSourceWithFilters() {
-    let refreshOptions: any[] = [];
+    this.refreshOptions = this.refreshOptions.filter(item => !_.isEqual(item.key, 'status'));
     _.forEach(this.selectedFilterOptions, option => {
       if (option.isSelected)
-        refreshOptions.push({ key: 'status', value: option.query.value });
+        this.refreshOptions.push({ key: 'status', value: option.query.value });
     })
-    this.dataSource.refresh(refreshOptions);
+    this.dataSource.refresh(this.refreshOptions);
+  }
+
+  private clearPokerRoomFromFilterOptions(){
+    this.refreshOptions = this.refreshOptions.filter(item => !_.isEqual(item.key, 'pokerRoom'));
   }
 
   private loadFilterGroups(): void {

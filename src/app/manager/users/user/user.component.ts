@@ -26,6 +26,7 @@ import { CustomDataSource } from 'app/shared/util/CustomDataSource';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ComponentBase } from 'app/shared/base/ComponentBase';
 import { ErrorsHandlerService } from 'app/errors/errors-handler.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user',
@@ -74,7 +75,8 @@ export class UserComponent extends ComponentBase implements OnInit, AfterViewIni
     private _resetPasswordService: ResetPasswordService,
     private _addressService: AddressService,
     private _pokerRoomsService: PokerRoomsService,
-    private _errorsHandlerService: ErrorsHandlerService
+    private _errorsHandlerService: ErrorsHandlerService,
+    private _location: Location
   ) {
     super();
   }
@@ -104,9 +106,6 @@ export class UserComponent extends ComponentBase implements OnInit, AfterViewIni
   }
 
   createUserForm(): FormGroup {
-    // if (this.user.addresses.length <= 0)
-    //   this.user.addresses.push(this.createAddress());
-
     const form = this._formBuilder.group({
       _id: [this.user._id],
       email: [this.user.email, [Validators.required, Validators.email]],
@@ -155,7 +154,7 @@ export class UserComponent extends ComponentBase implements OnInit, AfterViewIni
     this._usersService.add(this.getUserFromForm())
       .subscribe((newUser: IUser) => {
         this._messageService.showMessage(MessageType.Success, 'USERS_MAIN.INSERT_MESSAGES.SUCCESS', '');
-        this._router.navigate(['/users']);
+        this.back();
       }, errorResponse => {
         if (errorResponse.error.code === 15) {
           this._messageService.showMessage(MessageType.Error, 'USERS_ERRORS.EMAIL_ALREADY_EXISTS.MESSAGE', '');
@@ -172,7 +171,7 @@ export class UserComponent extends ComponentBase implements OnInit, AfterViewIni
     this._usersService.update(this.getUserFromForm())
       .subscribe((response) => {
         this._messageService.showMessage(MessageType.Success, 'USERS_MAIN.UPDATE_MESSAGES.SUCCESS', '');
-        this._router.navigate(['/users']);
+        this.back();
       });
   }
 
@@ -198,7 +197,7 @@ export class UserComponent extends ComponentBase implements OnInit, AfterViewIni
                 this._usersService.delete(user)
                   .subscribe((response) => {
                     this._messageService.showMessage(MessageType.Success, 'USERS_MAIN.DELETE_MESSAGES.SUCCESS', '');
-                    this._router.navigate(['/users']);
+                    this.back();
                   },
                     error => {
                       this._errorsHandlerService.handleError(error);
@@ -250,6 +249,10 @@ export class UserComponent extends ComponentBase implements OnInit, AfterViewIni
     this._typingTimeout = setTimeout(() => {
       this.rolesDataSource.refresh([{ key: 'name', value: term }]);
     }, 550);
+  }
+
+  back(){
+    this._location.back();
   }
 
   private getUserFromForm(): IUser {

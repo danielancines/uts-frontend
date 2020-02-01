@@ -8,7 +8,8 @@ import { Roles } from 'app/auth/roles';
 import { TranslateService } from '@ngx-translate/core';
 import { CustomDataSource } from 'app/shared/util/CustomDataSource';
 import { ConfirmDialogComponent } from 'app/shared/confirm-dialog/confirm-dialog.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-users',
@@ -24,13 +25,14 @@ export class UsersComponent implements AfterViewInit, OnInit {
   users: IUser[] = [];
   confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
   loading: Boolean;
-  @ViewChild(MatTable, {static: true}) table: MatTable<any>;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatTable, { static: true }) table: MatTable<any>;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
     private _usersServices: UsersService,
     private _rolesValidatorService: RolesValidatorService,
     private _translateService: TranslateService,
+    private _activatedRoute: ActivatedRoute,
     private _router: Router
   ) {
   }
@@ -39,6 +41,8 @@ export class UsersComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
+    this.subscribePaginator();
+    
     //Error at load because the property change after DOM render
     setTimeout(() => {
       this.dataSource = new CustomDataSource(
@@ -80,5 +84,17 @@ export class UsersComponent implements AfterViewInit, OnInit {
     this._typingTimeout = setTimeout(() => {
       this.dataSource.refresh([{ key: 'name', value: term }]);
     }, 550);
+  }
+
+  private subscribePaginator() {
+    this.paginator.pageIndex = parseInt(this._activatedRoute.snapshot.queryParamMap.get('page'));
+    this.paginator.page
+      .pipe(
+        tap(() => {
+          if (this.paginator.pageIndex && this.paginator.pageIndex > 0)
+            this._router.navigate(['/users'], { queryParams: { page: this.paginator.pageIndex } });
+          else
+            this._router.navigate(['/users']);
+        })).subscribe();
   }
 }

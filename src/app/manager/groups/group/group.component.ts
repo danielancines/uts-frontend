@@ -13,6 +13,7 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from 'app/shared/confirm-dialog/confirm-dialog.component';
 import { ComponentBase } from 'app/shared/base/ComponentBase';
 import { ErrorsHandlerService } from 'app/errors/errors-handler.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-group',
@@ -36,7 +37,8 @@ export class GroupComponent extends ComponentBase implements OnInit {
     private _messageService: MessageService,
     private _translateService: TranslateService,
     private _errorsHandlerService: ErrorsHandlerService,
-    private _rolesValidatorService: RolesValidatorService
+    private _rolesValidatorService: RolesValidatorService,
+    private _location: Location
   ) { 
     super();
   }
@@ -60,7 +62,7 @@ export class GroupComponent extends ComponentBase implements OnInit {
     this._groupsService.add(this.groupForm.getRawValue())
       .subscribe((newGroup: IGroup) => {
         this._messageService.showMessage(MessageType.Success, 'GROUPS_MAIN.INSERT_MESSAGES.SUCCESS', '');
-        this._router.navigate(['/groups']);
+        this.back();
       });
   }
 
@@ -73,7 +75,7 @@ export class GroupComponent extends ComponentBase implements OnInit {
     this._groupsService.update(this.groupForm.getRawValue())
     .subscribe((response) => {
       this._messageService.showMessage(MessageType.Success, 'GROUPS_MAIN.UPDATE_MESSAGES.SUCCESS', '');
-      this._router.navigate(['/groups']);
+      this.back();
     });
   }
 
@@ -99,7 +101,7 @@ export class GroupComponent extends ComponentBase implements OnInit {
                 this._groupsService.delete(group)
                   .subscribe((response) => {
                     this._messageService.showMessage(MessageType.Success, 'GROUPS_MAIN.DELETE_MESSAGES.SUCCESS', '');
-                    this._router.navigate(['/groups']);
+                    this.back();
                   },
                   error => {
                     this._errorsHandlerService.handleError(error);
@@ -109,6 +111,10 @@ export class GroupComponent extends ComponentBase implements OnInit {
             });
           });
       });
+  }
+
+  back(){
+    this._location.back();
   }
 
   private loadGroup() {

@@ -17,6 +17,10 @@ export const locale = {
                     'APPROVED': 'Aprovado',
                     'WAITING': 'Aguardando',
                     'REFUSED': 'Recusado'
+                },
+                'BY_POKER_ROOM': {
+                    'TITLE': 'Filtrar por sala',
+                    'ALL': 'Mostrar Todos'
                 }
             },
             'STATUS_OPTIONS': {
