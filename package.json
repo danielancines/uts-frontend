@@ -1,6 +1,6 @@
 {
   "name": "ultimateteamsuite",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "license": "https://themeforest.net/licenses/terms/regular",
   "scripts": {
     "ng": "ng",
