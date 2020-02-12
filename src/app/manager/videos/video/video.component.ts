@@ -42,7 +42,6 @@ export class VideoComponent extends ComponentBase implements OnInit {
   confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
 
   constructor(
-    private _router: Router,
     private _dialog: MatDialog,
     private _activatedRoute: ActivatedRoute,
     private _formBuilder: FormBuilder,

@@ -37,7 +37,7 @@ import { ConfirmDialogModule } from './shared/confirm-dialog/confirm-dialog.modu
 import { SharedModule } from './shared/shared.module';
 import { ResetPasswordModule } from './login/reset-password/reset-password.module';
 import { ForgotPasswordModule } from './login/forgot-password/forgot-password.module';
-import { GamesAndBalanceModule } from './financial/games-and-balance/games-and-balance.module';
+import { DailyBalancesModule } from './financial/daily-balances/daily-balances.module';
 import { HomeShortcutsModule } from './controls/shortcuts/shortcuts.module';
 
 const appRoutes: Routes = [
@@ -93,7 +93,7 @@ const appRoutes: Routes = [
         SharedModule,
         PokerRoomsModule,
         MoneyRequestsModule,
-        GamesAndBalanceModule,
+        DailyBalancesModule,
         HomeShortcutsModule
     ],
     providers: [

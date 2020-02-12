@@ -109,13 +109,13 @@ const moneyRequestsNavigation: FuseNavigation = {
     url: '/moneyrequests'
 };
 
-const gamesPlayedAndBalanceNavigation: FuseNavigation = {
-    id: 'gamesPlayedAndBalance',
-    title: 'GamesPlayedAndBalance',
-    translate: 'NAV.GAMES_PLAYED_AND_BALANCE.TITLE',
+const dailyBalancesNavigation: FuseNavigation = {
+    id: 'dailyBalances',
+    title: 'DailyBalances',
+    translate: 'NAV.DAILY_BALANCES.TITLE',
     type: 'item',
-    icon: 'access_time',
-    url: '/gamesandbalance'
+    icon: 'date_range',
+    url: '/dailybalances'
 };
 
-export { navigation, adminNavigation as adminNavigation, financialNavigation, videosNavigation, usersNavigation, groupsNavigation, categoriesNavigation, pokerRoomsNavigation, moneyRequestsNavigation, gamesPlayedAndBalanceNavigation, studyNavigation, videosLibrayNavigation };
+export { navigation, adminNavigation as adminNavigation, financialNavigation, videosNavigation, usersNavigation, groupsNavigation, categoriesNavigation, pokerRoomsNavigation, moneyRequestsNavigation, dailyBalancesNavigation, studyNavigation, videosLibrayNavigation };

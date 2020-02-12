@@ -1,24 +1,25 @@
-import { GamesAndBalanceComponent } from './games-and-balance.component';
-import { GamesAndBalanceRoutingModule } from './games-and-balance-routing.module';
+import { DailyBalancesComponent } from './daily-balances.component';
+import { DailyBalancesRoutingModule } from './daily-balances-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatProgressBarModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatPaginatorModule, MatIconModule, MatTableModule, MatButtonModule, MatTabsModule, MatTooltipModule } from '@angular/material';
+import { MatProgressBarModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatPaginatorModule, MatIconModule, MatTableModule, MatButtonModule, MatTabsModule, MatTooltipModule, MatDatepickerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { ControlsModule } from 'app/controls/controls.module';
-import { GameAndBalanceComponent } from './game-and-balance/game-and-balance.component';
+import { DailyBalanceComponent } from './daily-balance/daily-balance.component';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 @NgModule({
-  declarations: [GamesAndBalanceComponent, GameAndBalanceComponent],
+  declarations: [DailyBalancesComponent, DailyBalanceComponent],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
     TranslateModule,
-    GamesAndBalanceRoutingModule,
+    DailyBalancesRoutingModule,
     MatProgressBarModule,
     MatRippleModule,
     MatFormFieldModule,
@@ -31,8 +32,9 @@ import { GameAndBalanceComponent } from './game-and-balance/game-and-balance.com
     MatButtonModule,
     ControlsModule,
     MatTabsModule,
-    MatTooltipModule
-
+    MatTooltipModule,
+    MatDatepickerModule,
+    NgxMaterialTimepickerModule
   ]
 })
-export class GamesAndBalanceModule { }
+export class DailyBalancesModule { }
