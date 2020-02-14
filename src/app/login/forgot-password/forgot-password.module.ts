@@ -24,7 +24,6 @@ const routes = [
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
-
         TranslateModule,
 
         FuseSharedModule

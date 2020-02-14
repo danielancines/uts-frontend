@@ -58,14 +58,6 @@ export class DailyBalanceComponent implements OnInit {
       this.dailyBalanceForm.get('firstRegistration').patchValue(dailyBalance.firstRegistration);
       this.dailyBalanceForm.get('lastRegistration').patchValue(dailyBalance.lastRegistration);
       this.dailyBalanceForm.get('quantity').patchValue(dailyBalance.gamesCount);
-      // this.dailyBalanceForm = new FormGroup({
-      //   user: new FormControl(`${dailyBalance.user.name} ${dailyBalance.user.lastName}`),
-      //   firstRegistration: new FormControl(dailyBalance.firstRegistration),
-      //   lastRegistration: new FormControl(dailyBalance.lastRegistration),
-      //   quantity: new FormControl(dailyBalance.gamesCount, [
-      //     Validators.min(1)
-      //   ])
-      // });
     });
   }
 
