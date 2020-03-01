@@ -1,7 +1,7 @@
 import { IEmailData } from 'app/shared/model/IEmailData';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { IUser } from '../user.model';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { GroupsService } from 'app/manager/groups/groups.service';

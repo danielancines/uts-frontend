@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthenticationService } from 'app/auth/authentication.service';
-import { DateAdapter } from '@angular/material';
+import { DateAdapter } from '@angular/material/core';
 import { fuseAnimations } from '@fuse/animations';
 import { ActivatedRoute } from '@angular/router';
 import { IDailyBalance } from '../daily-balance.model';

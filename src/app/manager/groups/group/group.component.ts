@@ -9,7 +9,7 @@ import { MessageService } from 'app/shared/message.service';
 import { MessageType } from 'app/shared/messageTypes';
 import { Roles } from 'app/auth/roles';
 import { TranslateService } from '@ngx-translate/core';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'app/shared/confirm-dialog/confirm-dialog.component';
 import { ComponentBase } from 'app/shared/base/ComponentBase';
 import { ErrorsHandlerService } from 'app/errors/errors-handler.service';

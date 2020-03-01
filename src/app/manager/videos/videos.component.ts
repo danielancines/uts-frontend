@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { IVideo } from './video.model';
-import { MatDialog, MatTable, MatDialogRef, MatPaginator } from '@angular/material';
+import { MatTable } from '@angular/material/table';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 import { fuseAnimations } from '@fuse/animations';
 import { VideosService } from './videos.service';
 import { Roles } from 'app/auth/roles';
