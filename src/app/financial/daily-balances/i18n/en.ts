@@ -22,8 +22,17 @@ export const locale = {
             'QUANTITY': '#Games',
             'EDITING': 'Updating Game Registry',
             'NEW': 'New Game Registry',
+            'DATE': 'Date',
+            'DELETE_MESSAGES': {
+                'SUCCESS': 'Balance deleted!',
+                'ERROR': 'An error occurred at balance delete'
+            },
             'ERRORS': {
-                'QUANTITY_MIN_VALUE': 'Quantity must be higher than 0'
+                'QUANTITY_MIN_VALUE': 'Quantity must be higher than 0',
+                'DELETE_DAILY_BALANCE': {
+                    'TITLE': 'Balance Delete',
+                    'MESSAGE': 'You dont have permission to delete Balances'
+                }
             }
         }
     }

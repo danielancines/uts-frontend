@@ -22,8 +22,17 @@ export const locale = {
             'QUANTITY': 'Nro. Jogos',
             'EDITING': 'Editando Registro de Saldo',
             'NEW': 'Novo Registro de Saldo',
+            'DATE': 'Data',
+            'DELETE_MESSAGES': {
+                'SUCCESS': 'Registro de Saldo Excluído!',
+                'ERROR': 'Ocorreu um erro ao excluir o Registro de Saldo'
+            },
             'ERRORS': {
-                'QUANTITY_MIN_VALUE': 'Quantidade deve ser maior que 0'
+                'QUANTITY_MIN_VALUE': 'Quantidade deve ser maior que 0',
+                'DELETE_DAILY_BALANCE': {
+                    'TITLE': 'Exclusão de Registro de Saldo',
+                    'MESSAGE': 'Você não tem permissão para excluir este registro de saldo!'
+                }
             }
         }
         

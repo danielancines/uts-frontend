@@ -12,6 +12,7 @@ import { IFilterOption } from 'app/controls/filter/model/option.model';
 import { fuseAnimations } from '@fuse/animations';
 import * as _ from 'lodash';
 import { IDailyBalance } from './daily-balance.model';
+import { AuthenticationService } from 'app/auth/authentication.service';
 
 @Component({
   selector: 'app-daily-balances',
@@ -25,13 +26,14 @@ export class DailyBalancesComponent implements OnInit {
   filterGroups: IFilterGroup[] = [];
   selectedFilterOptions: IFilterOption[];
 
-  private _intialQueryString: string = '?populate=user&populate=pokerRoom&orderBy=date desc';
+  private _intialQueryString: string;
   
   @ViewChild(MatTable, {static: true}) table: MatTable<any>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
     private _router: Router,
+    private _authenticationService: AuthenticationService,
     private _translateService: TranslateService,
     private _rolesValidatorService: RolesValidatorService,
     private _dailyBalancesService: DailyBalancesService
@@ -41,6 +43,7 @@ export class DailyBalancesComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    this._intialQueryString = `?user=${this._authenticationService.user._id}&populate=user&populate=pokerRoom&orderBy=date desc`;
     //Error at load because the property change after DOM render
     setTimeout(() => {
       this.dataSource = new CustomDataSource(

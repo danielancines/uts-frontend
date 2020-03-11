@@ -6,6 +6,7 @@ import { environment } from 'environments/environment';
 import { map, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { IDailyBalance } from './daily-balance.model';
+import { ErrorsHandlerService } from 'app/errors/errors-handler.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ import { IDailyBalance } from './daily-balance.model';
 export class DailyBalancesService implements IService {
   private _gamesAndBalanceUrl = `${environment.api_url}/dailybalances`;
 
-  constructor(private _httpClient: HttpClient) { }
+  constructor(private _httpClient: HttpClient,
+    private _errorsHandlerService: ErrorsHandlerService) { }
 
   get(query: string = ''): Observable<{ count: number, data: any[] }> {
     const url = _.isEmpty(query) ? this._gamesAndBalanceUrl : `${this._gamesAndBalanceUrl}${query}`;
@@ -40,11 +42,19 @@ export class DailyBalancesService implements IService {
 
   post(dailyBalance: IDailyBalance): Observable<IDailyBalance> {
     return this._httpClient.post<any>(this._gamesAndBalanceUrl, dailyBalance)
-    .pipe(map(dailyBalancesResponse => {
-      return dailyBalancesResponse.data;
-    }),
-      catchError(error => {
-        return [];
+      .pipe(map(dailyBalancesResponse => {
+        return dailyBalancesResponse.data;
+      }),
+        catchError(error => {
+          this._errorsHandlerService.handleError(error);
+          return [];
+        }))
+  }
+
+  delete(dailyBalanceId: string): Observable<boolean> {
+    return this._httpClient.delete<any>(`${this._gamesAndBalanceUrl}/${dailyBalanceId}`)
+      .pipe(map(response => {
+        return true;
       }))
   }
 }

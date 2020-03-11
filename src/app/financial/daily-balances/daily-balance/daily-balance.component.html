@@ -37,7 +37,7 @@
       </button>
 
       <div *ngIf="editing">
-        <button class = "delete-daily-balance-button" *ngIf="editing" mat-raised-button (click)="delete(dailyBalance)"
+        <button class="delete-daily-balance-button" *ngIf="editing" mat-raised-button (click)="delete()"
           aria-label="Delete" matTooltip="Delete">
           {{'DAILY_BALANCES_REGISTRY.DELETE' | translate}}
         </button>
@@ -59,11 +59,20 @@
           <mat-tab-group>
             <mat-tab label="{{'DAILY_BALANCES_REGISTRY.BASIC_INFORMATION' | translate}}">
               <div class="tab-content p-24" fusePerfectScrollbar>
-                <mat-form-field class="w-100-p" appearance="outline">
-                  <mat-label>{{'DAILY_BALANCES_REGISTRY.NAME' | translate}}</mat-label>
-                  <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
-                  <input matInput name="user" formControlName="user" readonly>
-                </mat-form-field>
+                <div fxLayout="row" fxLayoutAlign="start start">
+                  <mat-form-field class="w-70-p" appearance="outline">
+                    <mat-label>{{'DAILY_BALANCES_REGISTRY.NAME' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
+                    <input matInput name="user" formControlName="user" readonly>
+                  </mat-form-field>
+                  <div class="divider"></div>
+                  <mat-form-field appearance="outline" class="w-30-p">
+                    <mat-label>{{'DAILY_BALANCES_REGISTRY.DATE' | translate}}</mat-label>
+                    <input matInput [matDatepicker]="dp3" placeholder="{{'DAILY_BALANCES_REGISTRY.DATE' | translate}}" formControlName="date" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                    <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                  </mat-form-field>
+                </div>
                 <div fxLayout="row" fxLayoutAlign="start start">
                   <mat-form-field class="w-100-p" appearance="outline">
                     <mat-label>{{'DAILY_BALANCES_REGISTRY.FIRST_REGISTRY' | translate}}</mat-label>
