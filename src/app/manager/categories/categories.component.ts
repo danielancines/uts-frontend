@@ -51,6 +51,7 @@ export class CategoriesComponent implements OnInit, AfterViewInit {
         this._intialQueryString
       );
       this.dataSource.addColumns(['name', 'description']);
+      this.dataSource.refresh();
     });
   }
 
