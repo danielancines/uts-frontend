@@ -1,8 +1,4 @@
-#user {
-
-    .access-table {
-        width: 100%;
-    }
+#daily-balance {
 
     .header {
 
@@ -28,30 +24,9 @@
         }
     }
 
-    .delete-user-button {
+    .delete-daily-balance-button {
         margin-right: 10px;
         background: red;
-    }
-
-
-    .mat-column-name {
-        flex: 0 1 20%;
-    }
-
-    .mat-column-nickName {
-        flex: 0 1 20%;
-    }
-
-    .mat-column-fullName {
-        flex: 0 1 25%;
-    }
-
-    .mat-column-email {
-        flex: 0 1 20%;
-    }
-
-    .mat-column-moreInformation {
-        flex: 0 1 15%;
     }
 
     .content {
@@ -86,16 +61,10 @@
             }
         }
 
-        .reset-pwd-button {
-            margin-left: 5px;
-            margin-top: 26px;
-        }
-
         // Temporary prefix alignment fix
         .mat-form-field-appearance-outline .mat-form-field-prefix,
         .mat-form-field-appearance-outline .mat-form-field-suffix {
             top: 0;
         }
     }
-
 }

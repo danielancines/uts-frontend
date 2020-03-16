@@ -6,7 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MatButtonModule, MatIconModule, MatTableModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
 import { TranslateModule } from '@ngx-translate/core';
 import 'hammerjs';
 
@@ -37,7 +39,7 @@ import { ConfirmDialogModule } from './shared/confirm-dialog/confirm-dialog.modu
 import { SharedModule } from './shared/shared.module';
 import { ResetPasswordModule } from './login/reset-password/reset-password.module';
 import { ForgotPasswordModule } from './login/forgot-password/forgot-password.module';
-import { GamesAndBalanceModule } from './financial/games-and-balance/games-and-balance.module';
+import { DailyBalancesModule } from './financial/daily-balances/daily-balances.module';
 import { HomeShortcutsModule } from './controls/shortcuts/shortcuts.module';
 
 const appRoutes: Routes = [
@@ -93,7 +95,7 @@ const appRoutes: Routes = [
         SharedModule,
         PokerRoomsModule,
         MoneyRequestsModule,
-        GamesAndBalanceModule,
+        DailyBalancesModule,
         HomeShortcutsModule
     ],
     providers: [

@@ -1,5 +1,5 @@
 import { BehaviorSubject } from "rxjs";
-import { MatPaginator } from "@angular/material";
+import { MatPaginator } from "@angular/material/paginator";
 import { IService } from "../base/IService";
 import { TranslateService } from "@ngx-translate/core";
 import { tap } from "rxjs/operators";

@@ -15,9 +15,8 @@ import { IFilterGroup } from 'app/controls/filter/model/group.model';
 import { IFilterOption } from 'app/controls/filter/model/option.model';
 import { CookieService } from 'ngx-cookie-service';
 import { QueryHelper } from 'app/controls/filter/helper/query.helper';
-import { HttpParams } from '@angular/common/http';
 import { IGroup } from 'app/manager/groups/group.model';
-import { MatPaginator } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
 import { tap } from 'rxjs/operators';
 
 @Component({

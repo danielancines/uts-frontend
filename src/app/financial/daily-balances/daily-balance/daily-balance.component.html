@@ -1,0 +1,131 @@
+<div id="daily-balance" class="page-layout carded fullwidth inner-scroll">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center">
+
+    <!-- HEADER -->
+    <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+      <!-- APP TITLE -->
+      <div fxLayout="row" fxLayoutAlign="start center">
+
+        <button mat-icon-button class="mr-0 mr-sm-16" (click)="back()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+
+        <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+          date_range
+        </mat-icon>
+
+        <div fxLayout="column" fxLayoutAlign="start start" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+          <div class="h2" *ngIf="editing">
+            {{'DAILY_BALANCES_REGISTRY.EDITING' | translate}}
+          </div>
+          <div class="h2" *ngIf="!editing">
+            {{'DAILY_BALANCES_REGISTRY.NEW' | translate}}
+          </div>
+        </div>
+      </div>
+      <!-- / APP TITLE -->
+
+      <button mat-raised-button *ngIf="!editing" (click)="add()">
+        <span>{{'DAILY_BALANCES_REGISTRY.ADD' | translate}}</span>
+      </button>
+
+      <div *ngIf="editing">
+        <button class="delete-daily-balance-button" *ngIf="editing" mat-raised-button (click)="delete()"
+          aria-label="Delete" matTooltip="Delete">
+          {{'DAILY_BALANCES_REGISTRY.DELETE' | translate}}
+        </button>
+
+        <button mat-raised-button *ngIf="editing" (click)="save()">
+          <span>{{'DAILY_BALANCES_REGISTRY.SAVE' | translate}}</span>
+        </button>
+      </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT CARD -->
+    <div class="content-card">
+
+      <!-- CONTENT -->
+      <div class="content">
+
+        <form name="dailyBalanceForm" [formGroup]="dailyBalanceForm" class="w-100-p" fxLayout="column" fxFlex>
+          <mat-tab-group>
+            <mat-tab label="{{'DAILY_BALANCES_REGISTRY.BASIC_INFORMATION' | translate}}">
+              <div class="tab-content p-24" fusePerfectScrollbar>
+                <div fxLayout="row" fxLayoutAlign="start start">
+                  <mat-form-field class="w-70-p" appearance="outline">
+                    <mat-label>{{'DAILY_BALANCES_REGISTRY.NAME' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
+                    <input matInput name="user" formControlName="user" readonly>
+                  </mat-form-field>
+                  <div class="divider"></div>
+                  <mat-form-field appearance="outline" class="w-30-p">
+                    <mat-label>{{'DAILY_BALANCES_REGISTRY.DATE' | translate}}</mat-label>
+                    <input matInput [matDatepicker]="dp3" placeholder="{{'DAILY_BALANCES_REGISTRY.DATE' | translate}}" formControlName="date" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                    <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start start">
+                  <mat-form-field class="w-100-p" appearance="outline">
+                    <mat-label>{{'DAILY_BALANCES_REGISTRY.FIRST_REGISTRY' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">access_time</mat-icon>
+                    <input matInput [ngxTimepicker]="firstRegistration" [format]="24"
+                      placeholder="{{'DAILY_BALANCES_REGISTRY.FIRST_REGISTRY' | translate}}"
+                      formControlName="firstRegistration" required />
+                  </mat-form-field>
+                  <ngx-material-timepicker #firstRegistration></ngx-material-timepicker>
+
+                  <div class="divider"></div>
+                  <mat-form-field class="w-100-p" appearance="outline">
+                    <mat-label>{{'DAILY_BALANCES_REGISTRY.LAST_REGISTRY' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">access_time</mat-icon>
+                    <input matInput [ngxTimepicker]="lastRegistration" [format]="24"
+                      placeholder="{{'DAILY_BALANCES_REGISTRY.LAST_REGISTRY' | translate}}"
+                      formControlName="lastRegistration" required />
+                  </mat-form-field>
+                  <ngx-material-timepicker #lastRegistration></ngx-material-timepicker>
+
+                  <div class="divider"></div>
+                  <mat-form-field class="w-100-p" appearance="outline">
+                    <mat-label>{{'DAILY_BALANCES_REGISTRY.QUANTITY' | translate}}</mat-label>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">trending_up</mat-icon>
+                    <input matInput name="quantity" formControlName="quantity">
+                    <mat-error *ngIf="dailyBalanceForm.get('quantity').hasError('min')">{{'DAILY_BALANCES_REGISTRY.ERRORS.QUANTITY_MIN_VALUE'
+                      | translate}}</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-tab>
+
+            <mat-tab label="{{'DAILY_BALANCES_REGISTRY.BALANCES' | translate}}">
+              <!-- <div class="tab-content p-24" fusePerfectScrollbar>
+                <mat-form-field fxFlex>
+                  <mat-label>{{'VIDEOS_REGISTRY.DETAILS' | translate}}</mat-label>
+                  <mat-icon matPrefix class="mr-12 s-20 secondary-text">details</mat-icon>
+                  <textarea name="details" formControlName="details" matInput type="text" rows="10"
+                    max-rows="10"></textarea>
+                </mat-form-field>
+              </div> -->
+            </mat-tab>
+          </mat-tab-group>
+
+        </form>
+
+      </div>
+      <!-- / CONTENT -->
+
+    </div>
+    <!-- / CONTENT CARD -->
+
+  </div>
+  <!-- / CENTER -->
+
+  <!-- </div> -->
