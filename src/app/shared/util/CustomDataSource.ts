@@ -48,7 +48,6 @@ export class CustomDataSource {
         })
       )
       .subscribe();
-    this.paginator.page.next();
     this.translatePaginator();
   }
 

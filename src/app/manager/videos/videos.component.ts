@@ -55,6 +55,7 @@ export class VideosComponent implements AfterViewInit, OnInit {
       );
       
       this.dataSource.addColumns(['name', 'group', 'category', 'url']);
+      this.dataSource.refresh();
     });
   }
 
