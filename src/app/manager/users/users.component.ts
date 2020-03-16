@@ -52,6 +52,7 @@ export class UsersComponent implements AfterViewInit, OnInit {
         this._intialQueryString
       );
       this.dataSource.addColumns(['email', 'name', 'lastName', 'situation']);
+      this.dataSource.refresh();
     });
   }
 

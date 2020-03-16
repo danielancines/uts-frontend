@@ -53,6 +53,7 @@ export class GroupsComponent implements AfterViewInit, OnInit {
         this._intialQueryString
       );
       this.dataSource.addColumns(['hierarchy', 'name', 'description']);
+      this.dataSource.refresh();
     });
   }
 

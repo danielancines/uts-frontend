@@ -51,6 +51,7 @@ export class PokerRoomsComponent implements OnInit, AfterViewInit {
         this._intialQueryString
       );
       this.dataSource.addColumns(['name', 'currency']);
+      this.dataSource.refresh();
     });
   }
 
