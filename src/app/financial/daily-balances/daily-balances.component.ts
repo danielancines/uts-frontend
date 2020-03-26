@@ -54,6 +54,7 @@ export class DailyBalancesComponent implements OnInit {
         false
       );
       this.dataSource.addColumns(['date', 'userName', 'gamesCount', 'firstRegistration', 'lastRegistration']);
+      this.dataSource.refresh();
 
       const subscription = this.dataSource.data.subscribe(data => {
         if(!subscription) return;
