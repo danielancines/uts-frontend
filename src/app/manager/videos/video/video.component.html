@@ -61,7 +61,7 @@
           <mat-tab-group>
             <mat-tab label="{{'VIDEOS_REGISTRY.BASIC_INFORMATION' | translate}}">
               <div class="tab-content p-24" fusePerfectScrollbar>
-                <mat-form-field class="w-100-p">
+                <mat-form-field appearance="outline" class="w-100-p">
                   <mat-label>{{'VIDEOS_REGISTRY.NAME' | translate}}</mat-label>
                   <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
                   <input matInput name="name" formControlName="name" required>
@@ -71,14 +71,15 @@
                     | translate}}</mat-error>
                 </mat-form-field>
 
-                <mat-form-field class="w-100-p">
+                <mat-form-field appearance="outline" class="w-100-p">
                   <mat-label>{{'VIDEOS_REGISTRY.DESCRIPTION' | translate}}</mat-label>
                   <mat-icon matPrefix class="mr-12 s-20 secondary-text">description</mat-icon>
                   <input matInput name="description" formControlName="description">
                 </mat-form-field>
 
                 <div fxLayout="row" fxLayoutAlign="start start">
-                  <mat-form-field class="w-100-p">
+                  <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>{{'VIDEOS_REGISTRY.GROUP_FIELD' | translate}}</mat-label>
                     <mat-icon matPrefix class="mr-12 s-20 secondary-text group-input">group</mat-icon>
                     <mat-select placeholder="{{'VIDEOS_REGISTRY.GROUP_FIELD' | translate}}" formControlName="group"
                       required>
@@ -88,7 +89,8 @@
                         | translate}}</mat-error>
                   </mat-form-field>
                   <div class="divider"></div>
-                  <mat-form-field class="w-100-p">
+                  <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>{{'VIDEOS_REGISTRY.CATEGORY_FIELD' | translate}}</mat-label>
                     <mat-icon matPrefix class="mr-12 s-20 secondary-text">category</mat-icon>
                     <mat-select placeholder="{{'VIDEOS_REGISTRY.CATEGORY_FIELD' | translate}}" formControlName="category"
                       required>
@@ -100,8 +102,8 @@
                 </div>
 
                 <div fxLayout="row" fxLayoutAlign="start start">
-                  <mat-form-field class="w-100-p">
-                    <!-- <mat-label>{{'VIDEOS_REGISTRY.INSTRUCTOR' | translate}}</mat-label> -->
+                  <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>{{'VIDEOS_REGISTRY.INSTRUCTOR' | translate}}</mat-label>
                     <mat-icon matPrefix class="mr-12 s-20 secondary-text">perm_identity</mat-icon>
                     <input type="text" placeholder="{{'VIDEOS_REGISTRY.INSTRUCTOR' | translate}}" matInput
                       formControlName="instructor" required [matAutocomplete]="auto">
@@ -115,7 +117,7 @@
                         | translate}}</mat-error>
                   </mat-form-field>
                   <div class="divider"></div>
-                  <mat-form-field class="w-100-p">
+                  <mat-form-field appearance="outline" class="w-100-p">
                     <mat-label>{{'VIDEOS_REGISTRY.DURATION' | translate}}</mat-label>
                     <mat-icon matPrefix class="mr-12 s-20 secondary-text">description</mat-icon>
                     <input matInput name="duration" formControlName="duration" required>
@@ -126,7 +128,7 @@
                   </mat-form-field>
                 </div>
 
-                <mat-form-field class="w-100-p">
+                <mat-form-field appearance="outline" class="w-100-p">
                   <mat-label>{{'VIDEOS_REGISTRY.CODE' | translate}}</mat-label>
                   <mat-icon matPrefix class="mr-12 s-20 secondary-text">link</mat-icon>
                   <input name="url" formControlName="url" matInput>
@@ -136,7 +138,7 @@
 
             <mat-tab label="{{'VIDEOS_REGISTRY.DETAILS' | translate}}">
               <div class="tab-content p-24" fusePerfectScrollbar>
-                <mat-form-field fxFlex>
+                <mat-form-field appearance="outline" fxFlex>
                   <mat-label>{{'VIDEOS_REGISTRY.DETAILS' | translate}}</mat-label>
                   <mat-icon matPrefix class="mr-12 s-20 secondary-text">details</mat-icon>
                   <textarea name="details" formControlName="details" matInput type="text" rows="10" max-rows="10"></textarea>

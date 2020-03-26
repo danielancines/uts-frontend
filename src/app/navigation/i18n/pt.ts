@@ -30,8 +30,8 @@ export const locale = {
             'MONEY_REQUESTS': {
                 'TITLE': 'Aportes'
             },
-            'GAMES_PLAYED_AND_BALANCE': {
-                'TITLE': 'Registro Diário de Jogos'
+            'DAILY_BALANCES': {
+                'TITLE': 'Registro de Jogos'
             }
         }
     }
