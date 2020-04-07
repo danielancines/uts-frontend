@@ -98,6 +98,15 @@
                     display: none;
                 }
             }
+
+            @media (min-width: 1920px) {
+                #size-45 {
+                    display: inherit;
+                }
+                #size-25 {
+                    display: none;
+                }
+            }
         }
     }
 
