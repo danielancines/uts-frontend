@@ -34,6 +34,9 @@ export class ErrorsHandlerService {
             case 202:
                 this._messageService.showMessage(MessageType.Error, 'GLOBAL.ERRORS.202.MESSAGE', 'GLOBAL.ERRORS.202.TITLE');
                 break;
+            case 207:
+                this._messageService.showMessage(MessageType.Error, 'GLOBAL.ERRORS.207.MESSAGE', 'GLOBAL.ERRORS.207.TITLE');
+                break;
             case 400:
                 this._messageService.showMessage(MessageType.Error, 'GLOBAL.ERRORS.400.MESSAGE', 'GLOBAL.ERRORS.400.TITLE');
                 break;

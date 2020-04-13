@@ -23,10 +23,15 @@ export const locale = {
             'EDITING': 'Editando Registro de Saldo',
             'NEW': 'Novo Registro de Saldo',
             'DATE': 'Data',
+            'BALANCE': 'Saldo',
             'DELETE_MESSAGES': {
                 'SUCCESS': 'Registro de Saldo Excluído!',
                 'ERROR': 'Ocorreu um erro ao excluir o Registro de Saldo'
             },
+            'UPDATE_MESSAGES': {
+                'SUCCESS': 'Registro diário atualizado!'
+            },
+            'FORM_INVALID': 'Campos com valor não informado ou com informação inválida!',
             'ERRORS': {
                 'QUANTITY_MIN_VALUE': 'Quantidade deve ser maior que 0',
                 'DELETE_DAILY_BALANCE': {

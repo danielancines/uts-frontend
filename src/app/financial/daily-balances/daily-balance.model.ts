@@ -6,8 +6,8 @@ export interface IDailyBalance {
     user: IUser;
     gamesCount: number;
     date: Date;
-    firstRegistration: string;
-    lastRegistration: string;
+    firstRegistration: Date;
+    lastRegistration: Date;
     balances: [{
         pokerRoom: IPokerRoom,
         value: number

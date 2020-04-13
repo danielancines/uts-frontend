@@ -23,10 +23,15 @@ export const locale = {
             'EDITING': 'Updating Game Registry',
             'NEW': 'New Game Registry',
             'DATE': 'Date',
+            'BALANCE': 'Balance',
             'DELETE_MESSAGES': {
                 'SUCCESS': 'Balance deleted!',
                 'ERROR': 'An error occurred at balance delete'
             },
+            'UPDATE_MESSAGES': {
+                'SUCCESS': 'Daily Balance updated'
+            },
+            'FORM_INVALID': 'Incorrect informations on fields or blank values!',
             'ERRORS': {
                 'QUANTITY_MIN_VALUE': 'Quantity must be higher than 0',
                 'DELETE_DAILY_BALANCE': {

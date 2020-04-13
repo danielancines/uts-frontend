@@ -77,21 +77,19 @@
                   <mat-form-field class="w-100-p" appearance="outline">
                     <mat-label>{{'DAILY_BALANCES_REGISTRY.FIRST_REGISTRY' | translate}}</mat-label>
                     <mat-icon matPrefix class="mr-12 s-20 secondary-text">access_time</mat-icon>
-                    <input matInput [ngxTimepicker]="firstRegistration" [format]="24"
-                      placeholder="{{'DAILY_BALANCES_REGISTRY.FIRST_REGISTRY' | translate}}"
-                      formControlName="firstRegistration" required />
+                    <input matInput formControlName="firstRegistration" [matDatetimepicker]="dtsFirstRegistration" required autocomplete="false">
+                    <mat-datetimepicker-toggle [for]="dtsFirstRegistration" matSuffix></mat-datetimepicker-toggle>
+                    <mat-datetimepicker #dtsFirstRegistration type="time" openOnFocus="true" timeInterval="5"></mat-datetimepicker>
                   </mat-form-field>
-                  <ngx-material-timepicker #firstRegistration></ngx-material-timepicker>
 
                   <div class="divider"></div>
                   <mat-form-field class="w-100-p" appearance="outline">
                     <mat-label>{{'DAILY_BALANCES_REGISTRY.LAST_REGISTRY' | translate}}</mat-label>
                     <mat-icon matPrefix class="mr-12 s-20 secondary-text">access_time</mat-icon>
-                    <input matInput [ngxTimepicker]="lastRegistration" [format]="24"
-                      placeholder="{{'DAILY_BALANCES_REGISTRY.LAST_REGISTRY' | translate}}"
-                      formControlName="lastRegistration" required />
+                    <input matInput formControlName="lastRegistration" [matDatetimepicker]="dtsLastRegistration" required autocomplete="false">
+                    <mat-datetimepicker-toggle [for]="dtsLastRegistration" matSuffix></mat-datetimepicker-toggle>
+                    <mat-datetimepicker #dtsLastRegistration type="time" openOnFocus="true" timeInterval="5"></mat-datetimepicker>
                   </mat-form-field>
-                  <ngx-material-timepicker #lastRegistration></ngx-material-timepicker>
 
                   <div class="divider"></div>
                   <mat-form-field class="w-100-p" appearance="outline">
@@ -106,14 +104,37 @@
             </mat-tab>
 
             <mat-tab label="{{'DAILY_BALANCES_REGISTRY.BALANCES' | translate}}">
-              <!-- <div class="tab-content p-24" fusePerfectScrollbar>
-                <mat-form-field fxFlex>
-                  <mat-label>{{'VIDEOS_REGISTRY.DETAILS' | translate}}</mat-label>
-                  <mat-icon matPrefix class="mr-12 s-20 secondary-text">details</mat-icon>
-                  <textarea name="details" formControlName="details" matInput type="text" rows="10"
-                    max-rows="10"></textarea>
-                </mat-form-field>
-              </div> -->
+              <table class="user-poker-room-table" mat-table [dataSource]="userPokerRoomsDataSource" class="mat-elevation-z8 access-table">
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> {{'USERS_MAIN.NAME' | translate}} </th>
+                  <td mat-cell *matCellDef="let userPokerRoom"> {{userPokerRoom.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="nickName">
+                  <th mat-header-cell *matHeaderCellDef>{{'USERS_MAIN.NICK' | translate}} </th>
+                  <td mat-cell *matCellDef="let userPokerRoom"> {{userPokerRoom.nickName}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="fullName">
+                  <th mat-header-cell *matHeaderCellDef>{{'USERS_MAIN.FULL_NAME' | translate}} </th>
+                  <td mat-cell *matCellDef="let userPokerRoom"> {{userPokerRoom.fullName}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="email">
+                  <th mat-header-cell *matHeaderCellDef>{{'USERS_MAIN.EMAIL' | translate}} </th>
+                  <td mat-cell *matCellDef="let userPokerRoom"> {{userPokerRoom.email}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="balance">
+                  <th mat-header-cell *matHeaderCellDef>{{'DAILY_BALANCES_REGISTRY.BALANCE' | translate}} </th>
+                  <td mat-cell *matCellDef="let userPokerRoom">
+                    <input class="text-truncate" matInput placeholder="{{'DAILY_BALANCES_REGISTRY.BALANCE' | translate}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="userPokerRoom.balance">
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="pokerRoomsDisplayedColumns; sticky:true"></tr>
+                <tr mat-row *matRowDef="let pokerRoom; columns: pokerRoomsDisplayedColumns;">
+                </tr>
+              </table>
             </mat-tab>
           </mat-tab-group>
 

@@ -92,6 +92,9 @@ $typography: mat-typography-config(
 @import "src/app/user-profile/tabs/about/about.theme";
 @import "src/app/login/reset-password/reset-password.theme";
 @import "src/app/login/forgot-password/forgot-password.theme";
+@import "src/app/financial/daily-balances/daily-balances.theme";
+@import '~@mat-datetimepicker/core/datetimepicker/datetimepicker-theme.scss';
+@import '~@angular/material/theming';
 
 // Define a mixin for easier access
 @mixin components-theme($theme) {
@@ -111,6 +114,9 @@ $typography: mat-typography-config(
     @include profile-about-theme($theme);
     @include reset-password-theme($theme);
     @include forgot-password-theme($theme);
+    @include daily-balances-theme($theme);
+    @include angular-material-theme($theme);
+    @include mat-datetimepicker-theme($theme);
 }
 
 // -----------------------------------------------------------------------------------------------------

@@ -168,17 +168,16 @@ export class HomeComponent implements OnInit {
   }
 
   private loadPokerRooms() {
-    this._usersService.getPokerRooms(this._authenticationService.user._id)
-      .subscribe(response => {
-        _.forEach(response.data, pokerRoom => {
-          this.pokerRooms.push(<IUserPokerRoom>{
-            id: pokerRoom.id,
-            name: pokerRoom.name,
-            currency: pokerRoom.currency,
-            balance: 0
-          })
-        });
+    this._usersService.getBalances(this._authenticationService.user._id)
+    .subscribe(balances => {
+      _.forEach(balances, item => {
+        this.pokerRooms.push(<IUserPokerRoom>{
+          name: item.name,
+          currency: item.currency,
+          balance: item.balance
+        })
       });
+    });
   }
 
   private loadMoneyRequests(skip: number = 0, limit: number = 10) {

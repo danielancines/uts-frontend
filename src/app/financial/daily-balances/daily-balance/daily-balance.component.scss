@@ -1,5 +1,9 @@
 #daily-balance {
 
+    .access-table {
+        width: 100%;
+    }
+    
     .header {
 
         .user-image {
@@ -27,6 +31,27 @@
     .delete-daily-balance-button {
         margin-right: 10px;
         background: red;
+    }
+
+    .mat-column-name {
+        flex: 0 1 20%;
+    }
+
+    .mat-column-nickName {
+        flex: 0 1 20%;
+        
+    }
+
+    .mat-column-fullName {
+        flex: 0 1 25%;
+    }
+
+    .mat-column-email {
+        flex: 0 1 20%;
+    }
+
+    .mat-column-balance {
+        flex: 0 1 15%;
     }
 
     .content {

@@ -8,6 +8,7 @@ import { IUser } from './user.model';
 import * as _ from 'lodash';
 import { IService } from 'app/shared/base/IService';
 import { IVideo } from '../videos/video.model';
+import { IUserPokerRoom } from './user-poker-room.model';
 
 
 @Injectable({
@@ -109,10 +110,21 @@ export class UsersService implements IService {
       )
   }
 
-  getPokerRooms(id): Observable<any> {
+  getPokerRooms(id): Observable<IUserPokerRoom[]> {
     return this._httpClient.get<any>(`${this._usersUrl}/${id}/pokerrooms?populate=user&populate=pokerRoom`)
       .pipe(map((pokerRoomsResponse) => {
-        return pokerRoomsResponse;
+        return pokerRoomsResponse.data;
+      }),
+        catchError(error => {
+          return [];
+        })
+      )
+  }
+
+  getBalances(id): Observable<any[]> {
+    return this._httpClient.get<any>(`${this._usersUrl}/${id}/balances`)
+      .pipe(map((balancesResponse) => {
+        return balancesResponse.data;
       }),
         catchError(error => {
           return [];
