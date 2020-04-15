@@ -60,20 +60,20 @@
           <mat-tab-group>
             <mat-tab label="{{'MONEY_REQUESTS_REGISTRY.BASIC_INFORMATION' | translate}}">
               <div class="tab-content p-24" fusePerfectScrollbar>
-                <mat-form-field appearance="outline" class="w-100-p">
+                <mat-form-field class="w-100-p">
                   <mat-label>{{'MONEY_REQUESTS_MAIN.DATE' | translate}}</mat-label>
                   <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
                   <input matInput name="date" formControlName="date" readonly>
                 </mat-form-field>
 
                 <div fxLayout="row" fxLayoutAlign="start start">
-                  <mat-form-field appearance="outline" class="w-100-p">
+                  <mat-form-field class="w-100-p">
                     <mat-label>{{'MONEY_REQUESTS_MAIN.USER_NAME' | translate}}</mat-label>
                     <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
                     <input matInput name="userName" formControlName="userName" readonly>
                   </mat-form-field>
                   <div class="divider"></div>
-                  <mat-form-field appearance="outline" class="w-100-p">
+                  <mat-form-field class="w-100-p">
                     <mat-label>{{'MONEY_REQUESTS_MAIN.EMAIL' | translate}}</mat-label>
                     <mat-icon matPrefix class="mr-12 s-20 secondary-text">email</mat-icon>
                     <input matInput name="userEmail" formControlName="userEmail" readonly>
@@ -81,35 +81,34 @@
                 </div>
 
                 <div fxLayout="row" fxLayoutAlign="start start">
-                  <mat-form-field appearance="outline" class="w-100-p">
+                  <mat-form-field class="w-100-p">
                     <mat-label>{{'MONEY_REQUESTS_MAIN.POKER_ROOM_NAME' | translate}}</mat-label>
                     <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
                     <input matInput name="pokerRoomName" formControlName="pokerRoomName" readonly>
                   </mat-form-field>
                   <div class="divider"></div>
-                  <mat-form-field appearance="outline" class="w-100-p">
+                  <mat-form-field class="w-100-p">
                     <mat-label>{{'MONEY_REQUESTS_MAIN.NICK_NAME' | translate}}</mat-label>
                     <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
                     <input matInput name="nick" formControlName="nick" readonly>
                   </mat-form-field>
                   <div class="divider"></div>
-                  <mat-form-field appearance="outline" class="w-100-p">
+                  <mat-form-field class="w-100-p">
                     <mat-label>{{'MONEY_REQUESTS_MAIN.MORE_INFO' | translate}}</mat-label>
                     <mat-icon matPrefix class="mr-12 s-20 secondary-text">info</mat-icon>
                     <input matInput name="moreInfo" formControlName="moreInfo" readonly>
                   </mat-form-field>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="start start">
-                  <mat-form-field appearance="outline" class="w-100-p">
+                  <mat-form-field class="w-100-p">
                     <mat-label>{{'MONEY_REQUESTS_MAIN.VALUE' | translate}}</mat-label>
                     <mat-icon matPrefix class="mr-12 s-20 secondary-text">attach_money</mat-icon>
                     <input matInput name="value" formControlName="value">
                     <mat-error *ngIf="moneyRequestForm.get('value').hasError('pattern')">{{'MONEY_REQUESTS_ERRORS.VALUE_FORMAT_ERROR.MESSAGE' | translate}}</mat-error>
                   </mat-form-field>
                   <div class="divider"></div>
-                  <mat-form-field appearance="outline" class="w-100-p">
+                  <mat-form-field class="w-100-p">
                     <mat-icon matPrefix class="mr-12 s-20 secondary-text">lock</mat-icon>
-                    <mat-label>{{'MONEY_REQUESTS_MAIN.STATUS' | translate}}</mat-label>
                     <mat-select placeholder="{{'MONEY_REQUESTS_MAIN.STATUS' | translate}}" name="status" formControlName="status">
                       <mat-option value="2">{{'MONEY_REQUESTS_MAIN.STATUS_OPTIONS.APPROVED' | translate}}</mat-option>
                       <mat-option value="1">{{'MONEY_REQUESTS_MAIN.STATUS_OPTIONS.REFUSED' | translate}}</mat-option>
@@ -118,20 +117,31 @@
                   </mat-form-field>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="start start">
-                  <mat-form-field appearance="outline" fxFlex>
+                  <mat-form-field fxFlex>
                     <mat-label>{{'MONEY_REQUESTS_MAIN.DETAILS' | translate}}</mat-label>
                     <mat-icon matPrefix class="mr-12 s-20 secondary-text">details</mat-icon>
                     <textarea name="details" formControlName="details" matInput type="text" rows="3" max-rows="3"></textarea>
                   </mat-form-field>
                 </div>
+                <!-- <mat-form-field class="w-100-p">
+                  <mat-label>{{'CATEGORIES_REGISTRY.DESCRIPTION' | translate}}</mat-label>
+                  <mat-icon matPrefix class="mr-12 s-20 secondary-text">description</mat-icon>
+                  <input matInput name="description" formControlName="description" required>
+
+                </mat-form-field> -->
               </div>
             </mat-tab>
           </mat-tab-group>
+
         </form>
+
       </div>
       <!-- / CONTENT -->
+
     </div>
     <!-- / CONTENT CARD -->
+
   </div>
   <!-- / CENTER -->
+
   <!-- </div> -->

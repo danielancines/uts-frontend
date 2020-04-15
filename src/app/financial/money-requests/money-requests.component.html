@@ -57,7 +57,7 @@
         </div>
         <div class="filters" fxLayout="row" fxLayoutAlign="center center" fxLayout.gt-xs="row"
           fxLayoutAlign.gt-xs="space-between center">
-          <mat-form-field appearance="outline" class="poker-room-filter">
+          <mat-form-field class="poker-room-filter">
             <mat-label>{{'MONEY_REQUESTS_MAIN.FILTER_OPTIONS.BY_POKER_ROOM.TITLE' | translate}}</mat-label>
             <mat-select [(ngModel)]="selectedPokerRoom" (selectionChange)="pokerRoomChanged($event.value)">
               <mat-option *ngFor="let pokerRoom of pokerRooms" [value]="pokerRoom">

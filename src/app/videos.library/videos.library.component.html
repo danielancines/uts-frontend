@@ -24,15 +24,11 @@
         <app-filter class="filterControl" [groups]="filterGroups" noFiltersTextTranslationKey="GLOBAL.NO_FILTER_TEXT" filterTitleTranslationKey="GLOBAL.FILTER" (selectedFilterOptionsChanged)="optionSelected($event)" [selectedFilterOptions]="selectedFilterOptions"></app-filter>
       </div>
       <div class="filters" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
-        <mat-form-field appearance="outline" class="course-search">
-          <mat-label>{{'VIDEOS_LIBRARY_MAIN.SEARCHFIELD' | translate}}</mat-label>
-          <mat-icon matPrefix class="mr-12 s-20 secondary-text">search</mat-icon>
-          <input matInput (keyup)="onKeyUp($event)" [(ngModel)]="searchTerm">
+        <mat-form-field class="course-search">
+          <input matInput placeholder="{{'VIDEOS_LIBRARY_MAIN.SEARCHFIELD' | translate}}" (keyup)="onKeyUp($event)" [(ngModel)]="searchTerm">
         </mat-form-field>
         <div class="divider"></div>
-        <mat-form-field appearance="outline" class="category-selector">
-          <mat-label>{{'VIDEOS_LIBRARY_MAIN.SELECT_GROUP_FIELD' | translate}}</mat-label>
-          <mat-icon matPrefix class="mr-12 s-20 secondary-text">group</mat-icon>
+        <mat-form-field class="category-selector">
           <mat-select placeholder="{{'VIDEOS_LIBRARY_MAIN.SELECT_GROUP_FIELD' | translate}}" [(ngModel)]="selectedGroup" (selectionChange)="filterVideosByGroup($event.value)">
             <mat-option [value]="'all'">
               {{'VIDEOS_LIBRARY_MAIN.ALL_OPTION' | translate}}
@@ -43,9 +39,7 @@
           </mat-select>
         </mat-form-field>
         <div class="divider"></div>
-        <mat-form-field appearance="outline" class="category-selector">
-          <mat-label>{{'VIDEOS_LIBRARY_MAIN.SELECTCATEGORYFIELD' | translate}}</mat-label>
-          <mat-icon matPrefix class="mr-12 s-20 secondary-text">category</mat-icon>
+        <mat-form-field class="category-selector">
           <mat-select placeholder="{{'VIDEOS_LIBRARY_MAIN.SELECTCATEGORYFIELD' | translate}}" [(ngModel)]="selectedCategory" (selectionChange)="filterVideosByCategory($event.value)">
             <mat-option [value]="'all'">
               All

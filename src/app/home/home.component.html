@@ -260,15 +260,13 @@
                 <div class="money-request-container mat-elevation-z8">
                   <form [formGroup]="moneyRequestForm">
                     <div fxLayout="row" fxLayoutAlign="start start">
-                      <mat-form-field appearance="outline" class="w-30-p">
-                        <mat-label>{{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.DATE' | translate}}</mat-label>
+                      <mat-form-field class="w-30-p">
                         <input matInput [matDatepicker]="dp3" placeholder="{{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.DATE' | translate}}" formControlName="date" readonly>
                         <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
                         <mat-datepicker #dp3 disabled="false"></mat-datepicker>
                       </mat-form-field>
                       <div class="divider"></div>
-                      <mat-form-field appearance="outline" class="w-100-p">
-                        <mat-label>{{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.POKER_ROOM' | translate}}</mat-label>
+                      <mat-form-field class="w-100-p">
                         <mat-select placeholder="{{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.POKER_ROOM' | translate}}" formControlName="pokerRoom" required>
                           <mat-option *ngFor="let pokerRoom of pokerRooms" [value]="pokerRoom">
                             {{pokerRoom.name}}
@@ -278,7 +276,7 @@
                               {{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.ERRORS.POKERROOM_REQUIRED' | translate}}</mat-error> -->
                       </mat-form-field>
                       <div class="divider"></div>
-                      <mat-form-field appearance="outline" class="w-100-p" *ngIf="canInformValueAtMoneyRequest">
+                      <mat-form-field class="w-100-p" *ngIf="canInformValueAtMoneyRequest">
                         <mat-label>{{'HOME.FINANCIAL_TAB.MONEY_REQUESTS_TAB.VALUE' | translate}}</mat-label>
                         <mat-icon matPrefix class="mr-12 s-20 secondary-text">attach_money</mat-icon>
                         <input matInput name="value" formControlName="value">

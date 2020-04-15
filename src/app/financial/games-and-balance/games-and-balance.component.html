@@ -12,10 +12,10 @@
       <!-- APP TITLE -->
       <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
         <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
-          date_range
+          attach_money
         </mat-icon>
         <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-          {{'DAILY_BALANCES.TITLE' | translate}}
+          {{'GAMES_BALANCE.TITLE' | translate}}
         </span>
       </div>
       <!-- / APP TITLE -->
@@ -35,7 +35,7 @@
         </button>
         <!-- ADD BUTTON -->
         <button mat-raised-button (click)="add()" class="add-product-button fuse-white mt-24 mt-md-0">
-          <span>{{'DAILY_BALANCES.ADD' | translate}}</span>
+          <span>{{'GAMES_BALANCE.ADD' | translate}}</span>
         </button>
       </div>
       <!-- / ADD BUTTON -->
@@ -55,48 +55,60 @@
       <mat-table class="money-requests-table" #table [dataSource]="dataSource?.data" matSort [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
 
         <ng-container matColumnDef="date">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'DAILY_BALANCES.DATE' | translate}}
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'MONEY_REQUESTS_MAIN.DATE' | translate}}
           </mat-header-cell>
-          <mat-cell *matCellDef="let dailyBalance">
-            <p class="text-truncate">{{dailyBalance.date | date:'dd/MM/yyyy'}}</p>
+          <mat-cell *matCellDef="let moneyRequest">
+            <p class="text-truncate">{{moneyRequest.date | date:'dd/MM/yyyy'}}</p>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="userName">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'DAILY_BALANCES.USER_NAME' | translate}}
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'MONEY_REQUESTS_MAIN.USER_NAME' | translate}}
           </mat-header-cell>
-          <mat-cell *matCellDef="let dailyBalance">
-            <p class="text-truncate">{{dailyBalance.user.name}} {{dailyBalance.user.lastName}}</p>
+          <mat-cell *matCellDef="let moneyRequest">
+            <p class="text-truncate">{{moneyRequest.user.name}} {{moneyRequest.user.lastName}}</p>
           </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="gamesCount">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'DAILY_BALANCES.GAMES_COUNT' | translate}}
+        <ng-container matColumnDef="pokerRoomName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'MONEY_REQUESTS_MAIN.POKER_ROOM_NAME' | translate}}
           </mat-header-cell>
-          <mat-cell *matCellDef="let dailyBalance">
-            <p class="text-truncate">{{dailyBalance.gamesCount}}</p>
+          <mat-cell *matCellDef="let moneyRequest">
+            <p class="text-truncate">{{moneyRequest.pokerRoom.name}}</p>
           </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="firstRegistration">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'DAILY_BALANCES.FIRST_REGISTRY' | translate}}
+        <ng-container matColumnDef="value">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'MONEY_REQUESTS_MAIN.VALUE' | translate}}
           </mat-header-cell>
-          <mat-cell *matCellDef="let dailyBalance">
-            <p class="text-truncate">{{dailyBalance.firstRegistration}}</p>
+          <mat-cell *matCellDef="let moneyRequest">
+            <span *ngIf="!moneyRequest.value">-</span>
+            <div [ngSwitch]="moneyRequest.pokerRoom.currency" *ngIf="moneyRequest.value">
+              <span *ngSwitchCase="'pt'">{{moneyRequest.value | currency:'BRL':'symbol':'1.2':'pt'}}</span>
+              <span *ngSwitchCase="'en-US'">{{moneyRequest.value | currency:'USD':'symbol':'1.2':'pt'}}</span>
+              <span *ngSwitchCase="'eur'">{{moneyRequest.value | currency:'EUR':'symbol':'1.2':'pt'}}</span>
+              <span *ngSwitchDefault>{{moneyRequest.value | currency:'USD':'symbol':'1.2':'pt'}}</span>
+            </div>
           </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="lastRegistration">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'DAILY_BALANCES.LAST_REGISTRY' | translate}}
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>
+            {{'MONEY_REQUESTS_MAIN.STATUS' | translate}}
           </mat-header-cell>
-          <mat-cell *matCellDef="let dailyBalance">
-            <p class="text-truncate">{{dailyBalance.lastRegistration}}</p>
+          <mat-cell *matCellDef="let moneyRequest" fxHide fxShow.gt-xs>
+            <div [ngSwitch]="moneyRequest.status">
+              <mat-icon *ngSwitchCase="2" class="active-icon green-600 s-16" matTooltipPosition="above" matTooltip="{{'MONEY_REQUESTS_MAIN.MONEY_REQUEST_STATUS.APPROVED' | translate}}">check</mat-icon>
+              <mat-icon *ngSwitchCase="1" class="active-icon red-500 s-16" matTooltipPosition="above" matTooltip="{{'MONEY_REQUESTS_MAIN.MONEY_REQUEST_STATUS.REFUSED' | translate}}">close</mat-icon>
+              <mat-icon *ngSwitchCase="0" class="active-icon yellow-600 s-16" matTooltipPosition="above" matTooltip="{{'MONEY_REQUESTS_MAIN.MONEY_REQUEST_STATUS.WAITING' | translate}}">change_history
+              </mat-icon>
+            </div>
           </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="dataSource?.displayedColumns; sticky:true"></mat-header-row>
 
-        <mat-row *matRowDef="let dailyBalance; columns: dataSource?.displayedColumns;" class="money-request" matRipple (click)="edit(dailyBalance)">
+        <mat-row *matRowDef="let moneyRequest; columns: dataSource?.displayedColumns;" class="money-request" matRipple (click)="edit(moneyRequest)">
         </mat-row>
 
       </mat-table>

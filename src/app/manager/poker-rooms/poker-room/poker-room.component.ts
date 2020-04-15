@@ -2,7 +2,7 @@ import { PokerRoomsService } from './../poker-rooms.service';
 import { Component, OnInit } from '@angular/core';
 import { IPokerRoom } from '../poker-room.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatDialogRef, MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from 'app/shared/confirm-dialog/confirm-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageType } from 'app/shared/messageTypes';

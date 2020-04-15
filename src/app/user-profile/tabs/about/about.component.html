@@ -12,7 +12,7 @@
                         </mat-error>
                     </div>
                     <div fxLayout="row" fxLayoutAlign="start start">
-                        <mat-form-field appearance="outline" fxFlex>
+                        <mat-form-field fxFlex>
                             <mat-label>{{'USER_PROFILE.TABS.ABOUT.CHANGE_PASSWORD.CURRENT_PASSWORD' | translate}}</mat-label>
                             <mat-icon matPrefix class="mr-12 s-20 secondary-text">vpn_key</mat-icon>
                             <input type="password" name="currentPassword" formControlName="currentPassword" matInput
@@ -23,7 +23,7 @@
                         </mat-form-field>
                     </div>
                     <div fxLayout="row" fxLayoutAlign="start start">
-                        <mat-form-field appearance="outline" fxFlex>
+                        <mat-form-field fxFlex>
                             <mat-label>{{'USER_PROFILE.TABS.ABOUT.CHANGE_PASSWORD.NEW_PASSWORD' | translate}}</mat-label>
                             <mat-icon matPrefix class="mr-12 s-20 secondary-text">vpn_key</mat-icon>
                             <input type="password" name="newPassword" formControlName="newPassword" matInput required>
@@ -33,7 +33,7 @@
                         </mat-form-field>
                     </div>
                     <div fxLayout="row" fxLayoutAlign="start start">
-                        <mat-form-field appearance="outline" fxFlex>
+                        <mat-form-field fxFlex>
                             <mat-label>{{'USER_PROFILE.TABS.ABOUT.CHANGE_PASSWORD.CONFIRM_NEW_PASSWORD' | translate}}</mat-label>
                             <mat-icon matPrefix class="mr-12 s-20 secondary-text">vpn_key</mat-icon>
                             <input type="password" name="confirmNewPassword" formControlName="confirmNewPassword"
@@ -65,8 +65,7 @@
             </header>
             <div class="content">
                 <div fxLayout="row" fxLayoutAlign="start start">
-                    <mat-form-field appearance="outline" fxFlex>
-                        <mat-label>{{'USER_PROFILE.TABS.ABOUT.CHANGE_THEME.THEMES' | translate}}</mat-label>
+                    <mat-form-field fxFlex>
                         <mat-select placeholder="{{'USER_PROFILE.TABS.ABOUT.CHANGE_THEME.THEMES' | translate}}" [ngModel]="selectedTheme" (selectionChange)="onThemeSelectionChanged($event.value)">
                             <mat-option *ngFor="let theme of themes" [value]="theme.value">
                                 {{'USER_PROFILE.TABS.ABOUT.CHANGE_THEME.' + theme.key | translate}}

@@ -1,7 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-import { MatTable } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatTable, MatPaginator } from '@angular/material';
 import { GroupsService } from './groups.service';
 import { RolesValidatorService } from 'app/auth/roles-validator.service';
 import { TranslateService } from '@ngx-translate/core';

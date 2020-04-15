@@ -23,8 +23,8 @@ export enum Roles {
     AccessMoneyRequests = 'accessMoneyRequests',
     InsertMoneyRequest = 'insertMoneyRequest',
     UpdateMoneyRequest = 'updateMoneyRequest',
-    AccessDailyBalances = 'accessDailyBalances',
-    UpdateDailyBalances = 'updateDailyBalances',
-    InsertDailyBalances = 'insertDailyBalances',
-    DeleteDailyBalances = 'deleteDailyBalances'
+    AccessGamesAndBalance = 'accessGamesAndBalance',
+    UpdateGamesAndBalance = 'updateGamesAndBalance',
+    InsertGamesAndBalance = 'insertGamesAndBalance',
+    DeleteGamesAndBalance = 'deleteGamesAndBalance'
 }

@@ -1,24 +1,24 @@
-import { MatRippleModule, MatProgressBarModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatPaginatorModule, MatIconModule, MatTableModule, MatButtonModule, MatTabsModule, MatTooltipModule } from '@angular/material';
-import { MoneyRequestsRoutingModule } from './money-requests-routing.module';
+import { GamesAndBalanceComponent } from './games-and-balance.component';
+import { GamesAndBalanceRoutingModule } from './games-and-balance-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MoneyRequestsComponent } from './money-requests.component';
-import { FuseSharedModule } from '@fuse/shared.module';
+import { MatProgressBarModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatPaginatorModule, MatIconModule, MatTableModule, MatButtonModule, MatTabsModule, MatTooltipModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { FuseSharedModule } from '@fuse/shared.module';
 import { ControlsModule } from 'app/controls/controls.module';
-import { MoneyRequestComponent } from './money-request/money-request.component';
+import { GameAndBalanceComponent } from './game-and-balance/game-and-balance.component';
 
 @NgModule({
-  declarations: [MoneyRequestsComponent, MoneyRequestComponent],
+  declarations: [GamesAndBalanceComponent, GameAndBalanceComponent],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
     TranslateModule,
-    MoneyRequestsRoutingModule,
+    GamesAndBalanceRoutingModule,
     MatProgressBarModule,
     MatRippleModule,
     MatFormFieldModule,
@@ -32,6 +32,7 @@ import { MoneyRequestComponent } from './money-request/money-request.component';
     ControlsModule,
     MatTabsModule,
     MatTooltipModule
+
   ]
 })
-export class MoneyRequestsModule { }
+export class GamesAndBalanceModule { }

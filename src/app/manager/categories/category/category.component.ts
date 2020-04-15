@@ -5,7 +5,7 @@ import { RolesValidatorService } from 'app/auth/roles-validator.service';
 import { Roles } from 'app/auth/roles';
 import { ICategory } from '../category.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatDialogRef, MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from 'app/shared/confirm-dialog/confirm-dialog.component';
 import { CategoriesService } from '../categories.service';
 import { MessageType } from 'app/shared/messageTypes';

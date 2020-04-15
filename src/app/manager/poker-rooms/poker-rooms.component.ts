@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { CustomDataSource } from 'app/shared/util/CustomDataSource';
 import { IPokerRoom } from './poker-room.model';
-import { MatTable } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatTable, MatPaginator } from '@angular/material';
 import { ConfirmDialogComponent } from 'app/shared/confirm-dialog/confirm-dialog.component';
 import { RolesValidatorService } from 'app/auth/roles-validator.service';
 import { TranslateService } from '@ngx-translate/core';

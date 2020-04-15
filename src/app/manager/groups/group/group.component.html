@@ -63,7 +63,7 @@
             <mat-tab label="{{'GROUPS_REGISTRY.BASIC_INFORMATION' | translate}}">
               <div class="tab-content p-24" fusePerfectScrollbar>
                 <div fxLayout="row" fxLayoutAlign="start start">
-                  <mat-form-field appearance="outline" class="w-100-p">
+                  <mat-form-field class="w-100-p">
                     <mat-label>{{'GROUPS_REGISTRY.NAME' | translate}}</mat-label>
                     <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
                     <input matInput name="name" formControlName="name" required>
@@ -71,7 +71,7 @@
                       | translate}}</mat-error>
                   </mat-form-field>
                   <div class="divider"></div>
-                  <mat-form-field appearance="outline" class="w-100-p">
+                  <mat-form-field class="w-100-p">
                     <mat-label>{{'GROUPS_REGISTRY.HIERARCHY' | translate}}</mat-label>
                     <mat-icon matPrefix class="mr-12 s-20 secondary-text">linear_scale</mat-icon>
                     <input matInput name="hierarchy" formControlName="hierarchy" required>
@@ -81,14 +81,14 @@
                       | translate}}</mat-error>
                   </mat-form-field>
                 </div>
-                <mat-form-field appearance="outline" class="w-100-p">
+                <mat-form-field class="w-100-p">
                   <mat-label>{{'GROUPS_REGISTRY.DESCRIPTION' | translate}}</mat-label>
                   <mat-icon matPrefix class="mr-12 s-20 secondary-text">description</mat-icon>
                   <input matInput name="description" formControlName="description" required>
                   <mat-error *ngIf="groupForm.get('description').hasError('required')">{{'GROUPS_REGISTRY.ERRORS.DESCRIPTION_REQUIRED'
                     | translate}}</mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="outline">
+                <mat-form-field>
                   <mat-icon matPrefix class="mr-12 s-20 secondary-text">color_lens</mat-icon>
                   <input style="cursor: pointer;" [colorPicker]="groupForm.get('color').value" [style.background]="groupForm.get('color').value"
                     (colorPickerChange)="groupForm.get('color').setValue($event)" matInput />

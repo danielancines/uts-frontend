@@ -63,7 +63,7 @@
               <div class="tab-content p-24" fusePerfectScrollbar>
 
                 <div fxLayout="row" fxLayoutAlign="start start">
-                  <mat-form-field appearance="outline" class="w-100-p">
+                  <mat-form-field class="w-100-p">
                     <mat-label>{{'POKER_ROOMS_REGISTRY.NAME' | translate}}</mat-label>
                     <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
                     <input matInput name="name" formControlName="name" required>
@@ -71,8 +71,7 @@
                       | translate}}</mat-error>
                   </mat-form-field>
                   <div class="divider"></div>
-                  <mat-form-field appearance="outline" class="w-100-p">
-                    <mat-label>{{'POKER_ROOMS_REGISTRY.CURRENCY' | translate}}</mat-label>
+                  <mat-form-field class="w-100-p">
                     <mat-icon matPrefix class="mr-12 s-20 secondary-text">attach_money</mat-icon>
                     <mat-select placeholder="{{'POKER_ROOMS_REGISTRY.CURRENCY' | translate}}"
                       formControlName="currency">

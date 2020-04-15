@@ -19,8 +19,7 @@ import { MessageType } from 'app/shared/messageTypes';
 import { MessageService } from 'app/shared/message.service';
 import { RolesValidatorService } from 'app/auth/roles-validator.service';
 import { Roles } from 'app/auth/roles';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatDialogRef, MatDialog, MatPaginator } from '@angular/material';
 import { ConfirmDialogComponent } from 'app/shared/confirm-dialog/confirm-dialog.component';
 import { ResetPasswordService } from 'app/login/reset-password/reset-password.service';
 import { CustomDataSource } from 'app/shared/util/CustomDataSource';
@@ -368,7 +367,7 @@ export class UserComponent extends ComponentBase implements OnInit, AfterViewIni
   }
 
   private listenSelectionForRoles() {
-    this.roleSelection.changed.subscribe(event => {
+    this.roleSelection.onChange.subscribe(event => {
       event.added.forEach(role => {
         const selectedRole = _.find(this.user.roles, ['_id', role._id]);
         if (_.isNull(selectedRole) || _.isUndefined(selectedRole)) {
@@ -383,7 +382,7 @@ export class UserComponent extends ComponentBase implements OnInit, AfterViewIni
   }
 
   private listenSelectionForGroups() {
-    this.groupSelection.changed.subscribe(event => {
+    this.groupSelection.onChange.subscribe(event => {
       event.added.forEach(group => {
         const selectedGroup = _.find(this.user.groups, ['_id', group._id]);
         if (_.isNull(selectedGroup) || _.isUndefined(selectedGroup)) {

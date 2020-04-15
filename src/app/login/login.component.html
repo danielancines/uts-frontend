@@ -17,9 +17,8 @@
 
             <form name="loginForm" [formGroup]="loginForm" novalidate>
 
-                <mat-form-field appearance="outline">
+                <mat-form-field>
                     <input matInput placeholder="Email" formControlName="email">
-                    <mat-icon matSuffix class="secondary-text">mail</mat-icon>
                     <mat-error *ngIf="loginForm.get('email').hasError('required')">
                         {{'LOGIN.ERROR_EMAIL_REQUIRED' | translate}}
                     </mat-error>
@@ -29,9 +28,8 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline">
+                <mat-form-field>
                     <input matInput type="password" placeholder="{{'LOGIN.PASSWORD' | translate}}" formControlName="password">
-                    <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
                     <mat-error>
                         {{'LOGIN.ERROR_PASSWORD_REQUIRED' | translate}}
                     </mat-error>

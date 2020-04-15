@@ -1,9 +1,6 @@
 import { CookieService } from 'ngx-cookie-service';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MatTable } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { DateAdapter } from '@angular/material/core';
+import { MatDialogRef, MatTable, MatPaginator, DateAdapter } from '@angular/material';
 import { ConfirmDialogComponent } from 'app/shared/confirm-dialog/confirm-dialog.component';
 import { IMoneyRequest } from './money-request.model';
 import { MoneyRequestsService } from './money-requests.service';

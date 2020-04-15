@@ -62,14 +62,14 @@
 
             <mat-tab label="{{'CATEGORIES_REGISTRY.BASIC_INFORMATION' | translate}}">
               <div class="tab-content p-24" fusePerfectScrollbar>
-                <mat-form-field appearance="outline" class="w-100-p">
+                <mat-form-field class="w-100-p">
                   <mat-label>{{'CATEGORIES_REGISTRY.NAME' | translate}}</mat-label>
                   <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
                   <input matInput name="name" formControlName="name" required>
                   <mat-error *ngIf="categoryForm.get('name').hasError('required')">{{'CATEGORIES_REGISTRY.ERRORS.NAME_REQUIRED'
                     | translate}}</mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="outline" class="w-100-p">
+                <mat-form-field class="w-100-p">
                   <mat-label>{{'CATEGORIES_REGISTRY.DESCRIPTION' | translate}}</mat-label>
                   <mat-icon matPrefix class="mr-12 s-20 secondary-text">description</mat-icon>
                   <input matInput name="description" formControlName="description" required>

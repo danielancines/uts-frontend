@@ -30,8 +30,8 @@ export const locale = {
             'MONEY_REQUESTS': {
                 'TITLE': 'Money Requests'
             },
-            'DAILY_BALANCES': {
-                'TITLE': 'Games Registry'
+            'GAMES_PLAYED_AND_BALANCE': {
+                'TITLE': 'Games registry'
             }
         }
     }

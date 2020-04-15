@@ -6,7 +6,7 @@ import { map, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import * as jwt_decode from 'jwt-decode';
 import * as _ from 'lodash';
-import { videosNavigation, adminNavigation, financialNavigation, usersNavigation, groupsNavigation, categoriesNavigation, pokerRoomsNavigation, moneyRequestsNavigation, dailyBalancesNavigation, studyNavigation, videosLibrayNavigation } from '../navigation/navigation';
+import { videosNavigation, adminNavigation, financialNavigation, usersNavigation, groupsNavigation, categoriesNavigation, pokerRoomsNavigation, moneyRequestsNavigation, gamesPlayedAndBalanceNavigation, studyNavigation, videosLibrayNavigation } from '../navigation/navigation';
 import { Roles } from './roles';
 import { LocalstorageService } from 'app/shared/localstorage.service';
 import { FuseNavigation } from '@fuse/types';
@@ -149,10 +149,10 @@ export class AuthenticationService {
 
     if (_.includes(roles, Roles.SystemAdmin)) {
       this.loadMoneyRequestsMenu(financialNavigationClone);
-      this.loadDailyBalances(financialNavigationClone);
+      //this.loadGamesAndBalance(financialNavigationClone);
     } else {
       if (_.includes(roles, Roles.AccessMoneyRequests)) this.loadMoneyRequestsMenu(financialNavigationClone);
-      if (_.includes(roles, Roles.AccessDailyBalances)) this.loadDailyBalances(financialNavigationClone);
+      //if (_.includes(roles, Roles.AccessGamesAndBalance)) this.loadGamesAndBalance(financialNavigationClone);
     }
 
     if (financialNavigationClone.children && financialNavigationClone.children.length > 0)
@@ -187,8 +187,8 @@ export class AuthenticationService {
     navigation.children.push(moneyRequestsNavigation);
   }
 
-  private loadDailyBalances(navigation: FuseNavigation) {
-    navigation.children.push(dailyBalancesNavigation);
+  private loadGamesAndBalance(navigation: FuseNavigation) {
+    navigation.children.push(gamesPlayedAndBalanceNavigation);
   }
 
   userCanAccess(role: string = ''): Observable<boolean> {

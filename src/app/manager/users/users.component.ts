@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { IUser } from './user.model';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MatTable } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatDialogRef, MatTable, MatDialog, MatPaginator } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
 import { UsersService } from './users.service';
 import { RolesValidatorService } from 'app/auth/roles-validator.service';

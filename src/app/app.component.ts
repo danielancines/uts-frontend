@@ -34,8 +34,8 @@ import { locale as forgotPasswordPortuguese } from './login/forgot-password/i18n
 import { locale as forgotPasswordEnglish } from './login/forgot-password/i18n/en';
 import { locale as moneyRequestsPortuguese } from './financial/money-requests/i18n/pt';
 import { locale as moneyRequestsEnglish } from './financial/money-requests/i18n/en';
-import { locale as dailyBalancesPortuguese } from './financial/daily-balances/i18n/pt';
-import { locale as dailyBalancesEnglish } from './financial/daily-balances/i18n/en';
+import { locale as gamesAndBalancePortuguese } from './financial/games-and-balance/i18n/pt';
+import { locale as gamesAndBalanceEnglish } from './financial/games-and-balance/i18n/en';
 
 import { AuthenticationService } from './auth/authentication.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -119,7 +119,7 @@ export class AppComponent implements OnInit, OnDestroy {
             resetPasswordPortuguese, resetPasswordEnglish,
             forgotPasswordPortuguese, forgotPasswordEnglish,
             moneyRequestsPortuguese, moneyRequestsEnglish,
-            dailyBalancesPortuguese, dailyBalancesEnglish);
+            gamesAndBalancePortuguese, gamesAndBalanceEnglish);
 
         // Use a language
         this._translateService.use('pt');
