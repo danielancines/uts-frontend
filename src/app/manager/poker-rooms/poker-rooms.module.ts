@@ -1,4 +1,12 @@
-import { MatProgressBarModule, MatRippleModule, MatIconModule, MatTableModule, MatTabsModule, MatPaginatorModule, MatButtonModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatRippleModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { PokerRoomsRoutingModule } from './poker-rooms-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';

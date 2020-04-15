@@ -18,7 +18,7 @@ import { MessageType } from 'app/shared/messageTypes';
 import { RolesValidatorService } from 'app/auth/roles-validator.service';
 import { Roles } from 'app/auth/roles';
 import { TranslateService } from '@ngx-translate/core';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'app/shared/confirm-dialog/confirm-dialog.component';
 import { IEmailData } from 'app/shared/model/IEmailData';
 import { EmailService } from 'app/shared/email.service';
@@ -42,7 +42,6 @@ export class VideoComponent extends ComponentBase implements OnInit {
   confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
 
   constructor(
-    private _router: Router,
     private _dialog: MatDialog,
     private _activatedRoute: ActivatedRoute,
     private _formBuilder: FormBuilder,
