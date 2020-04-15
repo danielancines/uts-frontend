@@ -298,6 +298,7 @@ export class UserComponent extends ComponentBase implements OnInit, AfterViewIni
       '?orderBy=name'
     );
     this.groupsDataSource.addColumns(['select', 'name', 'description']);
+    this.groupsDataSource.refresh();
 
     this.groupsDataSource.data.subscribe(groups => {
       this.updateSelectedGroups(groups);
@@ -313,6 +314,7 @@ export class UserComponent extends ComponentBase implements OnInit, AfterViewIni
     );
 
     this.rolesDataSource.addColumns(['select', 'name', 'description']);
+    this.rolesDataSource.refresh();
 
     this.rolesDataSource.data.subscribe(roles => {
       this.updateSelectedRoles(roles);
