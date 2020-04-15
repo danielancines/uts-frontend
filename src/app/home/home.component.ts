@@ -174,7 +174,7 @@ export class HomeComponent implements OnInit {
         this.pokerRooms.push(<IUserPokerRoom>{
           name: item.name,
           currency: item.currency,
-          balance: item.balance
+          balance: item.balance ?? 0
         })
       });
     });

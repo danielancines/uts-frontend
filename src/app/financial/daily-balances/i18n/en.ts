@@ -35,8 +35,20 @@ export const locale = {
             'ERRORS': {
                 'QUANTITY_MIN_VALUE': 'Quantity must be higher than 0',
                 'DELETE_DAILY_BALANCE': {
-                    'TITLE': 'Balance Delete',
-                    'MESSAGE': 'You dont have permission to delete Balances'
+                    'TITLE': 'Delete Daily Balances',
+                    'MESSAGE': 'You dont have permission to delete Daily Balances'
+                },
+                'ACCESS_DAILY_BALANCES': {
+                    'TITLE': 'Access Denied',
+                    'MESSAGE': 'You dont have permission to access this menu'
+                },
+                'INSERT_DAILY_BALANCES': {
+                    'TITLE': 'Insert Daily Balances',
+                    'MESSAGE': 'You dont have permission to add balances'
+                },
+                'UPDATE_DAILY_BALANCES': {
+                    'MESSAGE': 'You dont have permission to update Daily Balances',
+                    'TITLE': 'Update Daily Balances'
                 }
             }
         }

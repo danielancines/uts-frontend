@@ -37,6 +37,18 @@ export const locale = {
                 'DELETE_DAILY_BALANCE': {
                     'TITLE': 'Exclusão de Registro de Saldo',
                     'MESSAGE': 'Você não tem permissão para excluir este registro de saldo!'
+                },
+                'ACCESS_DAILY_BALANCES': {
+                    'TITLE': 'Acesso Negado',
+                    'MESSAGE': 'Você não tem permissão para acessar este menu'
+                },
+                'INSERT_DAILY_BALANCES': {
+                    'TITLE': 'Adicionar Saldos e Volume',
+                    'MESSAGE': 'Você não tem permissão para adicionar Registro de Saldos e Volume'
+                },
+                'UPDATE_DAILY_BALANCES': {
+                    'MESSAGE': 'Você não tem permissão para editar o Registro de Saldos e Volume',
+                    'TITLE': 'Atualizar Saldos e Volume'
                 }
             }
         }

@@ -66,7 +66,7 @@ export class DailyBalancesComponent implements OnInit {
   }
 
   add() {
-    this._rolesValidatorService.validate(Roles.InsertDailyBalances, 'DAILY_BALANCES.ERRORS.INSERT_DAILY_BALANCE.MESSAGE', 'DAILY_BALANCES.ERRORS.INSERT_DAILY_BALANCE.TITLE')
+    this._rolesValidatorService.validate(Roles.InsertDailyBalances, 'DAILY_BALANCES_REGISTRY.ERRORS.INSERT_DAILY_BALANCES.MESSAGE', 'DAILY_BALANCES_REGISTRY.ERRORS.INSERT_DAILY_BALANCES.TITLE')
       .subscribe(result => {
         if (!result) return;
         this.table.renderRows();
@@ -75,7 +75,7 @@ export class DailyBalancesComponent implements OnInit {
   }
 
   edit(dailyBalance: IDailyBalance) {
-    this._rolesValidatorService.validate(Roles.UpdateDailyBalances, 'DAILY_BALANCES.UPDATE_DAILY_BALANCE.MESSAGE', 'DAILY_BALANCES.UPDATE_DAILY_BALANCE.TITLE')
+    this._rolesValidatorService.validate(Roles.UpdateDailyBalances, 'DAILY_BALANCES_REGISTRY.ERRORS.UPDATE_DAILY_BALANCES.MESSAGE', 'DAILY_BALANCES_REGISTRY.ERRORS.UPDATE_DAILY_BALANCES.TITLE')
       .subscribe(result => {
         if (!result) return;
         this._router.navigate([`/dailybalances/${dailyBalance._id}`]);
