@@ -23,15 +23,32 @@ export const locale = {
             'EDITING': 'Editando Registro de Saldo',
             'NEW': 'Novo Registro de Saldo',
             'DATE': 'Data',
+            'BALANCE': 'Saldo',
             'DELETE_MESSAGES': {
                 'SUCCESS': 'Registro de Saldo Excluído!',
                 'ERROR': 'Ocorreu um erro ao excluir o Registro de Saldo'
             },
+            'UPDATE_MESSAGES': {
+                'SUCCESS': 'Registro diário atualizado!'
+            },
+            'FORM_INVALID': 'Campos com valor não informado ou com informação inválida!',
             'ERRORS': {
                 'QUANTITY_MIN_VALUE': 'Quantidade deve ser maior que 0',
                 'DELETE_DAILY_BALANCE': {
                     'TITLE': 'Exclusão de Registro de Saldo',
                     'MESSAGE': 'Você não tem permissão para excluir este registro de saldo!'
+                },
+                'ACCESS_DAILY_BALANCES': {
+                    'TITLE': 'Acesso Negado',
+                    'MESSAGE': 'Você não tem permissão para acessar este menu'
+                },
+                'INSERT_DAILY_BALANCES': {
+                    'TITLE': 'Adicionar Saldos e Volume',
+                    'MESSAGE': 'Você não tem permissão para adicionar Registro de Saldos e Volume'
+                },
+                'UPDATE_DAILY_BALANCES': {
+                    'MESSAGE': 'Você não tem permissão para editar o Registro de Saldos e Volume',
+                    'TITLE': 'Atualizar Saldos e Volume'
                 }
             }
         }

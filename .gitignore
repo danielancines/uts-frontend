@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/docker/dev/dist*
 
 # dependencies
 /node_modules

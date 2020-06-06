@@ -82,7 +82,7 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header>{{'DAILY_BALANCES.FIRST_REGISTRY' | translate}}
           </mat-header-cell>
           <mat-cell *matCellDef="let dailyBalance">
-            <p class="text-truncate">{{dailyBalance.firstRegistration}}</p>
+            <p class="text-truncate">{{dailyBalance.firstRegistration | date:'HH:mm'}}</p>
           </mat-cell>
         </ng-container>
 
@@ -90,7 +90,7 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header>{{'DAILY_BALANCES.LAST_REGISTRY' | translate}}
           </mat-header-cell>
           <mat-cell *matCellDef="let dailyBalance">
-            <p class="text-truncate">{{dailyBalance.lastRegistration}}</p>
+            <p class="text-truncate">{{dailyBalance.lastRegistration | date:'HH:mm'}}</p>
           </mat-cell>
         </ng-container>
 

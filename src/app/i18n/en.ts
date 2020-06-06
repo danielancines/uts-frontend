@@ -20,6 +20,10 @@ export const locale = {
                     'TITLE': 'Relationship (202)',
                     'MESSAGE': 'Record contains relationships, it´s not possible delete it'
                 },
+                '207': {
+                    'TITLE': 'Bad number format (207)',
+                    'MESSAGE': 'Numbers must have the format 0.00'
+                },
                 '400': {
                     'TITLE': 'Relationship (400)',
                     'MESSAGE': 'Record contains relationships, it´s not possible delete it'

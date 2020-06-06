@@ -20,6 +20,10 @@ export const locale = {
                     'TITLE': 'Relacionamento existente (202)',
                     'MESSAGE': 'Registro possui relacionamentos, impossível excluir'
                 },
+                '207': {
+                    'TITLE': 'Format de número incorreto (207)',
+                    'MESSAGE': 'Os valores monetários devem possuir o formato 0.00, o "." deverá ser usado para separar as vírgulas'
+                },
                 '400': {
                     'TITLE': 'Relacionamento existente (400)',
                     'MESSAGE': 'Registro possui relacionamentos, impossível excluir'

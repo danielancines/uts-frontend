@@ -20,7 +20,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { ControlsModule } from 'app/controls/controls.module';
 import { DailyBalanceComponent } from './daily-balance/daily-balance.component';
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { MatDatetimepickerModule, MatNativeDatetimeModule } from "@mat-datetimepicker/core";
 
 @NgModule({
   declarations: [DailyBalancesComponent, DailyBalanceComponent],
@@ -45,7 +45,8 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatTabsModule,
     MatTooltipModule,
     MatDatepickerModule,
-    NgxMaterialTimepickerModule
+    MatNativeDatetimeModule,
+    MatDatetimepickerModule
   ]
 })
 export class DailyBalancesModule { }

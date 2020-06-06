@@ -36,6 +36,10 @@ export class DailyBalancesService implements IService {
   getById(id): Observable<IDailyBalance> {
     return this._httpClient.get<any>(`${this._gamesAndBalanceUrl}/${id}`)
       .pipe(map((dailyBalancesResponse) => {
+        dailyBalancesResponse.data.firstRegistration = new Date(dailyBalancesResponse.data.firstRegistration);
+        dailyBalancesResponse.data.lastRegistration = new Date(dailyBalancesResponse.data.lastRegistration);
+        dailyBalancesResponse.data.date = new Date(dailyBalancesResponse.data.date);
+
         return dailyBalancesResponse.data;
       }));
   }
@@ -49,6 +53,17 @@ export class DailyBalancesService implements IService {
           this._errorsHandlerService.handleError(error);
           return [];
         }))
+  }
+
+  update(dailyBalance: IDailyBalance): Observable<boolean> {
+    return this._httpClient.put<any>(`${this._gamesAndBalanceUrl}/${dailyBalance._id}`, dailyBalance)
+      .pipe(map(response => {
+        return true;
+      }),
+      catchError(error => {
+        this._errorsHandlerService.handleError(error);
+        return [];
+      }));
   }
 
   delete(dailyBalanceId: string): Observable<boolean> {

@@ -13,8 +13,8 @@ const routes: Routes = [
     canActivate: [RolesGuardService, AuthGuardService],
     data: {
       role: Roles.AccessDailyBalances,
-      errorMessageKey: 'DAILY_BALANCES.ERRORS.ACCESS_DAILY_BALANCES.MESSAGE',
-      errorTitleKey: 'DAILY_BALANCES.ERRORS.ACCESS_DAILY_BALANCES.TITLE'
+      errorMessageKey: 'DAILY_BALANCES_REGISTRY.ERRORS.ACCESS_DAILY_BALANCES.MESSAGE',
+      errorTitleKey: 'DAILY_BALANCES_REGISTRY.ERRORS.ACCESS_DAILY_BALANCES.TITLE'
     }
   },
   {
@@ -23,8 +23,8 @@ const routes: Routes = [
     canActivate: [RolesGuardService, AuthGuardService],
     data: {
       role: Roles.InsertDailyBalances,
-      errorMessageKey: 'DAILY_BALANCES.ERRORS.INSERT_DAILY_BALANCES.MESSAGE',
-      errorTitleKey: 'DAILY_BALANCES.ERRORS.INSERT_DAILY_BALANCES.TITLE'
+      errorMessageKey: 'DAILY_BALANCES_REGISTRY.ERRORS.INSERT_DAILY_BALANCES.MESSAGE',
+      errorTitleKey: 'DAILY_BALANCES_REGISTRY.ERRORS.INSERT_DAILY_BALANCES.TITLE'
     }
   },
   {
@@ -33,8 +33,8 @@ const routes: Routes = [
     canActivate: [RolesGuardService, AuthGuardService],
     data: {
       role: Roles.UpdateDailyBalances,
-      errorMessageKey: 'DAILY_BALANCES.ERRORS.UPDATE_DAILY_BALANCES.MESSAGE',
-      errorTitleKey: 'DAILY_BALANCES.ERRORS.UPDATE_DAILY_BALANCES.TITLE'
+      errorMessageKey: 'DAILY_BALANCES_REGISTRY.ERRORS.UPDATE_DAILY_BALANCES.MESSAGE',
+      errorTitleKey: 'DAILY_BALANCES_REGISTRY.ERRORS.UPDATE_DAILY_BALANCES.TITLE'
     }
   }
 ];
