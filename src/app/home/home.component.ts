@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
   teamMemberGridColumns = ['avatar', 'name', 'group', 'email'];
   moneyRequestsDisplayedColumns = ['date', 'pokerRoom', 'value', 'situation'];
   pokerRooms: IUserPokerRoom[] = [];
+  balances: IUserPokerRoom[] = [];
   moneyRequestsDataSource: { data: any[], length: number } = { data: [], length: 0 };
   moneyRequestForm: FormGroup;
   canInformValueAtMoneyRequest: boolean;
@@ -63,6 +64,7 @@ export class HomeComponent implements OnInit {
     this.loadVideosCount();
     this.loadTeamMembers();
     this.loadPokerRooms();
+    this.loadBalances();
     this.loadMoneyRequests();
     this.loadUserMessages();
     this.loadLastWatchedVideos();
@@ -167,17 +169,31 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  private loadPokerRooms() {
+  private loadBalances() {
     this._usersService.getBalances(this._authenticationService.user._id)
     .subscribe(balances => {
       _.forEach(balances, item => {
-        this.pokerRooms.push(<IUserPokerRoom>{
+        this.balances.push(<IUserPokerRoom>{
           name: item.name,
           currency: item.currency,
           balance: item.balance ?? 0
         })
       });
     });
+  }
+
+  private loadPokerRooms() {
+    this._usersService.getPokerRooms(this._authenticationService.user._id)
+      .subscribe(response => {
+        _.forEach(response, pokerRoom => {
+          this.pokerRooms.push(<IUserPokerRoom>{
+            id: pokerRoom.id,
+            name: pokerRoom.name,
+            currency: pokerRoom.currency,
+            balance: 0
+          })	
+        });	
+      });
   }
 
   private loadMoneyRequests(skip: number = 0, limit: number = 10) {

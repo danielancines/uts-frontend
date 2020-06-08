@@ -219,21 +219,21 @@
           <mat-tab-group dynamicHeight>
             <mat-tab label="{{'HOME.FINANCIAL_TAB.BALANCES_TAB.TITLE' | translate}}">
               <div class="widget-group p-12" fxLayout="row wrap" fxFlex="100" *fuseIfOnDom [@animateStagger]="{value:'50'}">
-                <fuse-widget *ngFor="let pokerRoom of pokerRooms" [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25">
+                <fuse-widget *ngFor="let balanceItem of balances" [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25">
 
                   <div class="fuse-widget-front">
                     <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="center">
-                      <div class="h3">{{pokerRoom.name}}</div>
+                      <div class="h3">{{balanceItem.name}}</div>
                     </div>
 
                     <div class="pt-8 pb-40" fxLayout="column" fxLayoutAlign="center center">
-                      <div class="font-size-28 line-height-36" [ngClass]="{'green-900-fg': pokerRoom.balance >= 0, 'red-900-fg': pokerRoom.balance < 0}">
+                      <div class="font-size-28 line-height-36" [ngClass]="{'green-900-fg': balanceItem.balance >= 0, 'red-900-fg': balanceItem.balance < 0}">
                         <!-- {{widgets.widget1.data.count[widgets.widget1.currentRange]}} -->
-                        <div [ngSwitch]="pokerRoom.currency">
-                          <span *ngSwitchCase="'pt'">{{pokerRoom.balance | currency:'BRL':'symbol':'1.2':'pt'}}</span>
-                          <span *ngSwitchCase="'en-US'">{{pokerRoom.balance | currency:'USD':'symbol':'1.2':'pt'}}</span>
-                          <span *ngSwitchCase="'eur'">{{pokerRoom.balance | currency:'EUR':'symbol':'1.2':'pt'}}</span>
-                          <span *ngSwitchDefault>{{pokerRoom.balance | currency:'USD':'symbol':'1.2':'pt'}}</span>
+                        <div [ngSwitch]="balanceItem.currency">
+                          <span *ngSwitchCase="'pt'">{{balanceItem.balance | currency:'BRL':'symbol':'1.2':'pt'}}</span>
+                          <span *ngSwitchCase="'en-US'">{{balanceItem.balance | currency:'USD':'symbol':'1.2':'pt'}}</span>
+                          <span *ngSwitchCase="'eur'">{{balanceItem.balance | currency:'EUR':'symbol':'1.2':'pt'}}</span>
+                          <span *ngSwitchDefault>{{balanceItem.balance | currency:'USD':'symbol':'1.2':'pt'}}</span>
                         </div>
                       </div>
                       <!-- <div class="h3 secondary-text font-weight-500">{{widgets.widget1.data.label}} -->
