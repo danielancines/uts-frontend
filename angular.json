@@ -32,7 +32,19 @@
                             "src/styles.scss"
                         ],
                         "scripts": [],
-                        "showCircularDependencies": false
+                        "showCircularDependencies": false,
+                        "allowedCommonJsDependencies": [
+                            "lodash",
+                            "@swimlane/dragula",
+                            "chart.js",
+                            "angular-calendar",
+                            "calendar-utils/date-adapters/date-fns",
+                            "contra/emitter",
+                            "crossvent",
+                            "dom-plane",
+                            "dom-set",
+                            "@mattlewis92/dom-autoscroller"
+                        ]
                     },
                     "configurations": {
                         "production": {
